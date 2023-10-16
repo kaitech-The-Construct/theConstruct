@@ -162,3 +162,9 @@ services/user_management/firebase_config.js
 services/billing_payments/.idea
 services/billing_payments/.vscode
 services/billing_payments/.readmes
+services/service_catalog/.idea
+services/service_catalog/.readmes
+services/service_catalog/.vscode
+services/smart_contract_management/.idea
+services/smart_contract_management/.readmes
+services/smart_contract_management/.vscode
