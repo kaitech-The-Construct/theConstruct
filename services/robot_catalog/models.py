@@ -3,7 +3,7 @@ from typing import Dict, List
 
 
 class RobotDetails(BaseModel):
-    """Robot API call details"""
+    """Robot details model"""
     manufacturer: str
     manufacturer_id: str
     model_id: str
