@@ -4,10 +4,12 @@ from typing import Dict, List
 
 class RobotDetails(BaseModel):
     """Robot API call details"""
+    manufacturer: str
     manufacturer_id: str
     model_id: str
     price: Dict | None = None
     description: str
+    image_url: str | None = None
 
 class PriceDetails(BaseModel):
     """Price details for model"""
