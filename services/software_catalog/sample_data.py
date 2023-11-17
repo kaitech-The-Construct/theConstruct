@@ -9,6 +9,7 @@ software_repository = [
         "compatibility": ["R1000", "TB200"],
         "license": "MIT License",
         "documentation_url": "https://example.com/robotcontrolapp-docs",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/software.png"
     },
     {
         "name": "VisionProcessing",
@@ -18,6 +19,7 @@ software_repository = [
         "compatibility": ["RT3000"],
         "license": "Apache License 2.0",
         "documentation_url": "https://example.com/visionprocessing-docs",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/software.png"
     },
     {
         "name": "RobotSimulator",
@@ -27,6 +29,7 @@ software_repository = [
         "compatibility": ["R1000", "TB200", "RT3000"],
         "license": "GNU GPL v3",
         "documentation_url": "https://example.com/robotsimulator-docs",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/software.png"
     },
     {
         "name": "MotionControlApp",
@@ -36,6 +39,7 @@ software_repository = [
         "compatibility": ["R1000", "TB200", "AI9000"],
         "license": "Apache License 2.0",
         "documentation_url": "https://example.com/motioncontrolapp-docs",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/software.png"
     },
     {
         "name": "RobotVisionAI",
@@ -45,6 +49,7 @@ software_repository = [
         "compatibility": ["RT3000", "INNO-X5"],
         "license": "MIT License",
         "documentation_url": "https://example.com/robotvisionai-docs",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/software.png"
     },
     {
         "name": "RoboticsSimSuite",
@@ -54,6 +59,7 @@ software_repository = [
         "compatibility": ["R1000", "AI9000", "INNO-X5"],
         "license": "GNU GPL v3",
         "documentation_url": "https://example.com/roboticssimsuite-docs",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/software.png"
     },
     {
         "name": "RobotControlPro",
@@ -63,6 +69,7 @@ software_repository = [
         "compatibility": ["AI9000", "INNO-X5"],
         "license": "Proprietary",
         "documentation_url": "https://example.com/robotcontrolpro-docs",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/software.png"
     },
     {
         "name": "InnoBoticsAI",
@@ -72,5 +79,6 @@ software_repository = [
         "compatibility": ["R1000"],
         "license": "MIT License",
         "documentation_url": "https://example.com/innoboticsai-docs",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/software.png"
     },
 ]

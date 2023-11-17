@@ -12,3 +12,4 @@ class SoftwareDetails(BaseModel):
     compatibility: List[str]
     license: str
     documentation_url: str
+    image_url: str | None = None
