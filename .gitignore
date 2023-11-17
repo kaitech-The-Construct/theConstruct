@@ -168,3 +168,17 @@ services/service_catalog/.vscode
 services/smart_contract_management/.idea
 services/smart_contract_management/.readmes
 services/smart_contract_management/.vscode
+services/software_catalog/.vscode
+services/software_catalog/.readmes
+services/software_catalog/.idea
+services/logistics/.vscode
+services/logistics/.readmes
+services/logistics/.idea
+services/subscription_management/.idea
+services/subscription_management/.readmes
+services/subscription_management/.vscode
+services/frontend/the_construct/.vscode
+services/frontend/the_construct/android
+services/frontend/the_construct/ios
+services/frontend/the_construct/web
+services/smart_contracts/Smart_Contracts
