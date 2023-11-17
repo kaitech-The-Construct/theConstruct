@@ -10,7 +10,8 @@ robot_catalog = [
             "subscription_price": 16.00,
             "premium_price": 300.00,
         },
-        "description": "High-performance industrial robot.",
+        "description": "High-performance mechanic robot.",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/mechanic.png"
     },
     {
         "id": 2,
@@ -23,6 +24,7 @@ robot_catalog = [
             "premium_price": 1500.00,
         },
         "description": "Versatile educational robot.",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/playmate.png"
     },
     {
         "id": 3,
@@ -34,7 +36,8 @@ robot_catalog = [
             "subscription_price": 25.00,
             "premium_price": 450.00,
         },
-        "description": "Advanced robotic system for research and development.",
+        "description": "Advanced robotic system for meal prepping and dinner dates.",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/cook.png"
     },
     {
         "id": 4,
@@ -46,7 +49,8 @@ robot_catalog = [
             "subscription_price": 40.00,
             "premium_price": 750.00,
         },
-        "description": "AI-powered autonomous robot for various applications.",
+        "description": "AI-powered autonomous robot for all your gardening needs.",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/gardener.png"
     },
     {
         "id": 5,
@@ -58,7 +62,8 @@ robot_catalog = [
             "subscription_price": 20.00,
             "premium_price": 380.00,
         },
-        "description": "Innovative robot with cutting-edge features.",
+        "description": "Innovative personal assistant robot with cutting-edge features.",
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/corworker.png"
     },
     # Add more robot listings as needed
 ]
