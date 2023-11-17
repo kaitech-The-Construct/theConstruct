@@ -63,7 +63,7 @@ robot_catalog = [
             "premium_price": 380.00,
         },
         "description": "Innovative personal assistant robot with cutting-edge features.",
-        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/corworker.png"
+        "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/assistant.png"
     },
     # Add more robot listings as needed
 ]
