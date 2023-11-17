@@ -2,7 +2,7 @@
 robot_catalog = [
     {
         "id": 1,
-        "manufacturer": "Robotics Inc.",
+        "manufacturer": "Turbotics Inc.",
         "manufacturer_id": "12345",
         "model_id": "R1000",
         "price": {
