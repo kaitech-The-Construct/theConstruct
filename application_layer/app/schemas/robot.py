@@ -52,6 +52,42 @@ class RobotCreate(BaseModel):
         }
 
 
+# Schema for robot update requests
+class RobotUpdate(BaseModel):
+    """Update Robot Listing Model"""
+
+    name: Optional[str] = Field(None, description="The updated name of the robot model")
+    manufacturer: Optional[str] = Field(
+        None, description="The updated name of the robot's manufacturer"
+    )
+    description: Optional[str] = Field(
+        None, description="The updated brief description of the robot"
+    )
+    price: Optional[RobotPrice] = Field(
+        None, description="The updated pricing details of the robot body"
+    )
+    image_url: Optional[str] = Field(
+        None, description="The updated image URL of the robot body"
+    )
+
+    class Config:
+        """Config"""
+
+        schema_extra = {
+            "example": {
+                "name": "XJ-550",
+                "manufacturer": "RoboCorp Updated",
+                "description": "An enhanced and improved service robot.",
+                "price": {
+                    "model_id": "XJ-550-ID",
+                    "subscription_price": 59.99,
+                    "premium_price": 69.99,
+                },
+                "image_url": "https://example.com/updated-robot-image.jpg",
+            }
+        }
+
+
 # Schema for robot response data
 class RobotResponse(BaseModel):
     """Robot Response Model"""
@@ -80,6 +116,6 @@ class RobotResponse(BaseModel):
                     "premium_price": 59.99,
                 },
                 "created_at": "2023-04-12T10:00:00Z",
-                "image_url":"https://storage.googleapis.com/app-images-the-construct-401518/cook.png"
+                "image_url": "https://storage.googleapis.com/app-images-the-construct-401518/cook.png",
             }
         }
