@@ -3,6 +3,3 @@ uvicorn
 pydantic
 requests==2.28.2
 debugpy # Required for debugging.
-google-cloud-storage
-google-cloud-secret-manager
-google-cloud-firestore

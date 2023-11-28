@@ -196,3 +196,8 @@ blockchain_layer/services/blockchain_interaction/.vscode
 blockchain_layer/services/data_storage/.idea
 blockchain_layer/services/data_storage/.readmes
 blockchain_layer/services/data_storage/.vscode
+application_layer/.firebaserc
+application_layer/firebase.json
+application_layer/firestore.indexes.json
+application_layer/firestore.rules
+blockchain_layer/services/pubsub/api-project-371618-5425bc261363.json
