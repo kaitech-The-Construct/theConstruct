@@ -187,3 +187,12 @@ application_layer/.readmes
 application_layer/.idea
 presentation_layer/flutter_frontend/the_construct/.vscode
 TheConstruct.txt
+blockchain_layer/services/api_gateway/.idea
+blockchain_layer/services/api_gateway/.readmes
+blockchain_layer/services/api_gateway/.vscode
+blockchain_layer/services/blockchain_interaction/.idea
+blockchain_layer/services/blockchain_interaction/.readmes
+blockchain_layer/services/blockchain_interaction/.vscode
+blockchain_layer/services/data_storage/.idea
+blockchain_layer/services/data_storage/.readmes
+blockchain_layer/services/data_storage/.vscode
