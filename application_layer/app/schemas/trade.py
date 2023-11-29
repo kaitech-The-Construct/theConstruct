@@ -1,15 +1,16 @@
-from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
+
+from pydantic import BaseModel, Field
 
 
 # Schema to represent trade creation request by a user
 class TradeCreate(BaseModel):
-    robot_id: int = Field(..., description="The ID of the robot asset being traded")
-    software_id: int = Field(
+    robot_id: str = Field(..., description="The ID of the robot asset being traded")
+    software_id: str = Field(
         ..., description="The ID of the software asset being traded"
     )
-    user_id: int = Field(..., description="The ID of the user creating the trade")
+    user_id: str = Field(..., description="The ID of the user creating the trade")
     price: float = Field(
         ..., description="The agreed price of the trade in CONSTRUCT tokens"
     )
@@ -18,9 +19,9 @@ class TradeCreate(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "robot_id": 1,
-                "software_id": 101,
-                "user_id": 1001,
+                "robot_id": "12987",
+                "software_id": "101356",
+                "user_id": "100154678",
                 "price": 150.00,
             }
         }
@@ -39,21 +40,21 @@ class TradeUpdate(BaseModel):
 
 # Schema for responding with trade data
 class TradeResponse(BaseModel):
-    id: int = Field(..., description="The unique identifier for the trade")
-    robot_id: int
-    software_id: int
-    user_id: int
+    robot_id: str
+    software_id: str
+    user_id: str
     price: float
     trade_date: Optional[datetime] = Field(
         default_factory=datetime.now, description="The date and time of the trade"
     )
-    status: str = Field(..., description="The current status of the trade")
+    status: str = Field(
+        default="Pending", description="The current status of the trade"
+    )
 
     class Config:
         orm_mode = True  # Enable ORM compatibility
         schema_extra = {
             "example": {
-                "id": 2001,
                 "robot_id": 1,
                 "software_id": 101,
                 "user_id": 1001,

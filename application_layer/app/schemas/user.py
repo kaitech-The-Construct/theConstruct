@@ -28,7 +28,7 @@ class UserResponse(BaseModel):
     class Config:
         """Config"""
 
-        orm_mode = True  # Enable use of ORM models (if using an ORM like SQLAlchemy)
+        orm_mode = True  
 
 
 # Schema for user update requests (all fields optional for partial updates)
@@ -43,7 +43,7 @@ class UserUpdate(BaseModel):
     class Config:
         """Config"""
 
-        orm_mode = True  # Enable use of ORM models (if using an ORM like SQLAlchemy)
+        orm_mode = True  
 
 
 # Schema for user authentication - used for login operations.

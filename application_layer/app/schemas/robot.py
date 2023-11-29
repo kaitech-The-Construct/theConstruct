@@ -7,18 +7,18 @@ from datetime import datetime
 class RobotPrice(BaseModel):
     """Price Details Model"""
 
-    model_id: str = Field(..., description="The unique identifier for the robot model")
+    model: str = Field(..., description="The identifier for the robot model")
     subscription_price: float = Field(
         ..., description="The subscription price for the robot"
     )
-    premium_price: float = Field(..., description="The premium price for the robot")
+    listing_price: float = Field(..., description="The listing price for the robot")
 
     class Config:
         schema_extra = {
             "example": {
-                "model_id": "XJ-500-ID",
+                "model": "XJ-500-ID",
                 "subscription_price": 49.99,
-                "premium_price": 59.99,
+                "listing_price": 59.99,
             }
         }
 
@@ -27,8 +27,10 @@ class RobotPrice(BaseModel):
 class RobotCreate(BaseModel):
     """Create Robot Listing Model"""
 
-    name: str = Field(..., description="The name of the robot model")
     manufacturer: str = Field(..., description="The name of the robot's manufacturer")
+    manufacturer_id: str = Field(..., description="The ID of the robot's manufacturer")
+    model: str = Field(..., description="The robot's model. Provided by manufacture")
+    model_id: Optional[str] = Field(None, description="Generated model ID on create.")
     description: Optional[str] = Field(
         None, description="A brief description of the robot"
     )
@@ -40,14 +42,17 @@ class RobotCreate(BaseModel):
 
         schema_extra = {
             "example": {
-                "name": "XJ-500",
                 "manufacturer": "RoboCorp",
+                "manufacturer_id": "TC8993",
+                "model": "XJ-500",
+                "model_id": "",
                 "description": "A versatile and adaptive service robot.",
                 "price": {
                     "model_id": "XJ-500-ID",
                     "subscription_price": 49.99,
-                    "premium_price": 59.99,
+                    "listing_price": 59.99,
                 },
+                "image_url": "",
             }
         }
 
@@ -56,7 +61,7 @@ class RobotCreate(BaseModel):
 class RobotUpdate(BaseModel):
     """Update Robot Listing Model"""
 
-    name: Optional[str] = Field(None, description="The updated name of the robot model")
+    model: Optional[str] = Field(None, description="The updated model of the robot")
     manufacturer: Optional[str] = Field(
         None, description="The updated name of the robot's manufacturer"
     )
@@ -75,13 +80,13 @@ class RobotUpdate(BaseModel):
 
         schema_extra = {
             "example": {
-                "name": "XJ-550",
+                "model": "XJ-550",
                 "manufacturer": "RoboCorp Updated",
                 "description": "An enhanced and improved service robot.",
                 "price": {
                     "model_id": "XJ-550-ID",
                     "subscription_price": 59.99,
-                    "premium_price": 69.99,
+                    "listing_price": 69.99,
                 },
                 "image_url": "https://example.com/updated-robot-image.jpg",
             }
@@ -92,12 +97,12 @@ class RobotUpdate(BaseModel):
 class RobotResponse(BaseModel):
     """Robot Response Model"""
 
-    id: int
-    name: str
+    model: str
+    model_id: Optional[str]
     manufacturer: str
+    manufacturer_id: str
     description: Optional[str]
     price: RobotPrice
-    created_at: datetime
     image_url: str
 
     class Config:
@@ -106,16 +111,16 @@ class RobotResponse(BaseModel):
         orm_mode = True
         schema_extra = {
             "example": {
-                "id": 1,
-                "name": "XJ-500",
+                "model": "XJ-500",
+                "model_id": "1234567",
                 "manufacturer": "RoboCorp",
+                "manufacturer_id": "TC8993",
                 "description": "A versatile and adaptive service robot.",
                 "price": {
                     "model_id": "XJ-500-ID",
                     "subscription_price": 49.99,
-                    "premium_price": 59.99,
+                    "listing_price": 599.99,
                 },
-                "created_at": "2023-04-12T10:00:00Z",
                 "image_url": "https://storage.googleapis.com/app-images-the-construct-401518/cook.png",
             }
         }
