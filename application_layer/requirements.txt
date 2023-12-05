@@ -6,3 +6,4 @@ debugpy # Required for debugging.
 google-cloud-storage
 google-cloud-secret-manager
 google-cloud-firestore
+web3
