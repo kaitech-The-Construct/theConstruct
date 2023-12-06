@@ -201,3 +201,4 @@ application_layer/firebase.json
 application_layer/firestore.indexes.json
 application_layer/firestore.rules
 blockchain_layer/services/pubsub/api-project-371618-5425bc261363.json
+blockchain_layer/services/DIRECTORY.md
