@@ -1,3 +1,8 @@
 .idea
 .readmes
 .vscode
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules
+TheConstruct.txt

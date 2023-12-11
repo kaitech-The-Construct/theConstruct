@@ -12,7 +12,7 @@ client = secretmanager.SecretManagerServiceClient()
 def get_secret(name: str) -> str:
     """Get Secret"""
 
-    project_id = os.environ.get("PROJECTID") | ""
+    project_id = os.environ.get("PROJECTID")
     secret_name = f"projects/{project_id}/secrets/{name}/versions/latest"
     response = client.access_secret_version(name=secret_name)
     # Decode payload and convert to a `str`

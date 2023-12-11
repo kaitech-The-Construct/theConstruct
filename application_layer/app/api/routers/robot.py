@@ -11,7 +11,7 @@ router = APIRouter()
 robot_service = RobotService()
 
 
-@router.get("/robot_services")
+@router.get("/")
 async def get_services():
     """Service Response"""
     catalog_count = len(robot_catalog)
@@ -27,7 +27,7 @@ async def get_services():
     )
 
 
-@router.post("/create")
+@router.post("/")
 def create_robot(robot: RobotCreate):
     """
     Create a new robot and store it in the marketplace.

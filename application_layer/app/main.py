@@ -1,8 +1,7 @@
 import os
 
 import uvicorn
-from api.routers import robot, software, trade, user
-from core.config import settings
+from api.routers import robot, software, trade
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse

@@ -2,4 +2,9 @@
 .vscode
 .idea
 .readmes
-app/cloud_functions
+functions
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules
+TheConstruct.txt

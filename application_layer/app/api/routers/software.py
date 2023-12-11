@@ -13,7 +13,7 @@ router = APIRouter()
 software_service = SoftwareService()
 
 
-@router.get("/software_listings")
+@router.get("/")
 async def get_services():
     """Service Response"""
     catalog_count = len(software_repository)
@@ -30,7 +30,7 @@ async def get_services():
 
 
 @router.post(
-    "/create", response_model=SoftwareResponse, status_code=status.HTTP_201_CREATED
+    "/", response_model=SoftwareResponse, status_code=status.HTTP_201_CREATED
 )
 async def create_software(
     software_data: SoftwareCreate,
@@ -46,7 +46,7 @@ async def create_software(
     return new_software
 
 
-@router.get("/", response_model=List[SoftwareResponse])
+@router.get("/list", response_model=List[SoftwareResponse])
 async def list_software():
     """
     Retrieve a list of all available software in the marketplace.

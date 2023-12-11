@@ -7,3 +7,5 @@ google-cloud-storage
 google-cloud-secret-manager
 google-cloud-firestore
 web3
+bleach
+Jinja2==3.1.2
