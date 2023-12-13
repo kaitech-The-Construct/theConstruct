@@ -1,0 +1,1 @@
+4788026e95e2f344dcc50e6f7aa4363556c4562af5600023221d131fe7ea32b0  ./target/wasm32-unknown-unknown/release/test_contract.wasm
