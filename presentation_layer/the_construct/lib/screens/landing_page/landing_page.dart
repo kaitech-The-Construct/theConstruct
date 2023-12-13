@@ -5,7 +5,6 @@ import 'package:the_construct/services/widgets/image_widget.dart';
 import 'package:the_construct/size_config/size_config.dart';
 
 import '../../models/robot_catalog/robot_catalog_model.dart';
-import '../../models/software_repo/software_repository_model.dart';
 import '../../services/api/api_functions.dart';
 import '../../ui/text_styles.dart';
 import '../home/components/featured.dart';
