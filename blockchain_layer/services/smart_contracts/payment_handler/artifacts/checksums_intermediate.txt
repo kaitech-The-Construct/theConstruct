@@ -1,0 +1,1 @@
+b7c47a8eba042cc023396c659cdb06f50e2e15c917e16ee807a00cbb0f4dc438  ./target/wasm32-unknown-unknown/release/payment_handler.wasm
