@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloud Computing Information Retrieval</title>
+  </head>
+  <body>
+    <h1>Cloud Computing Information Retrieval</h1>
+
+    <form id="urlForm">
+      <label for="urlInput">Enter URL(s) (comma-separated):</label>
+      <textarea id="urlInput" name="urls" rows="5" required></textarea>
+      <button onclick="fetchData()">Retrieve Information</button>
+    </form>    
+
+    <h2>Retrieved Information:</h2>
+    <h3>Title</h3>
+    <div id="title"></div>
+
+    <h3>Content</h3>
+    <div id="content"></div>
+
+    <h3>Summary</h3>
+    <div id="summary"></div>
+
+    <h2>Generated Tags:</h2>
+    <div id="tags"></div>
+
+    <h3>Json</h3>
+    <div id="information"></div>
+    <script>
+      document
+        .getElementById("urlForm")
+        // async function fetchData() {
+        // const urls = document
+        //   .getElementById("urlInput")
+        //   .value.split(",");
+        //   const response = await fetch("/scrape", {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({ urls }),
+        //   });
+        // }
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const urls = document.getElementById("urlInput").value.split(",");
+          const titleDiv = document.getElementById("title");
+          const contentDiv = document.getElementById("content");
+          const summaryDiv = document.getElementById("summary");
+          const informationDiv = document.getElementById("information");
+          const tagsDiv = document.getElementById("tags");
+
+          // Send API request to your microservice to retrieve information and tags
+          try {
+            fetch("/scrape", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ urls }),
+            });
+
+            if (true) {
+              const data = {
+                message: "Scraping completed successfully",
+                tags: "Tags have been generated",
+                json: "Json was created",
+                title: "Title is known",
+                content: "Content is ready",
+                summary: "Summary was retrieved",
+              };
+              titleDiv.textContent = JSON.stringify(data.title);
+              contentDiv.textContent = JSON.stringify(data.content);
+              summaryDiv.textContent = JSON.stringify(data.summary);
+              tagsDiv.textContent = JSON.stringify(data.tags);
+              informationDiv.textContent = JSON.stringify(data);
+            } else {
+              informationDiv.textContent = "Error retrieving information.";
+              tagsDiv.textContent = "";
+            }
+          } catch (error) {
+            console.error(error);
+            informationDiv.textContent = "An error occurred.";
+            tagsDiv.textContent = "";
+          }
+        });
+    </script>
+  </body>
+</html>
