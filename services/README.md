@@ -20,8 +20,4 @@
 * Description: Manages all aspects of the subscription model including billing, renewals, and subscription tiers for users and providers.
 * Description Features: Payment processing, subscription tracking, automated billing.
 
-6. ## User Management Service
-* Description: Manages user authentication and authorization. It handles sign-up, sign-in, and permissions for different types of users (consumers, robot builders, software developers, administrators).
-* Description Features: Secure login, multi-factor authentication, role-based access control.
-
 Each of these microservices plays a crucial role in The Construct's functionality, and they will work together to provide a comprehensive and efficient platform for users.
