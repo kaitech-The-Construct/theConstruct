@@ -207,3 +207,7 @@ file_appender.py
 file_appender.ipynb
 services/smart_contracts/solana/solana_test.ipynb
 blockchain_layer/services/smart_contracts/payment_handler/full_contract
+services/injective-dex
+blockchain_layer/services/test_contracts
+injective_python_data.txt
+injective_ts_data.txt
