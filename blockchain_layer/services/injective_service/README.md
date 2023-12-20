@@ -2,7 +2,7 @@
 
 ## Overview
 
-* The Blockchain Interaction Microservice is responsible for facilitating interactions with the blockchain. It handles crucial tasks such as transaction processing, event listening, and wallet management. This microservice is tailored to each blockchain, including Ethereum, Solana, and Injective Protocol, to ensure compatibility and efficient blockchain operations.
+* The Blockchain Interaction Microservice is responsible for facilitating interactions with the blockchain. It handles tasks such as transaction processing, event listening, and wallet management. This microservice is tailored to each blockchain, including Ethereum, Solana, and Injective Protocol, to ensure compatibility and efficient blockchain operations.
 
 ## Key Features
 
