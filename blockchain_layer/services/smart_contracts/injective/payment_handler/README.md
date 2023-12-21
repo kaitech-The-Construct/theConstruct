@@ -14,11 +14,4 @@ Before deploying the contract, make sure you have `rust` and `cargo` installed, 
 
 If you are deploying to a testnet or mainnet, you will need to have the `wasmd` CLI tool installed, as well as a wallet with sufficient funds for contract upload and instance creation.
 
-### Compile
-
-To compile the contract, run:
-
-```sh
-cargo wasm
-
 Contract address: inj19emwplyuwe0rcdp4gpau9e6jgch9mzjrhqyrer
