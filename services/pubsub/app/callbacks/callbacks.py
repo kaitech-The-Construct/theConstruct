@@ -3,35 +3,6 @@
 
 import requests
 
-# Xmark Resource Data
-def callback_xmark(message):
-    try:
-        # Process the URL from the received message
-        url = message.data.decode("utf-8")
-        # Call Cloud Function
-        process_url_with_cloud_function(url=url, name="data-processor-xmark-xaoktxu34q-uw")
-        message.ack()
-        print(f"Processed message from Pub/Sub. Link: {url}")
-        
-    except Exception as e:
-        url = message.data.decode("utf-8")
-        print(f"Error processing message: {str(e)}. Link: {url}")
-
-
-# Cloud Data
-def callback_cloud(message):
-    try:
-        # Process the URL from the received message
-        url = message.data.decode("utf-8")
-        # Call Cloud Function
-        process_url_with_cloud_function(url=url, name="data-processor-xmark-xaoktxu34q-uw")
-        message.ack()
-        print(f"Processed message from Pub/Sub. Link: {url}")
-        
-    except Exception as e:
-        url = message.data.decode("utf-8")
-        print(f"Error processing message: {str(e)}. Link: {url}")
-
 # Injective Data
 def callback_inj(message):
     try:

@@ -1,9 +1,6 @@
 import os
 from google.cloud import pubsub_v1
 
-# /home/ec2-user
-# credential_path = "api-project-371618-5425bc261363.json"
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
 # Create Pub/Sub clients
 publisher_client = pubsub_v1.PublisherClient()
@@ -22,7 +19,7 @@ def send_message_to_pubsub(url, topic):
 
     # Project ID
     project_id = os.environ.get("PROJECTID")
-    project_id = project_id or "api-project-371618"
+
 
     # Encode the URL as UTF-8.
 
