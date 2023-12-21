@@ -1,0 +1,32 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Randy Nolden",
+  "license": "ISC",
+  "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.32.1",
+    "@injectivelabs/networks": "^1.14.4",
+    "@injectivelabs/sdk-ts": "^1.14.4",
+    "@injectivelabs/ts-types": "^1.14.4",
+    "@injectivelabs/wallet-ts": "^1.14.4",
+    "@ladjs/koa-views": "^9.0.0",
+    "ejs": "^3.1.9",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-json": "^2.0.2",
+    "koa-router": "^12.0.1",
+    "koa-static": "^5.0.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/koa__router": "^12.0.4"
+  }
+}

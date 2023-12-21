@@ -107,3 +107,6 @@ dist
 .vscode-test
 .readmes
 .idea
+app/lib
+app/src/core/services/admin_service.ts
+.vscode
