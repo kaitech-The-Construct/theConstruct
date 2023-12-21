@@ -50,3 +50,5 @@ Injective's interoperability allows "The Construct" to connect with multiple blo
 3. Access to Decentralized Financial (DeFi) Tools:
 
 Injective's ecosystem comes with robust DeFi tools, enabling "The Construct" to integrate advanced financial mechanisms such as derivatives, futures, and more complex financial instruments. This would allow for more sophisticated trading strategies within the platform, such as hedging or speculating on the future value of robotics components.
+
+[Injective Smart Contracts](https://github.com/kaitech-The-Construct/theConstruct/tree/main/blockchain_layer/services/smart_contracts/injective)
