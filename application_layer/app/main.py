@@ -24,7 +24,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # Custom exception handler for error responses
 def error_response_handler(request: Request, exc: HTTPException):
     return JSONResponse(
