@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "app/lib",
-    "target": "es5"
-  }
+    "outDir": "./dist",
+    "target": "es5",
+    "rootDir": "./src",
+    "module": "commonjs",
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"],
+  "tsBuildInfoFile": "./", 
 }
