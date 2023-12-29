@@ -108,7 +108,7 @@ fn release_payment(
     id: String,
 ) -> Result<Response, ContractError> {
     // Load the escrow
-    let mut escrow = ESCROW_STATE.load(deps.storage, &id.clone())?;
+    let mut escrow = load_escrow(deps.storage, &id.clone())?;
 
     // Validation
     if escrow.released {
@@ -128,7 +128,7 @@ fn release_payment(
 
     escrow.released = true;
     // Update the escrow as released
-    ESCROW_STATE.save(deps.storage, &id.clone(), &escrow)?;
+    save_escrow(deps.storage, &id.clone(), &escrow)?;
 
     // Release the funds
     let messages: Vec<SubMsg> = escrow
