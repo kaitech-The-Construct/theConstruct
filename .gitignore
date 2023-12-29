@@ -211,3 +211,8 @@ services/injective-dex
 blockchain_layer/services/test_contracts
 injective_python_data.txt
 injective_ts_data.txt
+chainlink_data.txt
+blockchain_layer/services/injective_service/src/core/services/privateKey.ts
+blockchain_layer/services/injective_service/.yarn/install-state.gz
+blockchain_layer/services/injective_service/yarn.lock
+presentation_layer/the_construct/.firebase/hosting.YnVpbGQvd2Vi.cache
