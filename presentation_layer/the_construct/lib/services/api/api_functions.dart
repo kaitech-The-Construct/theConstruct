@@ -17,9 +17,6 @@ class APIFunctions {
       // Parse the JSON response from the callable as a List of Maps
       final List<dynamic> response =
           json.decode(callable.body) as List<dynamic>;
-      if (kDebugMode) {
-        print(response);
-      }
       // Convert the List of Maps to a List of RobotDetails objects using RobotDetails.fromJson()
       final List<RobotDetails> robotDetailsList = response
           .map((item) => RobotDetails.fromJson(item as Map<String, dynamic>))
@@ -72,7 +69,9 @@ class APIFunctions {
 
       if (wc.connected) {
         final web3provider = Web3Provider.fromWalletConnect(wc);
-        print(web3provider); // Web3Provider:
+        if (kDebugMode) {
+          print(web3provider);
+        } // Web3Provider:
       }
     } on Exception catch (e) {
       if (kDebugMode) {

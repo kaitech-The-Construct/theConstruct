@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:async';
 import 'dart:js' as js;
 import 'dart:js_util';
@@ -26,22 +28,22 @@ Future<String?> getEthAddressFromMetaMask() async {
   }
 }
 
-Future<String> getKeplrAddress() async {
-  const String chainId = "injective-888";
+Future<String?> getKeplrAddress() async {
+  // Ensure Keplr is available
   if (js.context.hasProperty('getOfflineSigner') &&
       js.context.hasProperty('keplr')) {
     try {
-      final account = js.context.callMethod('getKeplrAccount', [chainId]);
-      return await promiseToFuture<String>(account);
+      final account = await js.context.callMethod('getKeplrAccount');
+      return account.toString();
     } catch (error) {
       // Handle any errors that occur during the connection
       if (kDebugMode) {
         print('Error getting Keplr account: $error');
       }
-      return Future.error(error.toString());
+      return null;
     }
   } else {
     // Keplr extension is not installed
-    return Future.error('Keplr is not available');
+    return null;
   }
 }

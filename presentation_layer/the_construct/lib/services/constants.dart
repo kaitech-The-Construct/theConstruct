@@ -8,7 +8,7 @@ const String landing_2 =
 const List<String> walletOptions = ['Select Wallet', 'Keplr', 'Metamask'];
 
 const String overview =
-    "The Construct is a groundbreaking decentralized exchange (DEX) that revolutionizes how robot manufacturing and software development coalesce.";
+    "The Construct is a groundbreaking decentralized robotics exchange (DREX) that revolutionizes how robot manufacturing and software development coalesce.";
 const String overview2 =
     "Designed as an innovative marketplace, it empowers robot manufacturers of all sizes to showcase a variety of robot bodies, while also providing software developers with a platform to offer bespoke software solutions specifically designed for these robots.";
 const String tagline =
@@ -40,4 +40,12 @@ final List<LandingPageData> landingPageData = [
     "AI-Enhanced",
     "At The Construct, cutting-edge artificial intelligence meets robust blockchain security. Our AI systems diligently oversee compliance, ensuring that all software updates meet the highest standards of safety and reliability.",
   ),
+];
+
+const List<String> navBarTitles = [
+  "Marketplace",
+  "Design Studio",
+  "Manufacturing Hub",
+  "Community & Governance",
+  "Learning Center",
 ];

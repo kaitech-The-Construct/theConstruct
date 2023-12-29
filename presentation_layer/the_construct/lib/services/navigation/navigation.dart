@@ -43,7 +43,7 @@ final GoRouter router =
         path: '/marketplace',
         builder: (BuildContext context, GoRouterState state) {
           return FutureBuilder(
-              future: Future.delayed(const Duration(seconds: 5)),
+              future: Future.delayed(const Duration(milliseconds: 30)),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Loading();

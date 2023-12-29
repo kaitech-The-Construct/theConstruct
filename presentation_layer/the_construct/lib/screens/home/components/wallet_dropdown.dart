@@ -1,9 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nil/nil.dart';
 import 'package:the_construct/services/constants.dart';
 import 'package:the_construct/ui/text_styles.dart';
 
+import '../../../services/api/wallet_connect.dart';
+
 class WalletDropdownButton extends StatefulWidget {
+  const WalletDropdownButton({Key? key});
+
   @override
   WalletDropdownButtonState createState() => WalletDropdownButtonState();
 }
@@ -14,7 +18,7 @@ class WalletDropdownButtonState extends State<WalletDropdownButton> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      underline: nil,
+      underline: const SizedBox(height: 0,),
       focusColor: Colors.white,
       dropdownColor: Colors.white,
       value: selectedOption,
@@ -24,6 +28,36 @@ class WalletDropdownButtonState extends State<WalletDropdownButton> {
       onChanged: (value) {
         setState(() {
           selectedOption = value ?? walletOptions.first;
+          if (selectedOption == 'Keplr') {
+            getKeplrAddress().then((String? address) {
+              if (address != null) {
+                // Handle the Keplr address here
+                if (kDebugMode) {
+                  print('Keplr Address: $address');
+                }
+              } else {
+                if (kDebugMode) {
+                  print('Keplr Address not found');
+                }
+                selectedOption = walletOptions.first;
+              }
+            });
+          } else if (selectedOption == 'Metamask') {
+            selectedOption = value ?? walletOptions.first;
+            getEthAddressFromMetaMask().then((String? address) {
+              if (address != null) {
+                // Handle the MetaMask address here
+                if (kDebugMode) {
+                  print('MetaMask Address: $address');
+                }
+              } else {
+                if (kDebugMode) {
+                  print('MetaMask Address not found');
+                }
+                selectedOption = walletOptions.first;
+              }
+            });
+          }
         });
       },
       items: walletOptions.map<DropdownMenuItem<String>>((String value) {
@@ -39,7 +73,7 @@ class WalletDropdownButtonState extends State<WalletDropdownButton> {
 class OptionCard extends StatelessWidget {
   final String optionText;
 
-  OptionCard({required this.optionText});
+  const OptionCard({super.key, required this.optionText});
 
   @override
   Widget build(BuildContext context) {
@@ -72,15 +106,3 @@ class OptionCard extends StatelessWidget {
     );
   }
 }
-
-// FutureBuilder<dynamic>(
-//               future: getKeplrAddress(),
-//               builder: ((context, snapshot) {
-//                 if (snapshot.hasData) {
-//                   print("Wallet Address: ${snapshot.data}");
-//                   return IconButton(onPressed: () {}, icon: Icon(Icons.wallet));
-//                 } else {
-//                   return IconButton(
-//                       onPressed: () {}, icon: Icon(Icons.construction));
-//                 }
-//               }))

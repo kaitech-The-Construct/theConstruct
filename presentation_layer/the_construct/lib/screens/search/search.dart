@@ -46,7 +46,7 @@ class CustomSearchBarState extends State<CustomSearchBar> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top:8.0),
             child: BlocBuilder<
                 GenericBloc<RobotDetails, RobotDetailsRepository>,
                 GenericState>(
@@ -74,7 +74,7 @@ class CustomSearchBarState extends State<CustomSearchBar> {
                                   controller: _controller,
                                   decoration: const InputDecoration(
                                     hintText:
-                                        'Searching database just a moment.',
+                                        'Searching database...',
                                     border: InputBorder.none,
                                   ),
                                 ),
@@ -89,7 +89,7 @@ class CustomSearchBarState extends State<CustomSearchBar> {
                   final List<RobotDetails> data =
                       state.data as List<RobotDetails>;
                   return SizedBox(
-                    height: SizeConfig.screenHeight * .3,
+                    height: SizeConfig.screenHeight * .2,
                     child: Column(
                       children: <Widget>[
                         Padding(
@@ -163,7 +163,7 @@ class CustomSearchBarState extends State<CustomSearchBar> {
                                       }
                                     },
                                     decoration: const InputDecoration(
-                                      hintText: 'Search model orø manufacturer',
+                                      hintText: 'Search',
                                       border: InputBorder.none,
                                     ),
                                   ),

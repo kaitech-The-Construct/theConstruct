@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:the_construct/screens/search/search.dart';
+import 'package:the_construct/screens/marketplace.dart/components/navbar.dart';
+import 'package:the_construct/size_config/size_config.dart';
+
+import '../../services/constants.dart';
+import '../search/search.dart';
 
 class Marketplace extends StatelessWidget {
   const Marketplace({super.key});
@@ -8,9 +12,12 @@ class Marketplace extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[300],
-      child: Column(children: [
-        CustomSearchBar()
-      ]),
+      child: const Column(
+        children: [
+          MarketplaceNavBar(),
+          CustomSearchBar(),
+        ],
+      ),
     );
   }
 }

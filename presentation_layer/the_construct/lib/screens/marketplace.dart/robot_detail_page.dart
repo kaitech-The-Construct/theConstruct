@@ -156,7 +156,7 @@ class RobotDetailPage extends StatelessWidget {
 
                 ],
               )
-            : Column());
+            : const Column());
   }
 }
       

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_construct/models/robot_catalog/robot_catalog_model.dart';
 import 'package:the_construct/models/software_repo/software_repository_model.dart';
 import 'package:the_construct/size_config/size_config.dart';
+import 'package:the_construct/ui/responsive.dart';
 import 'package:the_construct/ui/text_styles.dart';
 
 import '../../../services/constants.dart';
@@ -29,7 +30,7 @@ class FeaturedRobots extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 250,
+          height: isDesktop(context) ? SizeConfig.screenHeight * .3: SizeConfig.screenHeight * .5,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
@@ -40,22 +41,33 @@ class FeaturedRobots extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                   child: SizedBox(
-                    width: SizeConfig.screenWidth * .25,
-                    height: SizeConfig.screenHeight * .3,
-                    child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
-                          elevation: 5,
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(25),
-                            ),
-                            child: Image.network(
-                              item.image_url ?? softwareImage,
-                              fit: BoxFit.cover,
+                    width: isDesktop(context) ? SizeConfig.screenWidth * .25: SizeConfig.screenWidth * .75,
+                    height: isDesktop(context) ? SizeConfig.screenHeight * .3: SizeConfig.screenHeight * .5,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            elevation: 5,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(25),
+                              ),
+                              child: Image.network(
+                                item.image_url ?? softwareImage,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(item.model)
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -90,7 +102,7 @@ class FeaturedSoftware extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 250,
+          height: isDesktop(context) ? SizeConfig.screenHeight * .3: SizeConfig.screenHeight * .5,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
@@ -99,22 +111,33 @@ class FeaturedSoftware extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: SizedBox(
-                  width: SizeConfig.screenWidth * .25,
-                  height: SizeConfig.screenHeight * .3,
-                  child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25)),
-                            elevation: 5,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(25),
-                              ),
-                              child: Image.network(
-                                item.image_url ?? softwareImage,
-                                fit: BoxFit.cover,
-                              ),
+                  width: isDesktop(context) ? SizeConfig.screenWidth * .25: SizeConfig.screenWidth * .75,
+                  height: isDesktop(context) ? SizeConfig.screenHeight * .3: SizeConfig.screenHeight * .5,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          elevation: 5,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(25),
+                            ),
+                            child: Image.network(
+                              item.image_url ?? softwareImage,
+                              fit: BoxFit.cover,
                             ),
                           ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(item.author)
+                    ],
+                  ),
                 ),
               );
             },
