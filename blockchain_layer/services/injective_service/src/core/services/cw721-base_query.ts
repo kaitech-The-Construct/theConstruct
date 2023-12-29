@@ -1,6 +1,7 @@
 import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 import { getNetworkEndpoints } from "@injectivelabs/networks";
-import { NETWORK } from "./dex/services";
+import { NETWORK } from "../config/settings";
+
 
 const endpoints = getNetworkEndpoints(NETWORK);
 const client = CosmWasmClient.connect(endpoints.rpc);

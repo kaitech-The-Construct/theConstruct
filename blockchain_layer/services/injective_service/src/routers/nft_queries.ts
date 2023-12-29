@@ -122,7 +122,7 @@ export async function allTokens(ctx: Koa.Context) {
 
 // Function to handle Minter query
 export async function minter(ctx: Koa.Context) {
-  const contractAddress = ctx.query.contractAddress.toString();
+  const contractAddress = ctx.params.contractAddress.toString();
   const response = await fetchMinter(contractAddress);
   ctx.body = { message: "Minter query result" };
 }

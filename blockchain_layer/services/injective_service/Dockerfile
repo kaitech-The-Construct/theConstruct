@@ -1,22 +1,25 @@
 # Use the official lightweight Node.js 18 image.
 # https://hub.docker.com/_/node
-FROM node:18-alpine
+FROM node:18
 
 # Create and change to the app directory.
 WORKDIR /usr/src/app
 
-# Copy all project files to the container
-# Files in the location of this file are copied to WORKDIR in the container
-COPY . .
+# Copy application dependency manifests to the container image.
+# A wildcard is used to ensure both package.json AND package-lock.json are copied.
+# Copying this separately prevents re-running npm install on every code change.
+COPY package*.json ./
 
+# Install dependencies.
 RUN apk add --update python3 make g++\
    && rm -rf /var/cache/apk/*
-
-# Makes sure npm is up to date otherwise install dependencies attempts will fail
-RUN yarn global add yarn
-
-# Install dependencies
+# If you add a package-lock.json speed your build by switching to 'npm ci'.
 RUN yarn install
 
-# The process this container should run
-CMD ["node", "start"]
+
+# Copy local code to the container image.
+COPY . ./
+
+# Run the web service on container startup.
+CMD ["node", "index.js"]
+

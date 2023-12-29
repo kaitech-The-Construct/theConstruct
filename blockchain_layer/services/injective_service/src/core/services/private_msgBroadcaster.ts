@@ -13,7 +13,7 @@ import {
 } from "@injectivelabs/wallet-ts";
 import { ChainId } from "@injectivelabs/ts-types";
 import { MsgSend } from "@injectivelabs/sdk-ts";
-import { NETWORK } from "./dex/services";
+import { NETWORK } from "../config/settings";
 import { getSecret } from "../config/settings";
 
 const walletStrategy = new WalletStrategy({

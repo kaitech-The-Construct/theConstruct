@@ -112,3 +112,4 @@ app/src/core/services/admin_service.ts
 .vscode
 app/src/core/services/privateKey.js
 app/src/core/services/privateKey.ts
+package-lock.json

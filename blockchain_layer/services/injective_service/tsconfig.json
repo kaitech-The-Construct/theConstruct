@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "target": "es5",
+    "target": "es6",
     "rootDir": "./src",
     "module": "commonjs",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    // "strict": true,
+    "skipLibCheck": false
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"],
-  "tsBuildInfoFile": "./", 
+  "exclude": ["node_modules"]
 }
