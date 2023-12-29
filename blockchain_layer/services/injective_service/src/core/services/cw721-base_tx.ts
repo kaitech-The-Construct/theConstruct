@@ -3,7 +3,7 @@ import {
     CW721_BASE_CONTRACT_ADDRESS,
     NETWORK,
     OWNER_ADDRESS,
-  } from "./dex/services";
+  } from "../config/settings";
   import { broadcastTxWithPk } from "./private_msgBroadcaster";
   import { MsgExecuteContractCompat } from "@injectivelabs/sdk-ts";
 /**

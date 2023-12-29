@@ -4,12 +4,13 @@ import {
   PaginationOption,
 } from "@injectivelabs/sdk-ts";
 import { getNetworkEndpoints, Network } from "@injectivelabs/networks";
-import { NETWORK } from "./dex/services";
+import { NETWORK } from "../config/settings";
+
 
 const endpoints = getNetworkEndpoints(NETWORK);
 const chainGrpcWasmApi = new ChainGrpcWasmApi(endpoints.grpc);
 
-async function fetchContractInfo(contractAddress) {
+async function fetchContractInfo(contractAddress: string) {
   const response = await chainGrpcWasmApi.fetchContractInfo(contractAddress);
 
   const contractInfo = response as ContractInfo;
@@ -17,7 +18,7 @@ async function fetchContractInfo(contractAddress) {
   return contractInfo.codeId;
 }
 
-async function fetchContractAccountsBalance(contractAddress) {
+async function fetchContractAccountsBalance(contractAddress: any) {
   const pagination = {
     pageSize: 10,
     pageToken: "",
@@ -31,7 +32,7 @@ async function fetchContractAccountsBalance(contractAddress) {
   console.log(contractAccountsBalance);
 }
 
-async function fetchContractHistory(contractAddress) {
+async function fetchContractHistory(contractAddress: string) {
   const response = await chainGrpcWasmApi.fetchContractHistory(contractAddress);
   // const contractHistory = response as ContractHistoryResponse;
   console.log(response);
