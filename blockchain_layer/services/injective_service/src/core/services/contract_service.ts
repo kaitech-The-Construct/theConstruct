@@ -3,9 +3,8 @@ import {
   ContractInfo,
   PaginationOption,
 } from "@injectivelabs/sdk-ts";
-import { getNetworkEndpoints, Network } from "@injectivelabs/networks";
+import { getNetworkEndpoints } from "@injectivelabs/networks";
 import { NETWORK } from "../config/settings";
-
 
 const endpoints = getNetworkEndpoints(NETWORK);
 const chainGrpcWasmApi = new ChainGrpcWasmApi(endpoints.grpc);
@@ -38,5 +37,3 @@ async function fetchContractHistory(contractAddress: string) {
   console.log(response);
   return response;
 }
-
-

@@ -1,29 +1,19 @@
-import {
-  IndexerGrpcAccountPortfolioApi,
-  IndexerGrpcAccountApi,
-  getEthereumAddress,
-} from "@injectivelabs/sdk-ts";
+import { IndexerGrpcAccountPortfolioApi } from "@injectivelabs/sdk-ts";
 import {
   WalletException,
   UnspecifiedErrorCode,
   ErrorType,
 } from "@injectivelabs/exceptions";
-import { getNetworkEndpoints, Network } from "@injectivelabs/networks";
-import {
-  MsgBroadcaster,
-  Wallet,
-  WalletStrategy,
-} from "@injectivelabs/wallet-ts";
+import { getNetworkEndpoints } from "@injectivelabs/networks";
+import { Wallet, WalletStrategy } from "@injectivelabs/wallet-ts";
 import { ChainId } from "@injectivelabs/ts-types";
 import { NETWORK } from "../config/settings";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
-import { Window } from '../../../node_modules/@injectivelabs/wallet-ts/node_modules/@keplr-wallet/types/build/window.d';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Window extends KeplrWindow {}
 }
-
 
 const endpoints = getNetworkEndpoints(NETWORK);
 console.log(endpoints);
@@ -39,7 +29,7 @@ const walletStrategy = new WalletStrategy({
 
 export async function connectWallet() {
   try {
-    window.keplr.enable( ChainId.Testnet);
+    window.keplr.enable(ChainId.Testnet);
 
     const addresses = await walletStrategy.getAddresses();
 
@@ -62,7 +52,8 @@ export async function connectWallet() {
 }
 
 export async function getAccountPortfolio(address: string) {
-  const portfolio = await indexerGrpcAccountPortfolioApi.fetchAccountPortfolio(
+  const portfolio =""
+  await indexerGrpcAccountPortfolioApi.fetchAccountPortfolio(
     address
   );
 

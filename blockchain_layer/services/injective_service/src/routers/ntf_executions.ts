@@ -1,11 +1,5 @@
 import * as Koa from "koa";
 import * as Router from "koa-router";
-import {
-  TransferNftMsg,
-  TransferNftResponse,
-  QueryNftMsg,
-  QueryNftResponse,
-} from "../schema/schema";
 
 const nftRouter = new Router({
   prefix: "/nft",
@@ -18,8 +12,6 @@ async function transferNft(ctx: Koa.Context) {
 
   ctx.body = { message: "NFT transferred successfully" };
 }
-
-
 
 // Function to handle SendNft
 async function sendNft(ctx: Koa.Context) {
@@ -56,7 +48,7 @@ async function approveAll(ctx: Koa.Context) {
 }
 
 // Function to handle RevokeAll
- async function revokeAll(ctx: Koa.Context) {
+async function revokeAll(ctx: Koa.Context) {
   const operator = ctx.params.operator;
 
   ctx.body = { message: "RevokeAll permission revoked successfully" };
@@ -82,13 +74,12 @@ async function burn(ctx: Koa.Context) {
 // Define routes for NFT functions
 nftRouter.post("/transfer", transferNft);
 nftRouter.post("send", sendNft),
-nftRouter.post("/approve", approve),
-nftRouter.post("/revoke", revoke),
-nftRouter.post("/approveAll", approveAll),
-nftRouter.post("/revokeAll", revokeAll),
-nftRouter.post("/mint", mint),
-nftRouter.post("/burn", burn);
-
+  nftRouter.post("/approve", approve),
+  nftRouter.post("/revoke", revoke),
+  nftRouter.post("/approveAll", approveAll),
+  nftRouter.post("/revokeAll", revokeAll),
+  nftRouter.post("/mint", mint),
+  nftRouter.post("/burn", burn);
 
 // the execution and query messages
 // const nftMessages = {

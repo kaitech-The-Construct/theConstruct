@@ -1,11 +1,6 @@
-import {
-  ChainGrpcBankApi,
-  IndexerGrpcSpotApi,
-  IndexerGrpcDerivativesApi,
-  IndexerGrpcDerivativesStream,
-} from "@injectivelabs/sdk-ts";
 import { getNetworkEndpoints, Network } from "@injectivelabs/networks";
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
+import { ChainGrpcBankApi, IndexerGrpcSpotApi, IndexerGrpcDerivativesApi, IndexerGrpcDerivativesStream } from "@injectivelabs/sdk-ts";
 
 // Function to access secret from GCP Secrets Manager
  export async function getSecret(name: string): Promise<string> {
