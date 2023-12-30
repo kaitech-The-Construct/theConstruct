@@ -6,244 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to The Construct Marketplace</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #202020;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .navbar {
-            background-color: black;
-            color: #191919;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.7rem 2rem;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar ul {
-            list-style-type: none;
-            display: flex;
-        }
-
-        .navbar ul li a {
-            color: #fff;
-            padding: 0.45rem 0.85rem;
-            margin: 0 0.25rem;
-            text-decoration: none;
-        }
-
-        .navbar ul li a:hover,
-        .navbar ul li a.active {
-            background-color: #3498db;
-            color: #fff;
-            border-radius: 5px;
-        }
-
-        .main-header {
-            padding: 2rem;
-            text-align: center;
-            background: url('robotics-banner.jpg') no-repeat center center/cover;
-        }
-
-        .main-header h1 {
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-            color: #fff;
-        }
-
-        .image {
-            max-height: 100px;
-            object-fit: contain;
-        }
-
-
-        .logo {
-            font-size: 1.5rem;
-            color: #032913;
-        }
-
-        .logo img {
-            max-width: 75px;
-            margin-right: 0.5rem;
-        }
-
-        .search-bar {
-            margin: 2rem auto;
-            display: block;
-            width: 80%;
-            padding: 0.5rem;
-            border: none;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-        }
-
-        .connect-button {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            color: #fff;
-            background: #3498db;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-
-        .connect-button:hover {
-            background-color: #2980b9;
-        }
-
-        .product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            grid-gap: 1rem;
-            padding: 2rem;
-        }
-
-        .product-item {
-            background-color: #fff;
-            padding: 1rem;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-        }
-
-        .product-image {
-            max-height: 150px;
-            object-fit: contain;
-            margin-bottom: 1rem;
-        }
-
-        .product-item h3 {
-            margin-bottom: 0.5rem;
-        }
-
-        .product-item p {
-            margin-bottom: 1rem;
-        }
-
-        .product-item .buy-button {
-            padding: 0.5rem 1rem;
-            background-color: #27ae60;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .card {
-            width: 100%;
-            height: 300px;
-            margin: 0 auto;
-            background-color: black;
-            border-radius: 10px;
-            padding: 2rem;
-            position: relative;
-        }
-
-        @media (max-width: 575px) {
-            .card {
-                height: 40vh;
-            }
-        }
-
-
-        .card-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 70%;
-            object-fit: cover;
-        }
-
-        .card-title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem;
-            color: #fff;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .card-text {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem;
-            color: #fff;
-            background-color: rgba(0, 0, 0, 0.5);
-            margin-top: 1rem;
-        }
-
-        .card-actions {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .card-actions a {
-            padding: 0.5rem 1rem;
-            background-color: #27ae60;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
-<script>
-    // Add event listener to the "Connect Wallet" button
-    document.getElementById('connect-wallet-button').addEventListener('click', async () => {
-
-        fetch('/account/connect')
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(`Connected wallet address: ${data.address}`);
-                } else {
-                    alert(`Error connecting wallet: ${data.response}`);
-                }
-            })
-            .catch(error => {
-                console.error('API call error:', error);
-                alert('Error connecting wallet. Please try again.');
-            });
-    });
-</script>
-<script>
-    window.onload = async () => {
-        if (!window.keplr) {
-            alert("Please install keplr extension");
-        } else {
-            const chainId = "injective-888";
-
-            // Enabling before using the Keplr is recommended.
-            // This method will ask the user whether to allow access if they haven't visited this website.
-            // Also, it will request that the user unlock the wallet if the wallet is locked.
-            await window.keplr.enable(chainId);
-
-            const offlineSigner = window.keplr.getOfflineSigner(chainId);
-
-            // You can get the address/public keys by `getAccounts` method.
-            // It can return the array of address/public key.
-            // But, currently, Keplr extension manages only one address/public key pair.
-            // XXX: This line is needed to set the sender address for SigningCosmosClient.
-            const accounts = await offlineSigner.getAccounts();
-            console.log(accounts);
-        }
-    }
-
-</script>
 
 <body>
     <nav class="navbar">
@@ -251,12 +14,13 @@
             <img src="logo-200.png" alt="The Construct Logo">
         </div>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#" class="active">Marketplace</a></li>
+            <li><a href="https://the-construct-401518.web.app/">Home</a></li>
+            <li><a href="/" class="active">Marketplace</a></li>
+            <li><a href="/profile">Profile</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">FAQ</a></li>
         </ul>
-        <button class="connect-button" id="connect-wallet-button">Connect Wallet</button>
+        <button class="connect-button" id="connect-wallet-button">Wallet</button>
     </nav>
     <header class="main-header">
         <h1>Welcome to The Construct Marketplace</h1>
@@ -265,45 +29,158 @@
     <section class="product-list" id="product-list">
         <!-- Dynamic product list content will be loaded here -->
     </section>
-
-
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // JavaScript to fetch data from the API and create cards
-            const productList = document.getElementById('product-list');
+        // Reusable function to create a card
+        function createCard(item) {
+            const card = document.createElement('div');
+            card.className = 'card';
 
-            // Replace with your API endpoint
+            const cardImage = document.createElement('img');
+            cardImage.src = item.image_url;
+            cardImage.alt = 'Product image';
+            cardImage.className = 'card-image';
+            card.appendChild(cardImage);
+
+            const cardTitle = document.createElement('h2');
+            cardTitle.className = 'card-title';
+            cardTitle.textContent = item.model;
+            card.appendChild(cardTitle);
+
+            const cardText = document.createElement('p');
+            cardText.className = 'card-text';
+            cardText.textContent = item.manufacturer;
+            card.appendChild(cardText);
+
+            const cardActions = document.createElement('div');
+            cardActions.className = 'card-actions';
+
+            const addToCartLink = document.createElement('a');
+            addToCartLink.href = '#';
+            addToCartLink.textContent = 'Add to Cart';
+            cardActions.appendChild(addToCartLink);
+
+            card.appendChild(cardActions);
+
+            // Add click event to open a modal
+            card.addEventListener('click', () => {
+                // Create the modal container
+                const modalContainer = document.createElement('div');
+                modalContainer.className = 'modal-container';
+
+                // Create the modal itself
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+
+                // Create modal close button
+                const modalCloseButton = document.createElement('button');
+                modalCloseButton.className = 'modal-close-button';
+
+                modalCloseButton.addEventListener('click', () => {
+                    // Close the modal
+                    modal.style.display = 'none';
+                });
+
+                // Create the modal content
+                const modalContent = document.createElement('div');
+                modalContent.className = 'modal-content';
+
+                // Create the modal text content
+                const modalTextContent = document.createElement('div');
+                modalTextContent.className = 'modal-text-content';
+
+                // Create the image for the modal
+                const image = document.createElement('img');
+                image.src = card.querySelector('.card-image').src;
+                image.className = 'modal-image';
+
+                // Create a title for the modal
+                const title = document.createElement('h2');
+                title.textContent = card.querySelector('.card-title').textContent;
+
+                // Create a text element for the modal
+                const text = document.createElement('p');
+                text.textContent = card.querySelector('.card-text').textContent;
+
+                // Create a text element for the modal
+                const description = document.createElement('p');
+                text.textContent = item.description;
+
+                // Create a price element for the modal
+                const price = document.createElement('p');
+                price.textContent = `Price: 3000`;
+
+                // Create a list of cryptocurrencies
+                const cryptocurrencies = ['ETH', 'INJ', 'SOL'];
+
+                // Create a select element for the cryptocurrencies
+                const select = document.createElement('select');
+                cryptocurrencies.forEach(cryptocurrency => {
+                    const option = document.createElement('option');
+                    option.value = cryptocurrency;
+                    option.textContent = cryptocurrency;
+                    select.appendChild(option);
+                });
+
+                // Add an event listener to the select element
+                select.addEventListener('change', () => {
+                    // Update the price element with the new price
+                    price.textContent = `Price: 3000 ${select.value}`;
+                });
+
+                // Append elements to modalTextContent
+                modalTextContent.appendChild(modalCloseButton)
+                modalTextContent.appendChild(title);
+                modalTextContent.appendChild(text);
+                modalTextContent.appendChild(description);
+                modalTextContent.appendChild(price);
+                modalTextContent.appendChild(select);
+
+                // Append image and modalTextContent to modalContent
+                modalContent.appendChild(image);
+                modalContent.appendChild(modalTextContent);
+
+                // Append modalContent to modal
+                modal.appendChild(modalContent);
+
+                // Append modal to the modal container
+                modalContainer.appendChild(modal);
+
+                // Append the modal container to the body of the document
+                document.body.appendChild(modalContainer);
+
+                // Show the modal
+                // Show the modal and allow clicks on it
+                modalContainer.style.display = 'block';
+                modal.style.pointerEvents = 'auto';
+
+                // Add a click event listener to close the modal when clicking outside of it
+                document.addEventListener('click', function (event) {
+                    if (modal.style.display === 'block') {
+                        if (event.target !== modal && event.target.closest('.modal') === null) {
+                            // Hide the modal and prevent clicks on it
+                            modal.style.display = 'none';
+                            modal.style.pointerEvents = 'none';
+                        }
+                    }
+                });
+            });
+
+
+            return card;
+        }
+
+        // JavaScript to fetch data from the API and create cards
+        document.addEventListener('DOMContentLoaded', function () {
+            const productList = document.getElementById('product-list');
             const apiUrl = 'https://application-layer-bu6vz2kbtq-uc.a.run.app/robots/list';
 
-            // Fetch data from the API
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    // Loop through the data and create a card for each item
                     data.forEach(item => {
-                        console.log(item.model);
-                        const cardTemplate = document.querySelector('.card');
-                        const cardClone = cardTemplate.cloneNode(true);
-                        cardClone.style.display = 'block';
-
-                        const cardImage = cardClone.querySelector('.card-image');
-                        cardImage.src = item.image_url;
-                        cardImage.alt = 'Product image';
-                        cardImage.className = 'card-image';
-
-                        const cardTitle = cardClone.querySelector('.card-title');
-                        cardTitle.textContent = item.model;
-
-                        const cardText = cardClone.querySelector('.card-text');
-                        cardText.textContent = item.manufacturer;
-
-                        const addToCartLink = cardClone.querySelector('.card-actions a');
-                        addToCartLink.href = '#';
-
-                        cardClone.appendChild(cardImage);
-
-                        productList.appendChild(cardClone);
+                        const card = createCard(item);
+                        productList.appendChild(card);
                     });
                 })
                 .catch(error => {
@@ -312,5 +189,6 @@
         });
     </script>
 </body>
+
 
 </html>
