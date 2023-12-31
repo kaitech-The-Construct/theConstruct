@@ -52,8 +52,7 @@ export async function connectWallet() {
 }
 
 export async function getAccountPortfolio(address: string) {
-  const portfolio =""
-  await indexerGrpcAccountPortfolioApi.fetchAccountPortfolio(
+  const portfolio = await indexerGrpcAccountPortfolioApi.fetchAccountPortfolio(
     address
   );
 

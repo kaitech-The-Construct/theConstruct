@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to The Construct Marketplace</title>
+    <title>The Construct Marketplace</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -16,7 +16,7 @@
         <ul>
             <li><a href="https://the-construct-401518.web.app/">Home</a></li>
             <li><a href="/" class="active">Marketplace</a></li>
-            <li><a href="/profile">Profile</a></li>
+            <!-- <li><a href="/profile">Profile</a></li> -->
             <li><a href="#">About</a></li>
             <li><a href="#">FAQ</a></li>
         </ul>
@@ -26,169 +26,58 @@
         <h1>Welcome to The Construct Marketplace</h1>
         <input type="text" class="search-bar" id="search-bar" placeholder="Search for robotic parts and AI software...">
     </header>
-    <section class="product-list" id="product-list">
-        <!-- Dynamic product list content will be loaded here -->
+    <h2 class="product-group-title">Robots</h2>
+    <section class="product-list" id="product-list-robots">
+        <!-- Dynamic robot list content will be loaded here -->
     </section>
-    <script>
-        // Reusable function to create a card
-        function createCard(item) {
-            const card = document.createElement('div');
-            card.className = 'card';
 
-            const cardImage = document.createElement('img');
-            cardImage.src = item.image_url;
-            cardImage.alt = 'Product image';
-            cardImage.className = 'card-image';
-            card.appendChild(cardImage);
+    <h2 class="product-group-title">Software</h2>
+    <section class="product-list" id="product-list-software">
+        <!-- Dynamic software list content will be loaded here -->
+    </section>
 
-            const cardTitle = document.createElement('h2');
-            cardTitle.className = 'card-title';
-            cardTitle.textContent = item.model;
-            card.appendChild(cardTitle);
-
-            const cardText = document.createElement('p');
-            cardText.className = 'card-text';
-            cardText.textContent = item.manufacturer;
-            card.appendChild(cardText);
-
-            const cardActions = document.createElement('div');
-            cardActions.className = 'card-actions';
-
-            const addToCartLink = document.createElement('a');
-            addToCartLink.href = '#';
-            addToCartLink.textContent = 'Add to Cart';
-            cardActions.appendChild(addToCartLink);
-
-            card.appendChild(cardActions);
-
-            // Add click event to open a modal
-            card.addEventListener('click', () => {
-                // Create the modal container
-                const modalContainer = document.createElement('div');
-                modalContainer.className = 'modal-container';
-
-                // Create the modal itself
-                const modal = document.createElement('div');
-                modal.className = 'modal';
-
-                // Create modal close button
-                const modalCloseButton = document.createElement('button');
-                modalCloseButton.className = 'modal-close-button';
-
-                modalCloseButton.addEventListener('click', () => {
-                    // Close the modal
-                    modal.style.display = 'none';
-                });
-
-                // Create the modal content
-                const modalContent = document.createElement('div');
-                modalContent.className = 'modal-content';
-
-                // Create the modal text content
-                const modalTextContent = document.createElement('div');
-                modalTextContent.className = 'modal-text-content';
-
-                // Create the image for the modal
-                const image = document.createElement('img');
-                image.src = card.querySelector('.card-image').src;
-                image.className = 'modal-image';
-
-                // Create a title for the modal
-                const title = document.createElement('h2');
-                title.textContent = card.querySelector('.card-title').textContent;
-
-                // Create a text element for the modal
-                const text = document.createElement('p');
-                text.textContent = card.querySelector('.card-text').textContent;
-
-                // Create a text element for the modal
-                const description = document.createElement('p');
-                text.textContent = item.description;
-
-                // Create a price element for the modal
-                const price = document.createElement('p');
-                price.textContent = `Price: 3000`;
-
-                // Create a list of cryptocurrencies
-                const cryptocurrencies = ['ETH', 'INJ', 'SOL'];
-
-                // Create a select element for the cryptocurrencies
-                const select = document.createElement('select');
-                cryptocurrencies.forEach(cryptocurrency => {
-                    const option = document.createElement('option');
-                    option.value = cryptocurrency;
-                    option.textContent = cryptocurrency;
-                    select.appendChild(option);
-                });
-
-                // Add an event listener to the select element
-                select.addEventListener('change', () => {
-                    // Update the price element with the new price
-                    price.textContent = `Price: 3000 ${select.value}`;
-                });
-
-                // Append elements to modalTextContent
-                modalTextContent.appendChild(modalCloseButton)
-                modalTextContent.appendChild(title);
-                modalTextContent.appendChild(text);
-                modalTextContent.appendChild(description);
-                modalTextContent.appendChild(price);
-                modalTextContent.appendChild(select);
-
-                // Append image and modalTextContent to modalContent
-                modalContent.appendChild(image);
-                modalContent.appendChild(modalTextContent);
-
-                // Append modalContent to modal
-                modal.appendChild(modalContent);
-
-                // Append modal to the modal container
-                modalContainer.appendChild(modal);
-
-                // Append the modal container to the body of the document
-                document.body.appendChild(modalContainer);
-
-                // Show the modal
-                // Show the modal and allow clicks on it
-                modalContainer.style.display = 'block';
-                modal.style.pointerEvents = 'auto';
-
-                // Add a click event listener to close the modal when clicking outside of it
-                document.addEventListener('click', function (event) {
-                    if (modal.style.display === 'block') {
-                        if (event.target !== modal && event.target.closest('.modal') === null) {
-                            // Hide the modal and prevent clicks on it
-                            modal.style.display = 'none';
-                            modal.style.pointerEvents = 'none';
-                        }
-                    }
-                });
-            });
-
-
-            return card;
-        }
-
-        // JavaScript to fetch data from the API and create cards
-        document.addEventListener('DOMContentLoaded', function () {
-            const productList = document.getElementById('product-list');
-            const apiUrl = 'https://application-layer-bu6vz2kbtq-uc.a.run.app/robots/list';
-
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    data.forEach(item => {
-                        const card = createCard(item);
-                        productList.appendChild(card);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        });
-    </script>
+    <h2 class="product-group-title">Designs</h2>
+    <section class="product-list" id="product-list-design">
+        <!-- Dynamic software list content will be loaded here -->
+    </section>
 </body>
+<script>
+    // Add event listener to the "Connect Wallet" button
+    document.getElementById('connect-wallet-button').addEventListener('click', async () => {
+        console.log("Clicked");
+        const response = await fetch('/account/connect');
+        const jsonResponse = await response.json();
+        // If an address is returned, update the text of the button to the address
+        if (jsonResponse.address) {
+            document.getElementById('connect-wallet-button').textContent = jsonResponse.address.substring(0, 10) + '...';
+        }
+    });
 
+</script>
+<script>
+    window.onload = async () => {
+        if (!window.keplr) {
+            alert("Please install keplr extension");
+        } else {
+            const chainId = "injective-888";
+            // Enabling before using the Keplr is recommended.
+            // This method will ask the user whether to allow access if they haven't visited this website.
+            // Also, it will request that the user unlock the wallet if the wallet is locked.
+            await window.keplr.enable(chainId);
+            const offlineSigner = window.keplr.getOfflineSigner(chainId);
+            // You can get the address/public keys by `getAccounts` method.
+            // It can return the array of address/public key.
+            // But, currently, Keplr extension manages only one address/public key pair.
+            // XXX: This line is needed to set the sender address for SigningCosmosClient.
+            const accounts = await offlineSigner.getAccounts();
+            if (accounts[0].address) {
+            document.getElementById('connect-wallet-button').textContent = accounts[0].address.substring(0, 10) + '...';
+        }
+        }
+    }
+</script>
+<script src="scripts/robot_script.js"></script>
+<script src="scripts/software_script.js"></script>
+<script src="scripts/designs_script.js"></script>
 
 </html>
