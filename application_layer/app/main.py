@@ -1,7 +1,7 @@
 import os
 
 import uvicorn
-from api.routers import robot, software, trade
+from api.routers import robot, software, trade, design
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -38,6 +38,7 @@ app.add_exception_handler(HTTPException, error_response_handler)
 # # Include routers from the api.routers package
 app.include_router(robot.router, prefix="/robots", tags=["robots"])
 app.include_router(software.router, prefix="/software", tags=["software"])
+app.include_router(design.router, prefix="/design", tags=["design"])
 # app.include_router(user.router, prefix="/users", tags=["users"])
 app.include_router(trade.router, prefix="/trades", tags=["trades"])
 # app.include_router(governance.router, prefix="/governance", tags=["governance"])

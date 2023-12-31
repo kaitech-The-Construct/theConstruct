@@ -39,7 +39,7 @@ class Settings(BaseSettings):
     # Secrets retrieved from GCP Secrets Manager
     # DATABASE_URL: str = get_secret("database_url")
     DATABASE_URL: str = "database.db"
-    SECRET_KEY: str = get_secret("database_api_key")
+    # SECRET_KEY: str = get_secret("database_api_key")
 
     # Will add CORS setttings here
     ALLOWED_HOSTS: list = []
