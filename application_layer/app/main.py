@@ -43,7 +43,6 @@ app.include_router(design.router, prefix="/design", tags=["design"])
 app.include_router(trade.router, prefix="/trades", tags=["trades"])
 # app.include_router(governance.router, prefix="/governance", tags=["governance"])
 
-
 # Define root route
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
