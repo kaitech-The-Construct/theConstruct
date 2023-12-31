@@ -11,8 +11,6 @@ body {
   line-height: 1.6;
 }
 
-
-
 .navbar {
   background-color: black;
   color: #191919;
@@ -127,10 +125,10 @@ body {
 }
 
 .product-group-title {
-    color: #fff;
-    padding-left: 2rem;
-    font-size: 2rem;
-  }
+  color: #fff;
+  padding-left: 2rem;
+  font-size: 2rem;
+}
 
 .card {
   width: 100%;
@@ -239,17 +237,16 @@ body {
   right: 0;
   width: 2rem;
   height: 2rem;
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   font-size: 1rem;
   cursor: pointer;
 }
 
-/* Add a border radius to the modal container */
 .modal-container {
-  border-radius: 10px; /* Adjust the radius as needed */
-  overflow: hidden; /* Hide overflow content */
-  height: 100%; /* Ensure the container takes up the full height */
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
 }
 
 .modal-content {
@@ -273,7 +270,7 @@ body {
   padding-top: 1.5rem;
   background-color: white;
   max-width: 600px;
-  border-radius: 0 10px 10px 0; /* Adjust the radius as needed */
+  border-radius: 0 10px 10px 0;
   text-align: center;
   flex-direction: column;
   display: flex;
@@ -281,10 +278,27 @@ body {
   align-items: center;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 600px) {
   .modal {
     width: 100%;
     height: 100%;
+  }
+  .modal-content {
+    flex-direction: column;
+  }
+  .modal-image {
+    width: 100%;
+    height: 66.66%;
+  }
+  .modal-text-content {
+    width: 100%;
+    height: 33.33%;
+  }
+  .navbar {
+    display: none;
+  }
+  .nav-drawer-toggle {
+    display: block;
   }
 }
 
@@ -296,4 +310,60 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.modal-close-button:before {
+  content: "\f00d";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: black;
+  color: white;
+  z-index: 1000;
+  transition: left 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 2rem;
+}
+
+.nav-drawer ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.nav-drawer ul li {
+  padding: 1rem 0;
+  border-bottom: 1px solid #fff;
+  text-align: center;
+  width: 100%;
+}
+
+.nav-drawer ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.nav-drawer-toggle {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: #000;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1100;
 }

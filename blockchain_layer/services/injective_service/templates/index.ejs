@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <button class="nav-drawer-toggle" id="nav-drawer-toggle"></button>
     <nav class="navbar">
         <div class="logo">
             <img src="logo-200.png" alt="The Construct Logo">
@@ -21,6 +22,9 @@
             <li><a href="#">FAQ</a></li>
         </ul>
         <button class="connect-button" id="connect-wallet-button">Wallet</button>
+        
+            <i class="fas fa-bars"></i>
+        </button>
     </nav>
     <header class="main-header">
         <h1>Welcome to The Construct Marketplace</h1>
@@ -40,6 +44,15 @@
     <section class="product-list" id="product-list-design">
         <!-- Dynamic software list content will be loaded here -->
     </section>
+    <nav class="nav-drawer">
+        <ul>
+            <li><a href="https://the-construct-401518.web.app/">Home</a></li>
+            <li><a href="/" class="active">Marketplace</a></li>
+            <!-- <li><a href="/profile">Profile</a></li> -->
+            <li><a href="#">About</a></li>
+            <li><a href="#">FAQ</a></li>
+        </ul>
+    </nav>
 </body>
 <script>
     // Add event listener to the "Connect Wallet" button
@@ -80,4 +93,18 @@
 <script src="scripts/software_script.js"></script>
 <script src="scripts/designs_script.js"></script>
 
-</html>
+<script>
+    document.getElementById('nav-drawer-toggle').addEventListener('click', () => {
+        const navDrawer = document.querySelector('.nav-drawer');
+        navDrawer.classList.toggle('active');
+    });
+
+    // Add event listener to the document to hide the nav-drawer when clicked outside of it
+    document.addEventListener('click', (event) => {
+        const navDrawer = document.querySelector('.nav-drawer');
+        if (!navDrawer.contains(event.target)) {
+            navDrawer.classList.remove('active');
+        }
+    });
+</script>
+
