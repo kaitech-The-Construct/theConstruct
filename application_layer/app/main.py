@@ -58,6 +58,7 @@ async def read_root(request: Request):
         },
     )
 
+
 if __name__ == "__main__":
     # Get the server port from the environment variable
     server_port = os.environ.get("PORT", "8080")
