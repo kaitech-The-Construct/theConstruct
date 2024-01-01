@@ -1,8 +1,8 @@
-# Smart Contracts Microservice
+# Smart Contracts 
 
 ## Overview
 
-* The Smart Contracts Microservice is a critical component of our blockchain layer, designed to manage all smart contracts related to Ethereum EVM, Solana, and Injective Protocol. These smart contracts are responsible for executing the core business logic of our DeFi project. This microservice plays a pivotal role in ensuring the integrity and security of our decentralized applications.
+* The Smart Contracts service is a critical component of our blockchain layer, designed to manage all smart contracts related to Ethereum EVM, Solana, and Injective Protocol. These smart contracts are responsible for executing the core business logic of our DeFi project. 
 
 ## Key Features
 
