@@ -14,7 +14,7 @@ The Application Layer consists of several key components organized as follows:
 - **Database Models**: Represent the application's data structure.
 - **Schemas**: Pydantic models to define the structure of request and response data for validation and serialization.
 - **Dependencies**: Reusable dependencies for injecting database sessions and current user information.
-- **Utilities**: Functions and helpers that are commonly used across the application for tasks like token generation or HTML sanitization.
+- **Utilities**: Functions and helpers that are commonly used across the application.
 
 ## Key Files
 
@@ -25,4 +25,4 @@ The Application Layer consists of several key components organized as follows:
 
 ## Usage
 
-To start the application, run the following command from the project root directory:
+To start the application, run the following command from the project root directory
