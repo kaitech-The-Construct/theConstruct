@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_construct/services/constants.dart';
 import 'package:the_construct/size_config/size_config.dart';
 import 'package:the_construct/ui/text_styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../home/components/snackbar.dart';
 
@@ -47,7 +48,10 @@ class MenuDrawer extends StatelessWidget {
                   leading: const Icon(Icons.build, color: Color(0xFF123456)),
                   title: Text('Marketplace', style: titleMedium(context)),
                   onTap: () async {
-                    comingSoonSnackbar(context);
+                    launchUrl(
+                                      Uri.parse(
+                                          'https://injective-service-bu6vz2kbtq-uc.a.run.app'),
+                                      mode: LaunchMode.externalApplication);
                   },
                 ),
                 ListTile(

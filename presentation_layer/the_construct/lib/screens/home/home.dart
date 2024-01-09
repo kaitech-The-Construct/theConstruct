@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_construct/screens/menu/menu_drawer.dart';
 import 'package:the_construct/ui/responsive.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../services/constants.dart';
 import '../../services/navigation/navigation.dart';
@@ -79,9 +80,11 @@ class _HomePageState extends State<HomePage> {
                               onTap: () async {
                                 // Navigate to Robot Marketplace
                                 if (selectedTileIndex != 1) {
-                                  router.goNamed('marketplace');
+                                  launchUrl(
+                                      Uri.parse(
+                                          'https://injective-service-bu6vz2kbtq-uc.a.run.app'),
+                                      mode: LaunchMode.externalApplication);
 
-                                  // comingSoonSnackbar(context);
 
                                   setState(() {
                                     selectedTileIndex = 1;

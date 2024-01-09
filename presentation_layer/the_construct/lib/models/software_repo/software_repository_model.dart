@@ -12,6 +12,7 @@ class SoftwareDetails with _$SoftwareDetails {
     required String description,
     required List<String> compatibility,
     required String license,
+    // ignore: non_constant_identifier_names
     String? image_url,
   }) = _SoftwareDetails;
   factory SoftwareDetails.fromJson(Map<String, Object?> json) =>
