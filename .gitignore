@@ -173,5 +173,4 @@ blockchain_layer/services/DIRECTORY.md
 presentation_layer/the_construct/android
 file_appender.py
 services/injective-dex
-blockchain_layer/services/test_contracts
 blockchain_layer/services/injective_service/src/core/services/privateKey.ts
