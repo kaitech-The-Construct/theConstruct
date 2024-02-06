@@ -27,18 +27,17 @@ app.add_middleware(
 templates = Jinja2Templates(directory="app/templates")
 
 
-class UrlData(BaseModel):
-    urls: List[str]
+class TransactionRequestData(BaseModel):
+    transactions: List[TransactionRequest]
     topic: str
 
-@app.post("/scrape")
-async def scrape(request: UrlData):
-    # Send each URL as a message to Pub/Sub
-    for url in request.urls:
-        send_message_to_pubsub(url,request.topic)
-        # print("Link: " + url)
+@app.post("/submit-transactions")
+async def submit_transactions(request: TransactionRequestData):
+    # Send each transaction as a message to Pub/Sub
+    for tx in request.transactions:
+        send_message_to_pubsub(tx.dict(), request.topic)
 
-    return {"message": "URLs queued for scraping"}
+    return {"message": "Transactions queued for processing"}
 
 @app.get('/', response_class=HTMLResponse)
 async def hello(request: Request):

@@ -61,7 +61,7 @@ class VoteCreate(BaseModel):
     )
 
     @validator("vote")
-    def validate_vote(self, cls, v):
+    def validate_vote(cls, v):
         """Validate vote"""
         if v not in ("For", "Against", "Abstain"):
             raise ValueError('Vote must be "For", "Against", or "Abstain"')

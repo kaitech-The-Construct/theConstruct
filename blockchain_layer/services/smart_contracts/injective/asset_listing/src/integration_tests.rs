@@ -69,9 +69,9 @@ mod tests {
 
         let create_listing_msg = ExecuteMsg::CreateListing {
             listing_id: 1,
-            token_id: "token1".to_string(),
-            prices: coins(1000, "token"),
-            quantity: 10
+            seller: todo!(),
+            price: todo!(),
+            metadata: todo!(),
         };
 
         // Execute the contract's create_listing function
@@ -79,7 +79,7 @@ mod tests {
 
         // Execute cancel_listing function
         let cancel_listing_msg = ExecuteMsg::CancelListing {
-            listing_id: 1,
+            listing_id: "1",
         };
         let res = execute(deps.as_mut(), env.clone(), mock_info(&owner_addr.to_string(), &[]), cancel_listing_msg).unwrap();
         
