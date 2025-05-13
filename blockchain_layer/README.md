@@ -1,6 +1,6 @@
 # Blockchain Layer
 
-This repository contains the blockchain layer of our DeFi project, structured to support Ethereum EVM, Solana, and Injective Protocol. This layer is designed with a microservices architecture for scalability, flexibility, and ease of maintenance.
+This repository contains the blockchain layer of our DeFi project, structured to support Ethereum EVM, Solana, and Injective Protocol. This layer is designed with a microservices architecture for scalability, flexibility, and ease of maintenance. Making changes to listed protocols.
 
 ## Directory Structure
 
