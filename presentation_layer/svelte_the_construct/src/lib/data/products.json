@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "RoboArm Kit",
+    "description": "A complete kit to build your own robotic arm.",
+    "price": 150,
+    "currency": "XRP",
+    "imageUrl": "https://via.placeholder.com/300"
+  },
+  {
+    "id": 2,
+    "name": "Rover Chassis",
+    "description": "The base chassis for a mobile robot.",
+    "price": 80,
+    "currency": "XRP",
+    "imageUrl": "https://via.placeholder.com/300"
+  },
+  {
+    "id": 3,
+    "name": "Sensor Pack",
+    "description": "A collection of essential sensors for robotics projects.",
+    "price": 50,
+    "currency": "XRP",
+    "imageUrl": "https://via.placeholder.com/300"
+  }
+]
