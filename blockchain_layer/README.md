@@ -1,11 +1,11 @@
 # Blockchain Layer
 
-This repository contains the blockchain layer of our DeFi project, structured to support Ethereum EVM, Solana, and Injective Protocol. This layer is designed with a microservices architecture for scalability, flexibility, and ease of maintenance. Making changes to listed protocols.
+This repository contains the blockchain layer of our DeFi project, structured to support XRPL and Solana Protocol. This layer is designed with a microservices architecture for scalability, flexibility, and ease of maintenance. Making changes to listed protocols.
 
 ## Directory Structure
 
 - `smart_contracts/`: Contains all smart contracts.
-- `injective_service/`: Responsible for direct Injective blockchain interactions, including transaction submissions and event listening.
+- `xrpl/` : 
 - `solana_service/`: Responsible for direct Solana blockchain interactions, including transaction submissions and event listening.
 - `spl_service/`: Responsible for direct blockchain interactions, including transaction submissions and event listening.
 - `oracles/`: Fetch and relay external data required by smart contracts for operations such as pricing assets.
@@ -17,7 +17,6 @@ Each microservice directory contains its source code and `Dockerfile` for contai
 ## Services Overview
 
 - **Smart Contracts**: Core business logic of our DeFi project implemented on the blockchain.
-- **Injective Service**: This service manages connections made to the Injective Protocol blockchain.
 - **Solana Service**: This service manages connections made to the Solana blockchain.
 - **SPL Service**: The SPL Service is responsible for the creation and management of Solana programs within our DeFi project's ecosystem.
 - **Oracles**: Provides reliable data feeds to smart contracts.
