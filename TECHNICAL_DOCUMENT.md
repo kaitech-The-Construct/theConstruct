@@ -66,7 +66,7 @@ The system architecture uses Google Cloud Platform (GCP) to support the backend 
 * Data Layer: Blockchain nodes, data storage, and retrieval services.
 
 Protocols:
-- Injective/Cosmwasm: Smart contracts and interoperable DeFi protocols enabling seamless cross-chain asset trading
+- XRPL:
 - Solana: Asset Tokenization (NFT's)
 
 Proposed services (Demo): 

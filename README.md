@@ -34,21 +34,4 @@ The Construct is a groundbreaking decentralized robotics exchange (DREX) that re
 
 * The Construct prides itself on its unwavering commitment to pioneering innovation. By continuously embracing novel technologies and maintaining a pulse on evolving market trends, The Construct ensures the delivery of unparalleled experiences to all users and service providers within its expansive network.
 
-## Why Injective
-Injective Protocol is crucial to the success of "The Construct" for several reasons, which hinge on its unique capabilities that enable a more efficient, fully decentralized, and interoperable exchange platform for the robotics exchange:
-
-1. High-Performance Trading Infrastructure: 
-
-Injective provides a high-performance, orderbook-based Decentralized Exchange (DEX) with zero gas fees for trading. Its fast transaction processing and low latency are critical for a responsive user experience, where users can trade assets freely without the bog-down of network congestion or excessive costs.
-
-
-2. Cross-Chain Capabilities: 
-
-Injective's interoperability allows "The Construct" to connect with multiple blockchains, broadening its reach and facilitating fluid asset exchange across different blockchain networks. This cross-chain functionality is crucial for "The Construct" as it allows for a diverse array of robotics parts and designs to be traded on a global scale.
-
-
-3. Access to Decentralized Financial (DeFi) Tools:
-
-Injective's ecosystem comes with robust DeFi tools, enabling "The Construct" to integrate advanced financial mechanisms such as derivatives, futures, and more complex financial instruments. This would allow for more sophisticated trading strategies within the platform, such as hedging or speculating on the future value of robotics components.
-
-[Injective Smart Contracts](https://github.com/kaitech-The-Construct/theConstruct/tree/main/blockchain_layer/services/smart_contracts/injective)
+## Why XRPL
