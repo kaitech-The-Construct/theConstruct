@@ -1,52 +1,52 @@
-from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, List
+from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 
 
-# Schema to represent user creation requests
-class UserCreate(BaseModel):
-    """Create User Model"""
-
-    username: str = Field(..., example="roboticist123")
-    email: str = Field(..., example="user@example.com")
-    full_name: Optional[str] = Field(None, example="Alex Roboticist")
-    password: str = Field(..., min_length=8, example="securepassword123")
+class Profile(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    avatar: Optional[str] = None
+    bio: Optional[str] = None
 
 
-# Schema for user data that is sent in response to
-# API calls (excluding sensitive info like passwords)
-class UserResponse(BaseModel):
-    """User Response Model"""
+class Wallets(BaseModel):
+    xrpl: Optional[str] = None
+    solana: Optional[str] = None
 
-    id: int = Field(..., example=1)
+
+class KYC(BaseModel):
+    status: str = "pending"
+    documents: Optional[List[str]] = None
+    verified_at: Optional[str] = None
+
+
+class UserBase(BaseModel):
+    email: EmailStr
     username: str
-    email: str
-    full_name: Optional[str]
+
+
+class UserCreate(UserBase):
+    password: str
+
+
+class UserUpdate(BaseModel):
+    profile: Optional[Profile] = None
+    wallets: Optional[Wallets] = None
+
+
+class UserResponse(UserBase):
+    id: str
+    profile: Optional[Profile] = None
+    wallets: Optional[Wallets] = None
+    kyc: Optional[KYC] = None
     is_active: bool = Field(True)
     created_at: datetime = Field(default_factory=datetime.now)
 
     class Config:
-        """Config"""
-
-        orm_mode = True  
+        orm_mode = True
 
 
-# Schema for user update requests (all fields optional for partial updates)
-class UserUpdate(BaseModel):
-    """Update User Model"""
-
-    email: Optional[str] = Field(None, example="newemail@example.com")
-    full_name: Optional[str] = Field(None, example="New Name")
-    # Not including a password field here for simplicity; password updates would
-    # typically be handled by a separate endpoint.
-
-    class Config:
-        """Config"""
-
-        orm_mode = True  
-
-
-# Schema for user authentication - used for login operations.
 class UserLogin(BaseModel):
     """User Login Model"""
 

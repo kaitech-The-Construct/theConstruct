@@ -1,33 +1,14 @@
 from typing import List
 
-from api.samples.sample_data import robot_catalog
 from core.services.robot_service import RobotService
 from fastapi import APIRouter, HTTPException, status
-from fastapi.responses import JSONResponse
 from schemas.robot import RobotCreate, RobotResponse, RobotUpdate
-from utils.common import count_unique_items_by_key
 
 router = APIRouter()
 robot_service = RobotService()
 
 
-@router.get("/")
-async def get_services():
-    """Service Response"""
-    catalog_count = len(robot_catalog)
-    manufacturer_count = count_unique_items_by_key(
-        json_list=robot_catalog, key="manufacturer_id"
-    )
-    return JSONResponse(
-        content={
-            "message": "Welcome to Robot Catalog Service!",
-            "count": f"There are currently {catalog_count} robot models.",
-            "manufacturer_count": f"Number of manufacturers: {manufacturer_count}",
-        }
-    )
-
-
-@router.post("/")
+@router.post("/", response_model=RobotResponse, status_code=status.HTTP_201_CREATED)
 def create_robot(robot: RobotCreate):
     """
     Create a new robot and store it in the marketplace.
@@ -36,7 +17,7 @@ def create_robot(robot: RobotCreate):
     return new_robot
 
 
-@router.get("/list", response_model=List[RobotResponse])
+@router.get("/", response_model=List[RobotResponse])
 async def list_robots():
     """
     Retrieve a list of all available robots in the marketplace.
@@ -45,7 +26,7 @@ async def list_robots():
     return robots
 
 
-@router.get("/{robot_id}")
+@router.get("/{robot_id}", response_model=RobotResponse)
 def get_robot(robot_id: str):
     """
     Get a single robot details by its ID.
@@ -78,10 +59,70 @@ async def delete_robot(robot_id: str):
     return {"ok": True}
 
 
-@router.get("/manufacturers", response_model=List[RobotResponse])
-async def list_manufacturers():
+@router.get("/search", response_model=List[RobotResponse])
+async def search_robots(
+    min_price: float = None,
+    max_price: float = None,
+    manufacturer: str = None,
+    category: str = None,
+    min_rating: float = None
+):
     """
-    Retrieve a list of all manufacturers in the marketplace.
+    Advanced search for robots with filters.
     """
-    manufacturers = robot_service.get_all_manufacturers()
-    return manufacturers
+    filters = {}
+    if min_price is not None:
+        filters["min_price"] = min_price
+    if max_price is not None:
+        filters["max_price"] = max_price
+    if manufacturer:
+        filters["manufacturer"] = manufacturer
+    if category:
+        filters["category"] = category
+    if min_rating is not None:
+        filters["min_rating"] = min_rating
+    
+    robots = robot_service.advanced_search(filters)
+    return robots
+
+
+@router.get("/recommendations/{user_id}", response_model=List[RobotResponse])
+async def get_recommendations(user_id: str):
+    """
+    Get product recommendations for a user.
+    """
+    recommendations = robot_service.get_recommendations(user_id)
+    return recommendations
+
+
+@router.post("/{robot_id}/reviews")
+async def create_review(robot_id: str, review_data: dict):
+    """
+    Create a review for a robot.
+    """
+    success = robot_service.handle_product_reviews(robot_id, review_data)
+    if not success:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Failed to create review"
+        )
+    return {"message": "Review created successfully"}
+
+
+@router.get("/{robot_id}/reviews")
+async def get_reviews(robot_id: str):
+    """
+    Get reviews for a robot.
+    """
+    # This would typically query the reviews collection
+    # For now, return empty list as placeholder
+    return {"reviews": []}
+
+
+@router.get("/{robot_id}/analytics")
+async def get_product_analytics(robot_id: str):
+    """
+    Get analytics for a product.
+    """
+    analytics = robot_service.track_product_analytics(robot_id)
+    return analytics

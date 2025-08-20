@@ -1,7 +1,7 @@
 import os
 
 import uvicorn
-from api.routers import robot, software, trade, design
+from api.routers import ai, analytics, auth, blockchain, manufacturing, notifications, robot, software, supply_chain, trade, design, user
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -36,10 +36,17 @@ def error_response_handler(request: Request, exc: HTTPException):
 app.add_exception_handler(HTTPException, error_response_handler)
 
 # # Include routers from the api.routers package
+app.include_router(ai.router, prefix="/ai", tags=["ai"])
+app.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
+app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(blockchain.router, prefix="/blockchain", tags=["blockchain"])
+app.include_router(manufacturing.router, prefix="/manufacturing", tags=["manufacturing"])
+app.include_router(notifications.router, prefix="/notifications", tags=["notifications"])
 app.include_router(robot.router, prefix="/robots", tags=["robots"])
 app.include_router(software.router, prefix="/software", tags=["software"])
+app.include_router(supply_chain.router, prefix="/supply-chain", tags=["supply_chain"])
 app.include_router(design.router, prefix="/design", tags=["design"])
-# app.include_router(user.router, prefix="/users", tags=["users"])
+app.include_router(user.router, prefix="/users", tags=["users"])
 app.include_router(trade.router, prefix="/trades", tags=["trades"])
 # app.include_router(governance.router, prefix="/governance", tags=["governance"])
 

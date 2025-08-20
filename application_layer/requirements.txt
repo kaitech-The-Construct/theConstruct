@@ -9,3 +9,5 @@ google-cloud-firestore
 web3
 bleach
 Jinja2==3.1.2
+python-jose[cryptography]
+passlib[bcrypt]
