@@ -11,3 +11,6 @@ bleach
 Jinja2==3.1.2
 python-jose[cryptography]
 passlib[bcrypt]
+# Phase 5 Dependencies
+psutil>=5.9.0  # For system performance monitoring
+uuid  # For generating unique IDs (built-in, but explicit)
