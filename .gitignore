@@ -165,12 +165,242 @@ cython_debug/
 .firebase
 *.ipynb
 
+# Project-specific ignores
 application_layer/.firebaserc
 application_layer/firebase.json
 application_layer/firestore.indexes.json
 application_layer/firestore.rules
-blockchain_layer/services/DIRECTORY.md
-presentation_layer/the_construct/android
 file_appender.py
-services/injective-dex
-blockchain_layer/services/injective_service/src/core/services/privateKey.ts
+
+# Blockchain Layer - Development Environment
+blockchain_layer/deployment/development/.env
+blockchain_layer/deployment/staging/.env
+blockchain_layer/deployment/production/.env
+
+# Docker & Container Files
+docker-compose.override.yml
+.dockerignore
+Dockerfile.dev
+Dockerfile.prod
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+postgres_data/
+redis_data/
+solana_data/
+xrpl_data/
+prometheus_data/
+grafana_data/
+
+# Blockchain & Crypto
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+keypair.json
+wallet.json
+private_keys/
+credentials/
+secrets/
+
+# XRPL Specific
+xrpl_wallet_*
+rippled.cfg.local
+*.wallet
+
+# Solana Specific
+.anchor/
+target/
+test-ledger/
+validator-keypair.json
+faucet-keypair.json
+*.so
+Anchor.toml.local
+
+# Smart Contracts
+artifacts/
+cache/
+typechain/
+deployments/
+.openzeppelin/
+
+# Node.js & TypeScript
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+*.tsbuildinfo
+.npm
+.eslintcache
+.stylelintcache
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vuepress/dist
+.serverless/
+
+# Testing
+coverage/
+.nyc_output
+junit.xml
+test-results/
+playwright-report/
+test-results.xml
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Monitoring & Metrics
+prometheus/
+grafana/
+monitoring_data/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Flutter/Dart (for presentation layer)
+presentation_layer/the_construct/android/
+presentation_layer/the_construct/ios/
+presentation_layer/the_construct/build/
+presentation_layer/the_construct/.flutter-plugins
+presentation_layer/the_construct/.flutter-plugins-dependencies
+presentation_layer/the_construct/.packages
+presentation_layer/the_construct/pubspec.lock
+
+# Svelte (for presentation layer)
+presentation_layer/svelte_the_construct/.svelte-kit/
+presentation_layer/svelte_the_construct/package/
+
+# Firebase
+.firebase/
+.firebaserc.local
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Google Cloud
+gcloud/
+service-account-key.json
+google-credentials.json
+
+# AWS
+.aws/
+aws-credentials.json
+
+# Kubernetes
+*.kubeconfig
+kube-config
+k8s-secrets/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+terraform.tfvars.json
+
+# Load testing
+k6-results/
+artillery-results/
+
+# Security scanning
+security-reports/
+vulnerability-reports/
+
+# Performance profiling
+*.prof
+*.pprof
+flame-graphs/
+
+# Local development overrides
+local.yml
+local.yaml
+local.json
+local.env
+dev.env
+development.env
+staging.env
+production.env
+
+# API Documentation
+api-docs/generated/
+swagger-ui/
+redoc/
+
+# Certificate files
+ssl/
+certs/
+tls/
+
+# Blockchain test data
+test-accounts/
+test-wallets/
+mock-data/
+seed-data.local.sql
+
+# Trading bot data
+trading-history/
+market-data/
+backtest-results/
+
+# Oracle data cache
+oracle-cache/
+price-feeds/
+external-data/
