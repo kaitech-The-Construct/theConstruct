@@ -1,1 +1,0 @@
-02a5adaa079800359439681e989925e12cde47a2fe80d4608579ff87d5e2438d  ./target/wasm32-unknown-unknown/release/order_placer.wasm
