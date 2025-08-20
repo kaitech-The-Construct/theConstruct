@@ -1,310 +1,404 @@
-# Blockchain Layer
+# The Construct - Blockchain Layer
 
-This layer contains the blockchain integration services and smart contracts for The Construct decentralized robotics exchange. It implements a hybrid architecture leveraging both XRPL and Solana to optimize for different use cases:
+The blockchain layer provides the core infrastructure for The Construct's decentralized robotics manufacturing platform, integrating XRPL and Solana blockchains for asset tokenization, trading, and manufacturing workflow management.
 
-- **XRPL**: Core trading, tokenization, payments, and basic escrow
-- **Solana**: Advanced smart contracts for manufacturing workflows, governance, and complex business logic
+## 🏗️ Architecture Overview
 
-The layer is designed as containerized microservices for scalability and maintainability.
+The blockchain layer consists of several microservices that work together to provide a comprehensive blockchain infrastructure:
 
-## Directory Structure
+- **XRPL Service**: Asset tokenization, DEX trading, and escrow management
+- **SPL Service**: Solana integration for smart contracts and token operations
+- **Data Storage Service**: Database management and caching layer
+- **Trading Bot Service**: Automated market making and arbitrage
+- **Oracle Service**: Price feeds and external data integration
 
-### Core Services
-- `services/`
-  - `data_storage/`: Firestore-based off-chain metadata and transaction indexing
-  - `injective_service/`: Legacy Injective integration (being phased out)
-  - `solana/`: XRPL integration service for tokenization and DEX operations  
-  - `spl_service/`: Solana SPL token and program interaction service
-  - `trading_bot/`: Automated trading algorithms and market making
-  - `oracles/`: Price feeds and external data providers
-
-### Smart Contracts
-- `services/smart_contracts/`
-  - `injective/`: Legacy CosmWasm contracts (being deprecated)
-  - `solana/`: Native Solana programs for advanced features
-  - `test_contracts/`: Development and testing contracts
-
-### Infrastructure
-- Each service contains:
-  - `src/`: Source code (TypeScript/Python/Rust)
-  - `Dockerfile`: Container configuration
-  - `README.md`: Service-specific documentation
-  - Configuration files (`package.json`, `tsconfig.json`, etc.)
-
-## Services Overview
-
-### XRPL Integration (`solana/` service)
-**Purpose**: Core marketplace functionality using XRPL's native features
-**Responsibilities**:
-- Asset tokenization (robotics components as XRPL tokens)
-- DEX trading and order matching
-- Basic escrow for simple purchases
-- Payment processing and settlement
-- Wallet integration and account management
-
-**Technology**: Python/FastAPI with xrpl-py library
-
-### Solana Integration (`spl_service/`)
-**Purpose**: Advanced smart contract operations
-**Responsibilities**:
-- Complex manufacturing agreements
-- Multi-party escrow with milestones
-- Reputation and governance systems
-- Subscription management
-- Automated royalty distributions
-
-**Technology**: TypeScript with @solana/web3.js
-
-### Smart Contracts (`smart_contracts/solana/`)
-**Purpose**: Custom Solana programs for business logic
-**Key Contracts**:
-- `manufacturing_workflow.rs`: Multi-milestone manufacturing orders
-- `reputation_system.rs`: User reputation and ratings
-- `governance.rs`: Community voting and proposals
-- `subscription_manager.rs`: Recurring payment handling
-
-**Technology**: Rust with Anchor framework
-
-### Data Storage (`data_storage/`)
-**Purpose**: Off-chain data management and indexing
-**Responsibilities**:
-- Product metadata and specifications
-- Transaction history indexing
-- User profiles and preferences
-- Analytics and reporting data
-- File storage for CAD designs and documentation
-
-**Technology**: Python with Firestore integration
-
-### Oracles (`oracles/`)
-**Purpose**: External data feeds for smart contracts
-**Data Sources**:
-- Cryptocurrency price feeds (XRP, SOL, USD rates)
-- Manufacturing cost estimates
-- Shipping rates and delivery times
-- Quality certification data
-- Market trend analysis
-
-### Trading Bot (`trading_bot/`)
-**Purpose**: Automated market making and liquidity provision
-**Functions**:
-- DEX market making on XRPL
-- Arbitrage opportunities
-- Price stabilization
-- Liquidity incentives
-
-**Technology**: TypeScript with advanced trading algorithms
-
-## Development Setup
+## 🚀 Quick Start
 
 ### Prerequisites
+
 - Docker and Docker Compose
-- Node.js 18+ (for TypeScript services)
-- Python 3.9+ (for Python services) 
-- Rust and Cargo (for smart contracts)
-- XRPL Testnet access
-- Solana Devnet access
+- Git
+- curl (for health checks)
 
-### Environment Configuration
+### Development Setup
+
+1. **Clone and navigate to the blockchain layer:**
+   ```bash
+   cd blockchain_layer
+   ```
+
+2. **Start the development environment:**
+   ```bash
+   ./start-dev.sh
+   ```
+
+   This script will:
+   - Create necessary configuration files
+   - Start all required services
+   - Initialize the database with test data
+   - Perform health checks
+   - Provide service URLs and useful commands
+
+3. **Verify services are running:**
+   ```bash
+   docker-compose ps
+   ```
+
+## 📋 Services
+
+### XRPL Service (Port 8001)
+- **Purpose**: XRPL blockchain integration for asset tokenization and trading
+- **Health Check**: `http://localhost:8001/health`
+- **API Docs**: `http://localhost:8001/docs`
+- **Key Features**:
+  - Asset tokenization for robotics components
+  - DEX order creation and management
+  - Escrow services for secure transactions
+  - Account and balance management
+
+### SPL Service (Port 8002)
+- **Purpose**: Solana blockchain integration for smart contracts
+- **Health Check**: `http://localhost:8002/health`
+- **API Docs**: `http://localhost:8002/docs`
+- **Key Features**:
+  - SPL token operations
+  - Smart contract interactions
+  - Transaction monitoring
+
+### Data Storage Service (Port 8003)
+- **Purpose**: Database operations and caching
+- **Health Check**: `http://localhost:8003/health`
+- **API Docs**: `http://localhost:8003/docs`
+- **Key Features**:
+  - PostgreSQL database management
+  - Redis caching
+  - Data persistence and retrieval
+
+### Trading Bot Service (Port 8004)
+- **Purpose**: Automated trading and market making
+- **Features**:
+  - Market making algorithms
+  - Arbitrage detection
+  - Risk management
+
+### Oracle Service (Port 8005)
+- **Purpose**: External data feeds and price information
+- **Features**:
+  - Cryptocurrency price feeds
+  - Manufacturing cost data
+  - Quality certification feeds
+
+## 🗄️ Database Schema
+
+The system uses PostgreSQL with the following schemas:
+
+- **blockchain**: Users, assets, transactions, price feeds
+- **trading**: Orders, escrows, trading history
+- **manufacturing**: Orders, milestones, quality assurance
+- **governance**: Proposals, votes, community decisions
+
+### Key Tables
+
+- `blockchain.users`: User accounts and wallet information
+- `blockchain.assets`: Tokenized robotics components
+- `trading.orders`: Buy/sell orders on the DEX
+- `trading.escrows`: Secure transaction escrows
+- `manufacturing.orders`: Manufacturing requests and progress
+- `governance.proposals`: Community governance proposals
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Copy `.env.example` to `.env` and configure:
+
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd blockchain_layer
-
-# Copy environment template
 cp .env.example .env
-
-# Configure your environment variables:
-# XRPL_TESTNET_URL=wss://s.altnet.rippletest.net:51233
-# SOLANA_DEVNET_URL=https://api.devnet.solana.com
-# PRIVATE_KEYS and wallet configurations
 ```
 
-### Quick Start with Docker Compose
-```bash
-# Start all services
-docker-compose up -d
+Key configuration sections:
+- **Database**: PostgreSQL connection settings
+- **Redis**: Cache configuration
+- **XRPL**: Testnet/mainnet settings and wallet configuration
+- **Solana**: Network and RPC settings
+- **Services**: Inter-service communication URLs
+- **Security**: JWT tokens and API keys
 
-# View logs
+### Docker Compose Profiles
+
+- **Default**: Core services (XRPL, SPL, Data Storage, Database, Redis)
+- **monitoring**: Adds Prometheus and Grafana
+- **local-blockchain**: Adds local Solana validator and XRPL standalone
+- **production**: Adds Nginx load balancer
+
+## 🛠️ Development
+
+### Running Individual Services
+
+```bash
+# Start only core services
+docker-compose up -d postgres redis xrpl_service
+
+# Start with monitoring
+docker-compose --profile monitoring up -d
+
+# Start with local blockchains
+docker-compose --profile local-blockchain up -d
+```
+
+### Viewing Logs
+
+```bash
+# All services
 docker-compose logs -f
 
-# Stop all services  
-docker-compose down
+# Specific service
+docker-compose logs -f xrpl_service
+
+# Last 100 lines
+docker-compose logs --tail=100 xrpl_service
 ```
 
-### Individual Service Development
+### Database Access
+
 ```bash
-# XRPL Service
-cd services/solana
-pip install -r requirements.txt
-python main.py
+# Connect to PostgreSQL
+docker-compose exec postgres psql -U postgres -d construct_dev
 
-# Solana Service
-cd services/spl_service
-npm install
-npm run dev
-
-# Smart Contracts
-cd services/smart_contracts/solana
-anchor build
-anchor deploy --provider.cluster devnet
+# Connect to Redis
+docker-compose exec redis redis-cli
 ```
 
-## Architecture Patterns
+### Service Shell Access
 
-### Service Communication
-- **REST APIs**: HTTP endpoints for external communication
-- **Message Queues**: Redis for async task processing
-- **Event Streaming**: Real-time blockchain event processing
-- **Database**: Firestore for persistence and caching
-
-### Blockchain Interaction Patterns
-
-#### XRPL Operations
-```python
-# Example: Asset tokenization
-async def tokenize_robotics_component(component_data):
-    # Create XRPL token with metadata
-    token_response = await xrpl_client.submit(
-        IssuedCurrencyAmount(
-            currency=generate_currency_code(component_data.id),
-            issuer=ISSUER_WALLET.address,
-            value=str(component_data.quantity)
-        )
-    )
-    return token_response
-```
-
-#### Solana Program Interaction
-```typescript
-// Example: Manufacturing contract call
-const createManufacturingOrder = async (
-    orderData: ManufacturingOrderData
-) => {
-    const instruction = await program.methods
-        .createOrder(orderData)
-        .accounts({
-            order: orderAccount.publicKey,
-            customer: customerWallet.publicKey,
-            manufacturer: manufacturerWallet.publicKey,
-        })
-        .instruction();
-    
-    const transaction = new Transaction().add(instruction);
-    return await sendAndConfirmTransaction(connection, transaction, [customerWallet]);
-};
-```
-
-### Error Handling & Resilience
-- **Circuit Breakers**: Prevent cascade failures
-- **Retry Logic**: Exponential backoff for blockchain operations
-- **Fallback Mechanisms**: Alternative chains during network issues
-- **Health Checks**: Service monitoring and auto-recovery
-
-## Testing Strategy
-
-### Unit Tests
 ```bash
-# Python services
-pytest tests/
+# Access XRPL service container
+docker-compose exec xrpl_service /bin/bash
 
-# TypeScript services  
-npm test
-
-# Rust smart contracts
-cargo test
+# Access database container
+docker-compose exec postgres /bin/bash
 ```
 
-### Integration Tests
+## 🧪 Testing
+
+### Health Checks
+
+All services provide health check endpoints:
+
 ```bash
-# End-to-end blockchain interactions
-npm run test:integration
-
-# Smart contract testing
-anchor test
+curl http://localhost:8001/health  # XRPL Service
+curl http://localhost:8002/health  # SPL Service
+curl http://localhost:8003/health  # Data Storage
 ```
 
-### Load Testing
+### API Testing
+
+Use the interactive API documentation:
+- XRPL Service: http://localhost:8001/docs
+- SPL Service: http://localhost:8002/docs
+- Data Storage: http://localhost:8003/docs
+
+### Sample API Calls
+
 ```bash
-# API performance testing
-k6 run tests/load/api-load-test.js
+# Get XRPL account info
+curl http://localhost:8001/api/v1/account/rTestManufacturer1234567890ABCDEF
 
-# Blockchain throughput testing
-npm run test:blockchain-load
+# Get account balance
+curl http://localhost:8001/api/v1/balance/rTestManufacturer1234567890ABCDEF
+
+# Get network info
+curl http://localhost:8001/api/v1/network/info
+
+# Tokenize an asset (POST request)
+curl -X POST http://localhost:8001/api/v1/tokenize \
+  -H "Content-Type: application/json" \
+  -d '{
+    "asset_name": "Test Motor",
+    "asset_description": "Test servo motor",
+    "asset_type": "component",
+    "quantity": 10,
+    "metadata": {"test": true}
+  }'
 ```
 
-## Deployment
+## 📊 Monitoring
 
-### Development Environment
-- Uses Testnet/Devnet for both chains
-- Local Firestore emulator
-- Docker containers for easy setup
+### Prometheus Metrics
 
-### Staging Environment
-- Testnet/Devnet with production-like data
-- Cloud Firestore instance
-- Kubernetes deployment on GCP
+When running with the monitoring profile:
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000 (admin/admin)
 
-### Production Environment
-- Mainnet deployment for both chains
-- Multi-region redundancy
-- Auto-scaling based on transaction volume
-- Comprehensive monitoring and alerting
+### Service Metrics
 
-## Monitoring & Observability
+Each service exposes metrics at `/metrics` endpoint for Prometheus scraping.
 
-### Key Metrics
-- Transaction success rates
-- Blockchain confirmation times
-- API response times
-- Error rates by service
-- Resource utilization
+## 🔒 Security
 
-### Logging
-- Structured JSON logging
-- Blockchain transaction correlation IDs
-- Error tracking with stack traces
-- Performance profiling data
+### Development Security
 
-### Alerting
-- Failed transaction alerts
-- Service health monitoring
-- Blockchain network status
-- Resource threshold warnings
+- Services run with development credentials
+- CORS is enabled for all origins
+- Authentication is simplified for testing
 
-## Security Considerations
+### Production Considerations
 
-### Wallet Management
-- Hardware Security Modules (HSMs) for production keys
-- Multi-signature requirements for high-value operations
-- Key rotation policies
-- Secure key storage and access controls
+- Update all default passwords
+- Configure proper CORS origins
+- Enable SSL/TLS
+- Set up proper authentication
+- Configure firewall rules
+- Regular security updates
 
-### Smart Contract Security
-- Formal verification where possible
-- Third-party security audits
-- Bug bounty programs
-- Gradual rollout with monitoring
+## 🚀 Deployment
 
-### API Security
-- JWT authentication
-- Rate limiting per user/IP
-- Input validation and sanitization
-- CORS and security headers
+### Development Deployment
 
-## Contributing
+The current setup is optimized for development with:
+- Hot reloading enabled
+- Debug logging
+- Test data seeding
+- Simplified authentication
 
-See individual service README files for specific contribution guidelines. General principles:
+### Production Deployment
 
-1. **Code Quality**: Follow language-specific style guides
-2. **Testing**: Maintain >80% test coverage
-3. **Documentation**: Update README and inline docs
-4. **Security**: Follow secure coding practices
-5. **Performance**: Consider blockchain gas costs and API latency
+For production deployment:
 
-## Support
+1. **Update environment variables**:
+   - Set `ENVIRONMENT=production`
+   - Configure production database URLs
+   - Set secure passwords and API keys
 
-- **Technical Issues**: Create GitHub issues with detailed reproduction steps
-- **Smart Contract Bugs**: Email security@theconstruct.io immediately
-- **API Questions**: Check service-specific README files first
-- **Architecture Discussions**: Use GitHub Discussions
+2. **Use production profile**:
+   ```bash
+   docker-compose --profile production up -d
+   ```
+
+3. **Enable monitoring**:
+   ```bash
+   docker-compose --profile production --profile monitoring up -d
+   ```
+
+## 🔄 Data Flow
+
+### Asset Tokenization Flow
+1. User submits asset tokenization request to XRPL Service
+2. XRPL Service validates asset data
+3. Asset metadata stored in Data Storage Service
+4. XRPL transaction created for token issuance
+5. Transaction hash and asset ID returned to user
+
+### Trading Flow
+1. User creates buy/sell order via XRPL Service
+2. Order stored in database via Data Storage Service
+3. Trading Bot Service monitors for matching opportunities
+4. Escrow created for secure transaction settlement
+5. Order fulfillment triggers payment release
+
+### Manufacturing Flow
+1. Customer creates manufacturing order
+2. Order stored with milestone structure
+3. Manufacturer accepts and begins work
+4. Progress updates trigger milestone completions
+5. Quality assurance validates deliverables
+6. Payments released based on milestone completion
+
+## 🤝 Contributing
+
+### Development Workflow
+
+1. **Fork and clone the repository**
+2. **Create a feature branch**
+3. **Start development environment**: `./start-dev.sh`
+4. **Make changes and test**
+5. **Submit pull request**
+
+### Code Standards
+
+- Follow existing code structure and naming conventions
+- Add comprehensive error handling
+- Include unit tests for new functionality
+- Update API documentation
+- Follow security best practices
+
+### Testing Requirements
+
+- All new endpoints must have health checks
+- API responses must follow standardized format
+- Database changes require migration scripts
+- Integration tests for critical workflows
+
+## 📚 API Reference
+
+### Standardized Response Format
+
+All API responses follow this format:
+
+```json
+{
+  "success": true,
+  "message": "Operation completed successfully",
+  "data": { /* response data */ },
+  "timestamp": "2025-01-01T12:00:00.000Z",
+  "service": "xrpl_service"
+}
+```
+
+Error responses:
+
+```json
+{
+  "success": false,
+  "message": "Error description",
+  "error_code": "ERROR_CODE",
+  "details": "Additional error details",
+  "timestamp": "2025-01-01T12:00:00.000Z",
+  "service": "xrpl_service"
+}
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Services won't start:**
+- Check Docker is running: `docker info`
+- Check port availability: `netstat -tulpn | grep :8001`
+- Review logs: `docker-compose logs [service_name]`
+
+**Database connection errors:**
+- Ensure PostgreSQL is running: `docker-compose ps postgres`
+- Check database logs: `docker-compose logs postgres`
+- Verify connection string in `.env`
+
+**XRPL connection issues:**
+- Check XRPL testnet status
+- Verify `XRPL_SERVER_URL` in `.env`
+- Review XRPL service logs
+
+**Redis connection errors:**
+- Check Redis is running: `docker-compose ps redis`
+- Test Redis connection: `docker-compose exec redis redis-cli ping`
+
+### Getting Help
+
+1. **Check service logs**: `docker-compose logs -f [service_name]`
+2. **Verify service health**: `curl http://localhost:800X/health`
+3. **Check database connectivity**: Connect via psql and run test queries
+4. **Review configuration**: Ensure `.env` file has correct values
+
+## 📄 License
+
+This project is part of The Construct platform. See the main repository for license information.
+
+## 🔗 Related Documentation
+
+- [Application Layer Documentation](../application_layer/README.md)
+- [Presentation Layer Documentation](../presentation_layer/README.md)
+- [Main Project Documentation](../README.md)
+- [Technical Documentation](../TECHNICAL_DOCUMENT.md)
+
+---
+
+**Happy Building! 🤖⚡**
