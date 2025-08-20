@@ -176,6 +176,9 @@ file_appender.py
 blockchain_layer/deployment/development/.env
 blockchain_layer/deployment/staging/.env
 blockchain_layer/deployment/production/.env
+blockchain_layer/core/data_storage/app/img/
+blockchain_layer/core/data_storage/app/static/
+blockchain_layer/core/xrpl_service/app/static/
 
 # Docker & Container Files
 docker-compose.override.yml
@@ -404,3 +407,4 @@ backtest-results/
 oracle-cache/
 price-feeds/
 external-data/
+
