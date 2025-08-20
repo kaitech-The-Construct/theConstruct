@@ -1,28 +1,28 @@
-# Overview 3.0
+# Overview 3.1
 
 The Construct: Decentralized Robotics Exchange (DREX)
 
 ## Vision:
-The Construct is designed to democratize and streamline the robotics industry by creating a secure, efficient, and transparent marketplace on the XRP Ledger. By leveraging XRPL’s low fees, fast settlement times, and robust tokenization capabilities, the platform enables a seamless ecosystem where robotics components, kits, and designs can be traded and transacted without intermediaries.
+The Construct is designed to democratize and streamline the robotics industry by creating a secure, efficient, and transparent marketplace using a hybrid blockchain approach. By leveraging XRPL's low fees and fast settlement for core trading, combined with Solana's advanced smart contract capabilities for complex workflows, the platform enables a seamless ecosystem where robotics components, kits, and designs can be traded and transacted without intermediaries.
 
 ## Core Mission:
-To empower robotics enthusiasts, manufacturers, and innovators by providing an accessible, decentralized marketplace that supports secure asset exchanges, transparent escrow-based transactions, and community-driven growth—all powered by the reliability and efficiency of XRPL.
+To empower robotics enthusiasts, manufacturers, and innovators by providing an accessible, decentralized marketplace that supports secure asset exchanges, transparent escrow-based transactions, and community-driven growth—powered by XRPL's efficiency for trading and Solana's programmability for advanced features.
 
 ## Key Features
 	1.	Decentralized Marketplace:
 •	Standardized Product Listings: A curated catalog of robotics kits and components, with each item represented by XRPL-issued tokens.
-•	Native Trading Mechanisms: Utilize XRPL’s built-in decentralized exchange functionalities for efficient asset trading and token transfers.
+•	Hybrid Trading Mechanisms: Utilize XRPL's built-in DEX for efficient asset trading and Solana smart contracts for complex order types and advanced trading features.
 2.	User Accounts & Wallet Integration:
 •	On-Chain Identities: Seamless creation and management of user accounts using XRPL’s secure account model.
-•	Wallet Compatibility: Integration with popular XRPL-compatible wallets, allowing users to manage, transact, and store platform tokens effortlessly.
+•	Multi-Chain Wallet Support: Integration with both XRPL and Solana-compatible wallets, allowing users to manage assets across both networks seamlessly.
 3.	Secure Payment & Escrow Services:
 •	Fast, Low-Cost Transactions: Benefit from XRPL’s rapid transaction processing and minimal fees for everyday operations.
-•	Escrow-Based Transactions: Built-in escrow functionalities ensure that funds are held securely and only released when both parties confirm the completion of a transaction.
+•	Multi-Layer Escrow: XRPL's native escrow for simple transactions, enhanced by Solana smart contracts for complex multi-party agreements with advanced conditional logic.
 4.	Tokenization & Asset Representation:
 •	Digital Tokens for Physical Assets: Issue and manage tokens representing robotics components, enabling both outright sales and fractional ownership for high-value items.
 •	Metadata Integration: Store product details, design specifications, and additional information off-chain, with immutable references on XRPL.
 5.	Community and Reputation:
-•	Feedback and Ratings: A reputation system, where transaction outcomes and user ratings (recorded via transaction metadata) help build trust within the ecosystem.
+•	Advanced Reputation System: Powered by Solana smart contracts for sophisticated reputation tracking, governance participation, and community-driven trust mechanisms.
 •	Engagement Channels: Dedicated community platforms (e.g., Discord, forums) and developer documentation to foster collaboration, feedback, and innovation.
 
 ## Roadmap Overview
@@ -39,4 +39,4 @@ Evolve into a comprehensive ecosystem by incorporating decentralized governance 
 •	Community Empowerment: With built-in tools for reputation and governance, The Construct not only facilitates commerce but also nurtures a collaborative ecosystem where users can actively influence the platform’s evolution.
 
 ## Conclusion:
-By harnessing the strengths of the XRP Ledger, The Construct offers a powerful, XRPL-only solution for the robotics industry—a decentralized, secure, and user-friendly exchange that bridges the gap between innovation and commerce. Whether you’re a hobbyist, manufacturer, or researcher, The Construct aims to provide the tools and marketplace you need to drive forward the future of robotics.
+By harnessing the complementary strengths of both XRPL and Solana, The Construct offers a powerful hybrid solution for the robotics industry—a decentralized, secure, and feature-rich exchange that bridges the gap between innovation and commerce. XRPL provides the speed and cost-efficiency for everyday trading, while Solana enables sophisticated business logic and community governance. Whether you're a hobbyist, manufacturer, or researcher, The Construct provides the comprehensive tools and marketplace you need to drive forward the future of robotics.

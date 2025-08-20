@@ -7,12 +7,12 @@ This document outlines the features for "The Construct" decentralized robotics e
 The application will be built using a modular, component-based architecture in Svelte. This ensures maintainability and scalability. Key principles include:
 - **Componentization**: Each distinct piece of UI is a reusable component.
 - **Centralized State Management**: Svelte stores (`src/lib/stores`) will manage shared application state like user session and wallet information.
-- **Service Abstraction**: Logic for interacting with the XRPL (or other external services) will be abstracted into service modules (`src/lib/services`) to keep components clean and focused on the UI.
+- **Service Abstraction**: Logic for interacting with XRPL and Solana will be abstracted into service modules (`src/lib/services`) to keep components clean and focused on the UI.
 - **Routing**: Features will be organized under distinct routes (`src/routes`) to keep concerns separated.
 
 ---
 
-## Phase 1: Minimal Viable Product (MVP) – Core Marketplace on XRPL
+## Phase 1: Minimal Viable Product (MVP) – Core Marketplace (XRPL + Solana)
 
 ### 1. Basic Catalog of Robotics Components
 
@@ -31,12 +31,12 @@ Create a Svelte component to display a catalog of robotics components. The UI sh
 ### 2. User Accounts & Wallet Integration
 
 **Description:**
-Implement a user authentication system based on XRPL wallet connectivity. This feature allows users to connect their existing wallets to the application to manage their identity and assets securely.
+Implement a user authentication system supporting both XRPL and Solana wallet connectivity. This feature allows users to connect their existing wallets to the application to manage their identity and assets securely across both networks.
 
 **LLM Prompt:**
 "Create a user authentication feature for the Svelte app using an XRPL wallet.
 1.  **State Management:** Create a Svelte store at `src/lib/stores/userStore.js` to manage the user's connection state (`isConnected`), wallet address (`address`), and balance.
-2.  **XRPL Service:** Create a service module at `src/lib/services/xrplClient.js`. Initially, this service should contain mock functions for `connectWallet()` and `disconnectWallet()`. The `connectWallet()` function should simulate a successful connection and update the `userStore` with a mock address.
+2.  **Blockchain Services:** Create service modules at `src/lib/services/xrplClient.js` and `src/lib/services/solanaClient.js`. Initially, these services should contain mock functions for `connectWallet()` and `disconnectWallet()`. The `connectWallet()` functions should simulate successful connections and update the `userStore` with mock addresses for both networks.
 3.  **UI Components:**
     *   `src/lib/components/layout/Header.svelte`: Add a 'Connect Wallet' button to the application header.
     *   When disconnected, the button should say "Connect Wallet" and trigger the `connectWallet()` function on click.
