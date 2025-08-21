@@ -2,6 +2,7 @@ import os
 
 import uvicorn
 from api.routers import ai, analytics, auth, blockchain, manufacturing, notifications, robot, software, supply_chain, trade, design, user
+from core.middleware import rate_limit_middleware, security_headers_middleware, error_handling_middleware, request_logging_middleware
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -9,16 +10,28 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 # Initializes FastAPI app instance
-app = FastAPI(title="The Construct DEX", version="1.0.0")
+app = FastAPI(
+    title="The Construct DEX", 
+    version="1.0.0",
+    description="Decentralized Robotics Exchange Platform",
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
 
 # Mount the static directory to serve the index.html file
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
 
+# Add security and utility middleware
+app.middleware("http")(error_handling_middleware)
+app.middleware("http")(security_headers_middleware)
+app.middleware("http")(rate_limit_middleware)
+app.middleware("http")(request_logging_middleware)
+
 # Set up CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # In production, specify actual origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
