@@ -34,19 +34,17 @@ ThemeData appThemeData = ThemeData(
     secondary: Color(0xFF00D2C2),
     secondaryContainer: Color(0xFF00a192),
     surface: Color(0xFFE9EEF3),
-    background: Color(0xFFF4F4F4),
     error: Color(0xFFDC3545),
     onPrimary: Colors.white,
     onSecondary: Colors.white,
     onSurface: Color(0xFF333333),
-    onBackground: Color(0xFF666666),
     onError: Colors.white,
     brightness: Brightness.light,
   ),
 
   // Include any additional theming, such as the color of the AppBar
   appBarTheme: const AppBarTheme(
-   color: Colors.white, // Replace with your app bar color hex code
+   backgroundColor: Colors.white, // Replace with your app bar color hex code
    iconTheme: IconThemeData(color: Color(0xFF123456)),
    elevation: 0,
     titleTextStyle: 

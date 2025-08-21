@@ -1,5 +1,259 @@
-/* Global styles can be added here */
-body {
-  font-family: sans-serif;
-  margin: 0;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom CSS variables and global styles */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  color-scheme: light dark;
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Custom component styles */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md font-medium 
+           transition-all duration-200 ease-in-out
+           focus:outline-none focus:ring-2 focus:ring-offset-2 
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  .btn-md {
+    @apply px-4 py-2 text-base;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-content hover:bg-primary/90 
+           focus:ring-primary;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-content hover:bg-secondary/90 
+           focus:ring-secondary;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary bg-transparent 
+           hover:bg-primary hover:text-primary-content 
+           focus:ring-primary;
+  }
+
+  .btn-ghost {
+    @apply text-primary bg-transparent hover:bg-primary/10 
+           focus:ring-primary;
+  }
+
+  .btn-error {
+    @apply bg-error text-error-content hover:bg-error/90 
+           focus:ring-error;
+  }
+
+  .btn-circle {
+    @apply rounded-full w-12 h-12 p-0;
+  }
+
+  .btn-square {
+    @apply rounded-md w-12 h-12 p-0;
+  }
+
+  .btn-block {
+    @apply w-full;
+  }
+
+  .btn-active {
+    @apply bg-primary text-primary-content;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-base-100 rounded-lg shadow-md;
+  }
+
+  .card-body {
+    @apply p-6;
+  }
+
+  .card-compact .card-body {
+    @apply p-4;
+  }
+
+  .card-bordered {
+    @apply border border-base-300;
+  }
+
+  .card-title {
+    @apply text-xl font-semibold text-base-content mb-2;
+  }
+
+  .card-actions {
+    @apply flex gap-2 mt-4;
+  }
+
+  /* Input styles */
+  .input {
+    @apply w-full px-3 py-2 border border-base-300 rounded-md 
+           bg-base-100 text-base-content
+           focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-base-200
+           placeholder:text-base-content/50;
+  }
+
+  .input-error {
+    @apply border-error focus:ring-error;
+  }
+
+  /* Navigation styles */
+  .navbar {
+    @apply flex items-center justify-between w-full px-4 py-2;
+  }
+
+  .navbar-start {
+    @apply flex items-center flex-1;
+  }
+
+  .navbar-center {
+    @apply flex items-center flex-none;
+  }
+
+  .navbar-end {
+    @apply flex items-center flex-1 justify-end;
+  }
+
+  .menu {
+    @apply flex flex-col gap-1 p-2;
+  }
+
+  .menu-horizontal {
+    @apply flex-row;
+  }
+
+  .menu li > a {
+    @apply px-4 py-2 rounded-md transition-colors duration-200
+           hover:bg-base-200 focus:bg-base-200;
+  }
+
+  /* Dropdown styles */
+  .dropdown {
+    @apply relative inline-block;
+  }
+
+  .dropdown-content {
+    @apply absolute z-50 mt-2 bg-base-100 rounded-md shadow-lg border border-base-300;
+  }
+
+  .dropdown-end .dropdown-content {
+    @apply right-0;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center justify-center px-2 py-1 text-xs font-medium rounded-full;
+  }
+
+  .badge-primary {
+    @apply bg-primary text-primary-content;
+  }
+
+  .badge-sm {
+    @apply px-1.5 py-0.5 text-xs;
+  }
+
+  /* Footer styles */
+  .footer {
+    @apply p-10 bg-base-300 text-base-content;
+  }
+
+  .footer-center {
+    @apply text-center;
+  }
+
+  /* Link styles */
+  .link {
+    @apply text-primary hover:text-primary-focus transition-colors duration-200;
+  }
+
+  .link-hover:hover {
+    @apply underline;
+  }
+}
+
+/* Custom animations */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* Loading spinner */
+.loading {
+  @apply inline-block animate-spin rounded-full border-2 border-current border-t-transparent;
+}
+
+.loading-spinner {
+  @apply w-4 h-4;
+}
+
+.loading-sm {
+  @apply w-3 h-3;
+}
+
+.loading-lg {
+  @apply w-6 h-6;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-base-200;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-base-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-base-content/20;
 }

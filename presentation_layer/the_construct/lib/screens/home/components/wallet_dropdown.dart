@@ -6,7 +6,7 @@ import 'package:the_construct/ui/text_styles.dart';
 import '../../../services/api/wallet_connect.dart';
 
 class WalletDropdownButton extends StatefulWidget {
-  const WalletDropdownButton({Key? key});
+  const WalletDropdownButton({super.key, Key? key});
 
   @override
   WalletDropdownButtonState createState() => WalletDropdownButtonState();
