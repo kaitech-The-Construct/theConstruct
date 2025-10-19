@@ -1,6 +1,7 @@
 test-results
 node_modules
 
+
 # Output
 .output
 .vercel
@@ -25,3 +26,6 @@ vite.config.ts.timestamp-*
 
 # Paraglide
 src/lib/paraglide
+
+# Misc
+.clinerules

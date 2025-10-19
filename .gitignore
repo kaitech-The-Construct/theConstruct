@@ -170,14 +170,14 @@ application_layer/.firebaserc
 application_layer/firebase.json
 application_layer/firestore.indexes.json
 application_layer/firestore.rules
+application_layer/the_construct/docs/
 application_layer/docs/
 file_appender.py
 
 # Presentation Layer - Development Environment
 presentation_layer/the_construct_svelte/.env
 presentation_layer/the_construct_svelte/docs/
-application_layer/the_construct/docs/
-application_layer/the_construct/ios/
+presentation_layer/the_construct/
 
 # Blockchain Layer - Development Environment
 blockchain_layer/docs/
