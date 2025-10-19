@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "productId": 1,
+    "status": "In Escrow",
+    "date": "2025-07-20T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "productId": 2,
+    "status": "Completed",
+    "date": "2025-07-18T15:30:00Z"
+  },
+  {
+    "id": 3,
+    "productId": 3,
+    "status": "Canceled",
+    "date": "2025-07-19T11:00:00Z"
+  }
+]
