@@ -5,7 +5,96 @@ import forms from '@tailwindcss/forms';
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#00FFE1',
+          focus: '#00D4B8',
+          content: '#0F0F0F',
+        },
+        secondary: {
+          DEFAULT: '#00D4FF',
+          focus: '#00A8CC',
+          content: '#0F0F0F',
+        },
+        accent: {
+          DEFAULT: '#39FF14',
+          focus: '#2ECC11',
+          content: '#0F0F0F',
+        },
+        neutral: {
+          DEFAULT: '#2C2C2C',
+          focus: '#1A1A1A',
+          content: '#E0E0E0',
+        },
+        base: {
+          100: '#0F0F0F',
+          200: '#1A1A1A',
+          300: '#2C2C2C',
+          content: '#E0E0E0',
+        },
+        info: {
+          DEFAULT: '#00D4FF',
+          content: '#0F0F0F',
+        },
+        success: {
+          DEFAULT: '#39FF14',
+          content: '#0F0F0F',
+        },
+        warning: {
+          DEFAULT: '#FFD700',
+          content: '#0F0F0F',
+        },
+        error: {
+          DEFAULT: '#FF073A',
+          focus: '#CC0529',
+          content: '#FFFFFF',
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'glow': 'glow 2s ease-in-out infinite',
+        'pulse-border': 'pulse-border 2s ease-in-out infinite',
+        'hexagon-rotate': 'hexagon-rotate 20s linear infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        slideUp: {
+          from: {
+            transform: 'translateY(10px)',
+            opacity: '0',
+          },
+          to: {
+            transform: 'translateY(0)',
+            opacity: '1',
+          },
+        },
+        glow: {
+          '0%, 100%': {
+            boxShadow: '0 0 5px var(--robotic-glow), 0 0 10px var(--robotic-glow), 0 0 15px var(--robotic-glow)',
+          },
+          '50%': {
+            boxShadow: '0 0 10px var(--robotic-glow), 0 0 20px var(--robotic-glow), 0 0 30px var(--robotic-glow)',
+          },
+        },
+        'pulse-border': {
+          '0%, 100%': {
+            borderColor: 'var(--robotic-border)',
+          },
+          '50%': {
+            borderColor: 'var(--robotic-glow)',
+          },
+        },
+        'hexagon-rotate': {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+      },
+    },
   },
   plugins: [
     daisyui,

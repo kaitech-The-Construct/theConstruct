@@ -16,7 +16,7 @@
 
   $: productId = $page.params.id;
   $: product = $currentProduct;
-  $: isAvailable = product?.inventory?.available > 0;
+  $: isAvailable = product?.inventory?.available || 0 > 0;
   $: maxQuantity = product?.inventory?.available || 1;
 
   onMount(async () => {
@@ -224,7 +224,7 @@
                 </label>
                 <Input
                   type="number"
-                  min="1"
+                  min={1}
                   max={maxQuantity}
                   bind:value={quantity}
                   size="md"
@@ -412,9 +412,19 @@
   </div>
 {/if}
 
-<style>
+<style lang="postcss">
+  @reference "tailwindcss";
   .product-detail {
-    @apply animate-fade-in;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   .aspect-square {
@@ -422,32 +432,42 @@
   }
 
   .thumbnail {
-    @apply transition-all duration-200 hover:border-primary;
+    transition: all 0.2s;
+  }
+
+  .thumbnail:hover {
+    border-color: #00FFE1;
   }
 
   .tabs {
-    @apply flex;
+    display: flex;
   }
 
   .tab {
-    @apply px-4 py-2 rounded-md transition-colors duration-200;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s;
   }
 
   .tab-active {
-    @apply bg-primary text-primary-content;
+    background-color: #00FFE1;
+    color: #0F0F0F;
   }
 
   .spec-item:last-child {
-    @apply border-b-0;
+    border-bottom: none;
   }
 
   .breadcrumbs ul {
-    @apply flex items-center gap-2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .breadcrumbs li:not(:last-child)::after {
     content: '/';
-    @apply text-base-content/50 ml-2;
+    color: rgba(224, 224, 224, 0.5);
+    margin-left: 0.5rem;
   }
 
   .animate-pulse {
