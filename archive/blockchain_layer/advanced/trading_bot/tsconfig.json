@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es6",
+    "rootDir": "./src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    // "strict": true,
+    "skipLibCheck": false
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,408 @@
+version: '3.8'
+
+services:
+  # Infrastructure Services
+  postgres:
+    image: postgres:15-alpine
+    container_name: the_construct_postgres
+    environment:
+      POSTGRES_DB: the_construct
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../../infrastructure/database/init:/docker-entrypoint-initdb.d
+    networks:
+      - blockchain_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d the_construct"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    container_name: the_construct_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ../../infrastructure/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - blockchain_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # Core Blockchain Services
+  data_storage_service:
+    build:
+      context: ../../core/data_storage
+      dockerfile: Dockerfile
+    container_name: the_construct_data_storage
+    environment:
+      - PORT=8080
+      - SERVICE_HOST=data_storage_service
+      - SERVICE_PORT=8080
+      - SERVICE_VERSION=1.0.0
+      - ENVIRONMENT=development
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=the_construct
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_MIN_POOL_SIZE=5
+      - POSTGRES_MAX_POOL_SIZE=20
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/service-account.json
+      # Service discovery configuration
+      - DATA_STORAGE_HOST=data_storage_service
+      - DATA_STORAGE_PORT=8080
+      - XRPL_SERVICE_HOST=xrpl_service
+      - XRPL_SERVICE_PORT=8080
+      - API_GATEWAY_HOST=api_gateway
+      - API_GATEWAY_PORT=8080
+      - NOTIFICATIONS_HOST=notifications
+      - NOTIFICATIONS_PORT=8080
+      - PUBSUB_HOST=pubsub
+      - PUBSUB_PORT=8080
+      - SECURITY_HOST=security
+      - SECURITY_PORT=8080
+      - SUBSCRIPTION_MANAGEMENT_HOST=subscription_management
+      - SUBSCRIPTION_MANAGEMENT_PORT=8080
+    ports:
+      - "8003:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - blockchain_network
+    volumes:
+      - ../../infrastructure/database/service-account.json:/app/service-account.json:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  xrpl_service:
+    build:
+      context: ../../core/xrpl_service
+      dockerfile: Dockerfile
+    container_name: the_construct_xrpl
+    environment:
+      - PORT=8080
+      - SERVICE_HOST=xrpl_service
+      - SERVICE_PORT=8080
+      - SERVICE_VERSION=1.0.0
+      - ENVIRONMENT=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      # XRPL configuration
+      - XRPL_NETWORK=testnet
+      - XRPL_SERVER=wss://s.altnet.rippletest.net:51233
+      # Service discovery configuration
+      - DATA_STORAGE_HOST=data_storage_service
+      - DATA_STORAGE_PORT=8080
+      - XRPL_SERVICE_HOST=xrpl_service
+      - XRPL_SERVICE_PORT=8080
+      - API_GATEWAY_HOST=api_gateway
+      - API_GATEWAY_PORT=8080
+      - NOTIFICATIONS_HOST=notifications
+      - NOTIFICATIONS_PORT=8080
+    ports:
+      - "8001:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+      data_storage_service:
+        condition: service_healthy
+    networks:
+      - blockchain_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Supporting Services
+  api_gateway:
+    build:
+      context: ../../../services/api_gateway
+      dockerfile: Dockerfile
+    container_name: the_construct_api_gateway
+    environment:
+      - PORT=8080
+      - SERVICE_HOST=api_gateway
+      - SERVICE_PORT=8080
+      - SERVICE_VERSION=1.0.0
+      - ENVIRONMENT=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      # Service discovery configuration
+      - DATA_STORAGE_HOST=data_storage_service
+      - DATA_STORAGE_PORT=8080
+      - XRPL_SERVICE_HOST=xrpl_service
+      - XRPL_SERVICE_PORT=8080
+      - NOTIFICATIONS_HOST=notifications
+      - NOTIFICATIONS_PORT=8080
+    ports:
+      - "8000:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+      data_storage_service:
+        condition: service_healthy
+      xrpl_service:
+        condition: service_healthy
+    networks:
+      - blockchain_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  notifications:
+    build:
+      context: ../../../services/notifications
+      dockerfile: Dockerfile
+    container_name: the_construct_notifications
+    environment:
+      - PORT=8080
+      - SERVICE_HOST=notifications
+      - SERVICE_PORT=8080
+      - SERVICE_VERSION=1.0.0
+      - ENVIRONMENT=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      # Service discovery configuration
+      - DATA_STORAGE_HOST=data_storage_service
+      - DATA_STORAGE_PORT=8080
+    ports:
+      - "8004:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - blockchain_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  pubsub:
+    build:
+      context: ../../../services/pubsub
+      dockerfile: Dockerfile
+    container_name: the_construct_pubsub
+    environment:
+      - PORT=8080
+      - SERVICE_HOST=pubsub
+      - SERVICE_PORT=8080
+      - SERVICE_VERSION=1.0.0
+      - ENVIRONMENT=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    ports:
+      - "8005:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - blockchain_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  security:
+    build:
+      context: ../../../services/secrurity
+      dockerfile: Dockerfile
+    container_name: the_construct_security
+    environment:
+      - PORT=8080
+      - SERVICE_HOST=security
+      - SERVICE_PORT=8080
+      - SERVICE_VERSION=1.0.0
+      - ENVIRONMENT=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      # Service discovery configuration
+      - DATA_STORAGE_HOST=data_storage_service
+      - DATA_STORAGE_PORT=8080
+    ports:
+      - "8006:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - blockchain_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  subscription_management:
+    build:
+      context: ../../../services/subscription_management
+      dockerfile: Dockerfile
+    container_name: the_construct_subscription_management
+    environment:
+      - PORT=8080
+      - SERVICE_HOST=subscription_management
+      - SERVICE_PORT=8080
+      - SERVICE_VERSION=1.0.0
+      - ENVIRONMENT=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      # Service discovery configuration
+      - DATA_STORAGE_HOST=data_storage_service
+      - DATA_STORAGE_PORT=8080
+    ports:
+      - "8007:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - blockchain_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Development Tools
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: the_construct_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@theConstruct.dev
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - blockchain_network
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  redis_commander:
+    image: rediscommander/redis-commander:latest
+    container_name: the_construct_redis_commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - blockchain_network
+
+  # Service Monitoring
+  service_monitor:
+    image: prom/prometheus:latest
+    container_name: the_construct_service_monitor
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - blockchain_network
+    depends_on:
+      - data_storage_service
+      - xrpl_service
+      - api_gateway
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: the_construct_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - blockchain_network
+    depends_on:
+      - service_monitor
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  blockchain_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# Service mesh configuration
+x-service-defaults: &service-defaults
+  networks:
+    - blockchain_network
+  restart: unless-stopped
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+# Environment variables template
+x-common-env: &common-env
+  REDIS_HOST: redis
+  REDIS_PORT: 6379
+  REDIS_DB: 0
+  ENVIRONMENT: development
+  LOG_LEVEL: INFO
