@@ -170,10 +170,13 @@ application_layer/.firebaserc
 application_layer/firebase.json
 application_layer/firestore.indexes.json
 application_layer/firestore.rules
+application_layer/the_construct/docs/
+application_layer/docs/
 file_appender.py
 docs/
 
 # Blockchain Layer - Development Environment
+blockchain_layer/docs/
 blockchain_layer/deployment/development/.env
 blockchain_layer/deployment/staging/.env
 blockchain_layer/deployment/production/.env
@@ -409,5 +412,3 @@ oracle-cache/
 price-feeds/
 external-data/
 
-GEMINI.md
-archive/

@@ -1,0 +1,82 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:80']
+    metrics_path: '/nginx_status'
+    scrape_interval: 30s
+
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets: ['api-gateway:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'application-layer'
+    static_configs:
+      - targets: ['application-layer:8080']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'notifications-service'
+    static_configs:
+      - targets: ['notifications-service:8001']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'security-service'
+    static_configs:
+      - targets: ['security-service:8002']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'subscription-service'
+    static_configs:
+      - targets: ['subscription-service:8003']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'blockchain-service'
+    static_configs:
+      - targets: ['blockchain-service:8004']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'pubsub-service'
+    static_configs:
+      - targets: ['pubsub-service:8005']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'injective-dex-service'
+    static_configs:
+      - targets: ['injective-dex-service:3000']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+    scrape_interval: 60s
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 60s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093

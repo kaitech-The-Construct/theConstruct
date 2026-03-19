@@ -1,0 +1,363 @@
+services:
+  # Frontend Service
+  frontend:
+    build:
+      context: ./presentation_layer/the_construct_svelte
+      dockerfile: Dockerfile
+    container_name: theconstruct-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - HOST=0.0.0.0
+      - API_BASE_URL=http://application-layer:8080
+      - API_GATEWAY_URL=http://api-gateway:8000
+    # depends_on:
+    #   # - application-layer
+    #   # - api-gateway
+    networks:
+      - theconstruct-network
+    volumes:
+      - ./presentation_layer/the_construct_svelte:/app
+      - /app/node_modules
+    restart: unless-stopped
+    
+  # Database Services
+  postgres:
+    image: postgres:15-alpine
+    container_name: theconstruct-postgres
+    environment:
+      - POSTGRES_DB=theconstruct_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - theconstruct-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: theconstruct-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - theconstruct-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Core Application Services
+  api-gateway:
+    build:
+      context: ./services/api_gateway
+      dockerfile: Dockerfile
+    container_name: theconstruct-api-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8000
+      - DEBUG=true
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/theconstruct_db
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - theconstruct-network
+    volumes:
+      - ./services/api_gateway:/app
+    restart: unless-stopped
+
+  application-layer:
+    build:
+      context: ./application_layer
+      dockerfile: Dockerfile
+    container_name: theconstruct-application
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8080
+      - DEBUG=true
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/theconstruct_db
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=your-super-secret-key-here-change-in-production
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - SOLANA_RPC_ENDPOINT_DEVNET=https://api.devnet.solana.com
+      - SOLANA_RPC_ENDPOINT_TESTNET=https://api.testnet.solana.com
+      - INJECTIVE_RPC_ENDPOINT_TESTNET=https://testnet.sentry.tm.injective.network:443
+      - ALLOWED_HOSTS=localhost,127.0.0.1,frontend
+      - RATE_LIMIT_REQUESTS=100
+      - RATE_LIMIT_WINDOW=60
+      - LOG_LEVEL=INFO
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - theconstruct-network
+    volumes:
+      - ./application_layer:/app
+    restart: unless-stopped
+
+  # Microservices
+  notifications-service:
+    build:
+      context: ./services/notifications
+      dockerfile: Dockerfile
+    container_name: theconstruct-notifications
+    ports:
+      - "8001:8001"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8001
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/theconstruct_db
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - theconstruct-network
+    volumes:
+      - ./services/notifications:/app
+    restart: unless-stopped
+
+  security-service:
+    build:
+      context: ./services/secrurity
+      dockerfile: Dockerfile
+    container_name: theconstruct-security
+    ports:
+      - "8002:8002"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8002
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/theconstruct_db
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=your-super-secret-key-here-change-in-production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - theconstruct-network
+    volumes:
+      - ./services/secrurity:/app
+    restart: unless-stopped
+
+  subscription-service:
+    build:
+      context: ./services/subscription_management
+      dockerfile: Dockerfile
+    container_name: theconstruct-subscription
+    ports:
+      - "8003:8003"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8003
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/theconstruct_db
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - theconstruct-network
+    volumes:
+      - ./services/subscription_management:/app
+    restart: unless-stopped
+
+  injective-dex-service:
+    build:
+      context: ./services/injective-dex
+      dockerfile: Dockerfile
+    container_name: theconstruct-injective-dex
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - INJECTIVE_RPC_ENDPOINT_TESTNET=https://testnet.sentry.tm.injective.network:443
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/theconstruct_db
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - theconstruct-network
+    volumes:
+      - ./services/injective-dex:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+  # Blockchain Services
+  blockchain-service:
+    build:
+      context: ./blockchain_layer
+      dockerfile: Dockerfile
+    container_name: theconstruct-blockchain
+    ports:
+      - "8004:8004"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8004
+      - SOLANA_RPC_ENDPOINT_DEVNET=https://api.devnet.solana.com
+      - SOLANA_RPC_ENDPOINT_TESTNET=https://api.testnet.solana.com
+      - XRPL_TESTNET_URL=wss://s.altnet.rippletest.net:51233
+      - XRPL_MAINNET_URL=wss://s1.ripple.com:443
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/theconstruct_db
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - theconstruct-network
+    restart: unless-stopped
+
+  # Message Queue Service
+  pubsub-service:
+    build:
+      context: ./services/pubsub
+      dockerfile: Dockerfile
+    container_name: theconstruct-pubsub
+    ports:
+      - "8005:8005"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8005
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - theconstruct-network
+    volumes:
+      - ./services/pubsub:/app
+    restart: unless-stopped
+
+  # Reverse Proxy / Load Balancer
+  nginx:
+    image: nginx:alpine
+    container_name: theconstruct-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - frontend
+      - api-gateway
+      - application-layer
+    networks:
+      - theconstruct-network
+    restart: unless-stopped
+
+  # Monitoring Services
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: theconstruct-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - theconstruct-network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: theconstruct-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    networks:
+      - theconstruct-network
+    restart: unless-stopped
+
+  # Log Aggregation
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    container_name: theconstruct-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - theconstruct-network
+    restart: unless-stopped
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.8.0
+    container_name: theconstruct-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - theconstruct-network
+    restart: unless-stopped
+
+networks:
+  theconstruct-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
