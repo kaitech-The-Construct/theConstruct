@@ -10,17 +10,12 @@ from fastapi.testclient import TestClient
 from httpx import AsyncClient
 
 from app.main import app
-from app.core.config.settings import get_settings
-from app.core.services.user_service import UserService
-from app.core.services.robot_service import RobotService
-from app.core.services.trade_service import TradeService
-from app.core.services.design_service import DesignService
-from app.core.services.software_service import SoftwareService
-from app.core.services.governance_service import GovernanceService
-from app.core.services.analytics_service import AnalyticsService
-from app.core.services.notification_service import NotificationService
-from app.core.services.manufacturing_service import ManufacturingService
-from app.core.services.blockchain_service import BlockchainService
+from app.core.config.settings import settings
+from app.modules.identity.services.user_service import UserService
+from app.modules.robotics.services.robot_service import RobotService
+from app.modules.market.services.trade_service import TradeService
+from app.modules.robotics.services.manufacturing_service import ManufacturingService
+from app.modules.ledger.services.blockchain_service import BlockchainService
 
 
 @pytest.fixture(scope="session")
@@ -34,12 +29,12 @@ def event_loop() -> Generator:
 @pytest.fixture
 def test_settings():
     """Test settings configuration."""
-    settings = get_settings()
-    settings.ENVIRONMENT = "testing"
-    settings.DATABASE_URL = "firestore://test-project"
-    settings.REDIS_URL = "redis://localhost:6379/1"
-    settings.JWT_SECRET_KEY = "test-secret-key"
-    return settings
+    test_conf = settings
+    test_conf.ENVIRONMENT = "testing"
+    test_conf.DATABASE_URL = "firestore://test-project"
+    test_conf.REDIS_URL = "redis://localhost:6379/1"
+    test_conf.JWT_SECRET_KEY = "test-secret-key"
+    return test_conf
 
 
 @pytest.fixture

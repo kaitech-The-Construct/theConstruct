@@ -44,6 +44,7 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
   .card {
     @apply bg-base-100 rounded-lg transition-all duration-200 ease-in-out;
   }

@@ -6,9 +6,8 @@ import pytest
 from unittest.mock import Mock, AsyncMock, patch
 from datetime import datetime, timedelta
 
-from app.core.services.user_service import UserService
-from app.schemas.user import UserCreate, UserUpdate, UserResponse
-from app.core.exceptions import UserNotFoundError, DuplicateUserError, ValidationError
+from app.modules.identity.services.user_service import UserService
+from app.modules.identity.schemas.user import UserCreate, UserUpdate, UserResponse
 
 
 class TestUserService:

@@ -171,6 +171,7 @@ application_layer/firebase.json
 application_layer/firestore.indexes.json
 application_layer/firestore.rules
 file_appender.py
+docs/
 
 # Blockchain Layer - Development Environment
 blockchain_layer/deployment/development/.env
@@ -408,3 +409,5 @@ oracle-cache/
 price-feeds/
 external-data/
 
+GEMINI.md
+archive/

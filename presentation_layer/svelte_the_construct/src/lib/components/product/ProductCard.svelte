@@ -191,6 +191,7 @@
 </Card>
 
 <style>
+  @reference "../../../app.css";
   .product-card {
     @apply transition-all duration-300 hover:shadow-xl;
   }

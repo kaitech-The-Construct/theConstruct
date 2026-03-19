@@ -3,6 +3,7 @@
   import { user, isAuthenticated, authStore } from '$stores/auth';
   import { cartItemCount, cartStore } from '$stores/cart';
   import Button from '$components/ui/Button.svelte';
+  import NotificationCenter from '$components/ui/NotificationCenter.svelte';
 
   let mobileMenuOpen = false;
 
@@ -49,6 +50,7 @@
         <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
           <li><a href="/marketplace" class:active={currentPath === '/marketplace'}>Marketplace</a></li>
           <li><a href="/manufacturing" class:active={currentPath === '/manufacturing'}>Manufacturing</a></li>
+          <li><a href="/tools" class:active={currentPath === '/tools'}>Tools</a></li>
           <li><a href="/about" class:active={currentPath === '/about'}>About</a></li>
         </ul>
       {/if}
@@ -84,6 +86,15 @@
       </li>
       <li>
         <a 
+          href="/tools" 
+          class="btn btn-ghost"
+          class:btn-active={currentPath === '/tools'}
+        >
+          Tools
+        </a>
+      </li>
+      <li>
+        <a 
           href="/about" 
           class="btn btn-ghost"
           class:btn-active={currentPath === '/about'}
@@ -95,6 +106,11 @@
   </div>
 
   <div class="navbar-end gap-2">
+    <!-- Notification Center -->
+    {#if $isAuthenticated}
+      <NotificationCenter />
+    {/if}
+
     <!-- Cart button -->
     <button
       class="btn btn-ghost btn-circle relative"
@@ -159,6 +175,7 @@
 </header>
 
 <style>
+  @reference "../../../app.css";
   .navbar {
     @apply px-4 lg:px-8;
   }

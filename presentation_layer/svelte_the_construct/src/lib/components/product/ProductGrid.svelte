@@ -103,6 +103,7 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
   .product-grid {
     @apply w-full;
   }

@@ -1,7 +1,7 @@
 # core/config/settings.py
 
 import os
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from google.cloud import secretmanager
 
 # Initialize the Secret Manager client
@@ -38,16 +38,15 @@ class Settings(BaseSettings):
 
     # Secrets retrieved from GCP Secrets Manager
     # DATABASE_URL: str = get_secret("database_url")
-    DATABASE_URL: str = "database.db"
-    SECRET_KEY: str = "supersecretkey"
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "database.db")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
-    # Will add CORS setttings here
-    ALLOWED_HOSTS: list = []
-    # os.environ.get("ALLOWED_HOSTS").split(",") |
+    # CORS settings
+    ALLOWED_HOSTS: list = os.getenv("ALLOWED_HOSTS", "http://localhost:5173,http://localhost:8000,http://127.0.0.1:5173").split(",")
 
-    ENVIR = "test" # options: test, stage, production. Changes firestore database
+    ENVIR: str = "test" # options: test, stage, production. Changes firestore database
     
     class Config:
         """Config"""

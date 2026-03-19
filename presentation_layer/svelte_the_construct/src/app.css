@@ -1,6 +1,5 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss";
+@plugin "daisyui";
 
 /* Custom CSS variables and global styles */
 :root {
@@ -185,7 +184,7 @@
 
   /* Link styles */
   .link {
-    @apply text-primary hover:text-primary-focus transition-colors duration-200;
+    @apply text-primary hover:text-primary transition-colors duration-200;
   }
 
   .link-hover:hover {

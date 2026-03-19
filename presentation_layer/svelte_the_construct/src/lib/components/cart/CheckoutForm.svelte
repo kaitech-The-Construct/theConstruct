@@ -294,6 +294,7 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
   .payment-option {
     @apply flex items-center gap-4 p-4 border border-base-300 rounded-lg cursor-pointer
            transition-all duration-200;

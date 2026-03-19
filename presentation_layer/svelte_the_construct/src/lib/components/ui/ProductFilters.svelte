@@ -160,6 +160,7 @@
 {/if}
 
 <style>
+  @reference "../../../app.css";
   .product-filters {
     @apply animate-slide-up;
   }

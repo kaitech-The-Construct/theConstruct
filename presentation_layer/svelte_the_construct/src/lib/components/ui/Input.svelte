@@ -90,6 +90,7 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
   .input {
     @apply w-full px-3 py-2 border border-base-300 rounded-md 
            bg-base-100 text-base-content

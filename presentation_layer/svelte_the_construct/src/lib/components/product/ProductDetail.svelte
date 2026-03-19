@@ -689,6 +689,7 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
   .product-detail {
     @apply max-w-7xl mx-auto;
   }

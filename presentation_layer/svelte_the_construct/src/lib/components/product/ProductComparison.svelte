@@ -416,6 +416,7 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
   .comparison-table {
     @apply border border-base-300 rounded-lg;
   }

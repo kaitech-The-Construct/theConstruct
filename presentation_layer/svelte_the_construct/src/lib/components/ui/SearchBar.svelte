@@ -97,6 +97,7 @@
 </div>
 
 <style>
+  @reference "../../../app.css";
   .search-bar {
     @apply w-full;
   }

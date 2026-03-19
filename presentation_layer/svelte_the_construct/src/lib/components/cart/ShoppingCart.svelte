@@ -206,6 +206,7 @@
 {/if}
 
 <style>
+  @reference "../../../app.css";
   .cart-overlay {
     @apply backdrop-blur-sm;
   }

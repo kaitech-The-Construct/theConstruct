@@ -80,6 +80,7 @@
 </div>
 
 <style>
+  @reference "../../app.css";
   .checkout-page {
     @apply animate-fade-in;
   }

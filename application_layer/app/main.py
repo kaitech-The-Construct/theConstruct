@@ -1,7 +1,13 @@
 import os
 
 import uvicorn
-from api.routers import ai, analytics, auth, blockchain, manufacturing, notifications, robot, software, supply_chain, trade, design, user
+from modules.identity import auth_router, user_router
+from modules.market import trade_router, analytics_router, supply_chain_router
+from modules.robotics import robot_router, design_router, manufacturing_router, software_router
+from modules.ledger import blockchain_router
+from modules.notifications import notifications_router
+from modules.ai import ai_router
+from modules.mcp import mcp_router
 from core.middleware import rate_limit_middleware, security_headers_middleware, error_handling_middleware, request_logging_middleware
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,9 +35,11 @@ app.middleware("http")(rate_limit_middleware)
 app.middleware("http")(request_logging_middleware)
 
 # Set up CORS middleware
+from core.config.settings import settings
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify actual origins
+    allow_origins=settings.ALLOWED_HOSTS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -48,20 +56,20 @@ def error_response_handler(request: Request, exc: HTTPException):
 # Register exception handlers
 app.add_exception_handler(HTTPException, error_response_handler)
 
-# # Include routers from the api.routers package
-app.include_router(ai.router, prefix="/ai", tags=["ai"])
-app.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
-app.include_router(auth.router, prefix="/auth", tags=["auth"])
-app.include_router(blockchain.router, prefix="/blockchain", tags=["blockchain"])
-app.include_router(manufacturing.router, prefix="/manufacturing", tags=["manufacturing"])
-app.include_router(notifications.router, prefix="/notifications", tags=["notifications"])
-app.include_router(robot.router, prefix="/robots", tags=["robots"])
-app.include_router(software.router, prefix="/software", tags=["software"])
-app.include_router(supply_chain.router, prefix="/supply-chain", tags=["supply_chain"])
-app.include_router(design.router, prefix="/design", tags=["design"])
-app.include_router(user.router, prefix="/users", tags=["users"])
-app.include_router(trade.router, prefix="/trades", tags=["trades"])
-# app.include_router(governance.router, prefix="/governance", tags=["governance"])
+# # Include routers from the new modules package
+app.include_router(ai_router, prefix="/ai", tags=["ai"])
+app.include_router(mcp_router, prefix="/mcp", tags=["mcp"])
+app.include_router(analytics_router, prefix="/analytics", tags=["analytics"])
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
+app.include_router(blockchain_router, prefix="/blockchain", tags=["blockchain"])
+app.include_router(manufacturing_router, prefix="/manufacturing", tags=["manufacturing"])
+app.include_router(notifications_router, prefix="/notifications", tags=["notifications"])
+app.include_router(robot_router, prefix="/robots", tags=["robots"])
+app.include_router(software_router, prefix="/software", tags=["software"])
+app.include_router(supply_chain_router, prefix="/supply-chain", tags=["supply_chain"])
+app.include_router(design_router, prefix="/design", tags=["design"])
+app.include_router(user_router, prefix="/users", tags=["users"])
+app.include_router(trade_router, prefix="/trades", tags=["trades"])
 
 
 # Define root route

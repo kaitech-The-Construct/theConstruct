@@ -60,6 +60,7 @@
 {/if}
 
 <style>
+  @reference "../../../app.css";
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-md font-medium 
            focus:outline-none focus:ring-2 focus:ring-offset-2 
@@ -79,12 +80,12 @@
   }
 
   .btn-primary {
-    @apply bg-primary text-primary-content hover:bg-primary-focus 
+    @apply bg-primary text-primary-content hover:bg-primary 
            focus:ring-primary;
   }
 
   .btn-secondary {
-    @apply bg-secondary text-secondary-content hover:bg-secondary-focus 
+    @apply bg-secondary text-secondary-content hover:bg-secondary 
            focus:ring-secondary;
   }
 
@@ -100,7 +101,7 @@
   }
 
   .btn-error {
-    @apply bg-error text-error-content hover:bg-error-focus 
+    @apply bg-error text-error-content hover:bg-error 
            focus:ring-error;
   }
 

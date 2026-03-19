@@ -1,6 +1,6 @@
 # core/utils/common.py
 
-import random
+import secrets
 import string
 from datetime import datetime, timedelta
 
@@ -12,7 +12,7 @@ def generate_random_string(length: int = 12) -> str:
     Generate a random string of fixed length.
     """
     letters_and_digits = string.ascii_letters + string.digits
-    return "".join(random.choice(letters_and_digits) for i in range(length))
+    return "".join(secrets.choice(letters_and_digits) for i in range(length))
 
 
 def convert_timedelta_to_seconds(timedelta_obj: timedelta) -> int:

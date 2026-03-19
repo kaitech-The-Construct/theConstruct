@@ -413,6 +413,7 @@
 {/if}
 
 <style>
+  @reference "../../../app.css";
   .product-detail {
     @apply animate-fade-in;
   }

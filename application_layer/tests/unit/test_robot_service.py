@@ -6,9 +6,8 @@ import pytest
 from unittest.mock import Mock, AsyncMock, patch
 from datetime import datetime
 
-from app.core.services.robot_service import RobotService
-from app.schemas.robot import RobotCreate, RobotUpdate, RobotResponse
-from app.core.exceptions import RobotNotFoundError, ValidationError
+from app.modules.robotics.services.robot_service import RobotService
+from app.modules.robotics.schemas.robot import RobotCreate, RobotUpdate, RobotResponse
 
 
 class TestRobotService:

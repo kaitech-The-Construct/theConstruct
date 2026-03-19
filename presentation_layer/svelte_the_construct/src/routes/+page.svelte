@@ -190,6 +190,7 @@
 </section>
 
 <style>
+  @reference "../app.css";
   .hero {
     @apply flex items-center justify-center;
   }

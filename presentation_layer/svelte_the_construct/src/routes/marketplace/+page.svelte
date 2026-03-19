@@ -220,6 +220,7 @@
 </div>
 
 <style>
+  @reference "../../app.css";
   .marketplace-page {
     @apply max-w-7xl mx-auto;
   }

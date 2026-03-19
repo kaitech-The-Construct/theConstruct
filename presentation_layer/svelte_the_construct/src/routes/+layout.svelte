@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { authStore } from '$stores/auth';
   import { cartStore } from '$stores/cart';
+  import { notificationStore } from '$stores/notifications';
   import Header from '$components/layout/Header.svelte';
   import ShoppingCart from '$components/cart/ShoppingCart.svelte';
   import '../app.css';
@@ -11,6 +12,7 @@
   onMount(() => {
     authStore.init();
     cartStore.init();
+    notificationStore.init();
   });
 
   function handleCheckout() {
@@ -58,6 +60,7 @@
 />
 
 <style>
+  @reference "../app.css";
   :global(html) {
     scroll-behavior: smooth;
   }
