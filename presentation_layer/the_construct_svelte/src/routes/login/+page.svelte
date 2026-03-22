@@ -31,12 +31,15 @@
         bind:value={email}
         error={$authError || ''}
         required
+        maxlength={254}
       />
       <Input
         label="Password"
         type="password"
         bind:value={password}
         required
+        minlength={8}
+        maxlength={64}
       />
       <Button type="submit" variant="primary" fullWidth loading={$isLoading}>
         Login

@@ -1,65 +1,64 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import type { EventHandler } from 'svelte/elements';
 
-  export let type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' = 'text';
-  export let value: string | number | undefined = '';
-  export let placeholder: string = '';
-  export let label: string = '';
-  export let error: string = '';
-  export let disabled: boolean = false;
-  export let required: boolean = false;
-  export let readonly: boolean = false;
-  export let size: 'sm' | 'md' | 'lg' = 'md';
-  export let fullWidth: boolean = false;
-  export let id: string = '';
-  export let name: string = '';
-  export let autocomplete: string = '';
-  export let min: number | undefined = undefined;
-  export let max: number | undefined = undefined;
-  export let step: number | undefined = undefined;
+  let {
+    type = 'text',
+    value = $bindable(''),
+    placeholder = '',
+    label = '',
+    error = '',
+    disabled = false,
+    required = false,
+    readonly = false,
+    size = 'md',
+    fullWidth = false,
+    id = '',
+    name = '',
+    autocomplete = '',
+    min = undefined,
+    max = undefined,
+    step = undefined,
+    minlength = undefined,
+    maxlength = undefined,
+    onchange,
+    oninput,
+    onfocus,
+    onblur
+  }: {
+    type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search';
+    value?: string | number | undefined;
+    placeholder?: string;
+    label?: string;
+    error?: string;
+    disabled?: boolean;
+    required?: boolean;
+    readonly?: boolean;
+    size?: 'sm' | 'md' | 'lg';
+    fullWidth?: boolean;
+    id?: string;
+    name?: string;
+    autocomplete?: string;
+    min?: number | undefined;
+    max?: number | undefined;
+    step?: number | undefined;
+    minlength?: number | undefined;
+    maxlength?: number | undefined;
+    onchange?: EventHandler<Event, HTMLInputElement>;
+    oninput?: EventHandler<Event, HTMLInputElement>;
+    onfocus?: EventHandler<FocusEvent, HTMLInputElement>;
+    onblur?: EventHandler<FocusEvent, HTMLInputElement>;
+  } = $props();
 
-  const dispatch = createEventDispatcher();
-
-  let inputValue: string | number | undefined = value;
-
-  $: if (value !== inputValue) {
-    inputValue = value;
-  }
-
-  function handleInput(event: Event) {
-    const target = event.target as HTMLInputElement;
-    if (type === 'number') {
-      inputValue = target.valueAsNumber;
-      value = target.valueAsNumber;
-    } else {
-      inputValue = target.value;
-      value = target.value;
-    }
-    dispatch('input', { value, event });
-  }
-
-  function handleChange(event: Event) {
-    dispatch('change', { value, event });
-  }
-
-  function handleFocus(event: FocusEvent) {
-    dispatch('focus', event);
-  }
-
-  function handleBlur(event: FocusEvent) {
-    dispatch('blur', event);
-  }
-
-  $: inputClasses = [
+  let inputClasses = $derived([
     'input',
     `input-${size}`,
     error && 'input-error',
     disabled && 'input-disabled',
     fullWidth && 'w-full',
     'transition-all duration-200 ease-in-out'
-  ].filter(Boolean).join(' ');
+  ].filter(Boolean).join(' '));
 
-  $: inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+  let inputId = $derived(id || `input-${Math.random().toString(36).substr(2, 9)}`);
 </script>
 
 <div class="form-control" class:w-full={fullWidth}>
@@ -85,13 +84,15 @@
     {min}
     {max}
     {step}
+    {minlength}
+    {maxlength}
     id={inputId}
     class={inputClasses}
-    bind:value={inputValue}
-    on:input={handleInput}
-    on:change={handleChange}
-    on:focus={handleFocus}
-    on:blur={handleBlur}
+    bind:value
+    {onchange}
+    {oninput}
+    {onfocus}
+    {onblur}
   />
   
   {#if error}
@@ -102,6 +103,7 @@
 </div>
 
 <style>
+  /* svelte-ignore css_unknown_at_rule */
   @reference "../../../app.css";
   .input {
     width: 100%;

@@ -1,26 +1,39 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import type { Snippet } from 'svelte';
 
-  let className = '';
-  export { className as class };
-  export let variant: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' = 'primary';
-  export let size: 'sm' | 'md' | 'lg' = 'md';
-  export let disabled: boolean = false;
-  export let loading: boolean = false;
-  export let type: 'button' | 'submit' | 'reset' = 'button';
-  export let href: string | undefined = undefined;
-  export let fullWidth: boolean = false;
-  export let ariaLabel: string | undefined = undefined;
-
-  const dispatch = createEventDispatcher();
+  let {
+    class: className = '',
+    variant = 'primary',
+    size = 'md',
+    disabled = false,
+    loading = false,
+    type = 'button',
+    href = undefined,
+    fullWidth = false,
+    ariaLabel = undefined,
+    children,
+    onclick
+  }: {
+    class?: string;
+    variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+    size?: 'sm' | 'md' | 'lg';
+    disabled?: boolean;
+    loading?: boolean;
+    type?: 'button' | 'submit' | 'reset';
+    href?: string;
+    fullWidth?: boolean;
+    ariaLabel?: string;
+    children?: Snippet;
+    onclick?: (event: MouseEvent) => void;
+  } = $props();
 
   function handleClick(event: MouseEvent) {
-    if (!disabled && !loading) {
-      dispatch('click', event);
+    if (!disabled && !loading && onclick) {
+      onclick(event);
     }
   }
 
-  $: classes = [
+  let classes = $derived([
     'btn',
     `btn-${size}`,
     variant === 'primary' && 'btn-primary',
@@ -32,7 +45,7 @@
     loading && 'loading',
     'transition-all duration-200 ease-in-out',
     className
-  ].filter(Boolean).join(' ');
+  ].filter(Boolean).join(' '));
 </script>
 
 {#if href}
@@ -40,7 +53,7 @@
     {href}
     class={classes}
     class:btn-disabled={disabled}
-    on:click={handleClick}
+    {onclick}
     role="button"
     tabindex={disabled ? -1 : 0}
     aria-label={ariaLabel}
@@ -48,24 +61,25 @@
     {#if loading}
       <span class="loading loading-spinner loading-sm"></span>
     {/if}
-    <slot />
+    {@render children?.()}
   </a>
 {:else}
   <button
     {type}
     {disabled}
     class={classes}
-    on:click={handleClick}
+    {onclick}
     aria-label={ariaLabel}
   >
     {#if loading}
       <span class="loading loading-spinner loading-sm"></span>
     {/if}
-    <slot />
+    {@render children?.()}
   </button>
 {/if}
 
 <style>
+  /* svelte-ignore css_unknown_at_rule */
   @reference "../../../app.css";
   .btn {
     display: inline-flex;
@@ -105,15 +119,6 @@
   }
 
   .btn-primary {
-<<<<<<< HEAD:presentation_layer/svelte_the_construct/src/lib/components/ui/Button.svelte
-    @apply bg-primary text-primary-content hover:bg-primary 
-           focus:ring-primary;
-  }
-
-  .btn-secondary {
-    @apply bg-secondary text-secondary-content hover:bg-secondary 
-           focus:ring-secondary;
-=======
     background-color: var(--primary);
     color: var(--primary-content);
   }
@@ -129,7 +134,6 @@
 
   .btn-secondary:hover:not(:disabled) {
     background-color: var(--secondary-focus);
->>>>>>> f7d49693536da70b91928faf93cf1c603f102fd0:presentation_layer/the_construct_svelte/src/lib/components/ui/Button.svelte
   }
 
   .btn-outline {
@@ -153,17 +157,12 @@
   }
 
   .btn-error {
-<<<<<<< HEAD:presentation_layer/svelte_the_construct/src/lib/components/ui/Button.svelte
-    @apply bg-error text-error-content hover:bg-error 
-           focus:ring-error;
-=======
     background-color: var(--error);
     color: var(--error-content);
   }
 
   .btn-error:hover:not(:disabled) {
     background-color: var(--error-focus);
->>>>>>> f7d49693536da70b91928faf93cf1c603f102fd0:presentation_layer/the_construct_svelte/src/lib/components/ui/Button.svelte
   }
 
   .btn-block {

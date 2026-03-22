@@ -122,13 +122,13 @@
             {#if product.images.length > 1}
               <button
                 class="absolute left-2 top-1/2 transform -translate-y-1/2 btn btn-circle btn-sm bg-base-100/80 hover:bg-base-100"
-                on:click={() => selectImage(selectedImageIndex > 0 ? selectedImageIndex - 1 : product.images.length - 1)}
+                onclick={() => selectImage(selectedImageIndex > 0 ? selectedImageIndex - 1 : product.images.length - 1)}
               >
                 ←
               </button>
               <button
                 class="absolute right-2 top-1/2 transform -translate-y-1/2 btn btn-circle btn-sm bg-base-100/80 hover:bg-base-100"
-                on:click={() => selectImage(selectedImageIndex < product.images.length - 1 ? selectedImageIndex + 1 : 0)}
+                onclick={() => selectImage(selectedImageIndex < product.images.length - 1 ? selectedImageIndex + 1 : 0)}
               >
                 →
               </button>
@@ -151,7 +151,7 @@
               class="thumbnail w-16 h-16 bg-base-200 rounded border-2 overflow-hidden flex-shrink-0 transition-all duration-200"
               class:border-primary={index === selectedImageIndex}
               class:border-base-300={index !== selectedImageIndex}
-              on:click={() => selectImage(index)}
+              onclick={() => selectImage(index)}
             >
               <img 
                 src={image} 
@@ -252,7 +252,7 @@
               </label>
               <Input
                 type="number"
-                min="1"
+                min={1}
                 max={maxQuantity}
                 bind:value={quantity}
                 size="md"
@@ -265,7 +265,7 @@
               variant="outline"
               size="lg"
               fullWidth
-              on:click={handleAddToCart}
+              onclick={handleAddToCart}
             >
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.8-1.8M7 13l-1.8 1.8M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z" />
@@ -276,7 +276,7 @@
               variant="primary"
               size="lg"
               fullWidth
-              on:click={handleBuyNow}
+              onclick={handleBuyNow}
             >
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -304,19 +304,19 @@
 
       <!-- Quick Actions -->
       <div class="quick-actions flex gap-2">
-        <Button variant="ghost" size="sm" on:click={handleAddToWishlist}>
+        <Button variant="ghost" size="sm" onclick={handleAddToWishlist}>
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
           Wishlist
         </Button>
-        <Button variant="ghost" size="sm" on:click={handleShare}>
+        <Button variant="ghost" size="sm" onclick={handleShare}>
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
           </svg>
           Share
         </Button>
-        <Button variant="ghost" size="sm" on:click={handleCompare}>
+        <Button variant="ghost" size="sm" onclick={handleCompare}>
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
@@ -332,21 +332,21 @@
       <button 
         class="tab"
         class:tab-active={activeTab === 'specifications'}
-        on:click={() => setActiveTab('specifications')}
+        onclick={() => setActiveTab('specifications')}
       >
         Specifications
       </button>
       <button 
         class="tab"
         class:tab-active={activeTab === 'reviews'}
-        on:click={() => setActiveTab('reviews')}
+        onclick={() => setActiveTab('reviews')}
       >
         Reviews ({product.ratings?.count || 0})
       </button>
       <button 
         class="tab"
         class:tab-active={activeTab === 'shipping'}
-        on:click={() => setActiveTab('shipping')}
+        onclick={() => setActiveTab('shipping')}
       >
         Shipping & Returns
       </button>
@@ -447,7 +447,7 @@
           {#if $isAuthenticated}
             <div class="write-review mb-6">
               {#if !showWriteReview}
-                <Button variant="outline" on:click={() => showWriteReview = true}>
+                <Button variant="outline" onclick={() => showWriteReview = true}>
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                   </svg>
@@ -467,7 +467,7 @@
                         <button
                           type="button"
                           class="text-2xl transition-colors duration-200 {i < newReview.rating ? 'text-warning' : 'text-base-300'}"
-                          on:click={() => newReview = { ...newReview, rating: i + 1 }}
+                          onclick={() => newReview = { ...newReview, rating: i + 1 }}
                         >
                           ★
                         </button>
@@ -498,10 +498,10 @@
 
                   <!-- Actions -->
                   <div class="flex gap-2">
-                    <Button variant="primary" on:click={handleSubmitReview}>
+                    <Button variant="primary" onclick={handleSubmitReview}>
                       Submit Review
                     </Button>
-                    <Button variant="ghost" on:click={() => showWriteReview = false}>
+                    <Button variant="ghost" onclick={() => showWriteReview = false}>
                       Cancel
                     </Button>
                   </div>
@@ -655,7 +655,7 @@
           <div class="recommendation-card">
             <button
               class="w-full text-left transition-transform duration-200 hover:scale-105"
-              on:click={() => handleRecommendationClick(recommendedProduct)}
+              onclick={() => handleRecommendationClick(recommendedProduct)}
             >
               <div class="aspect-square bg-base-200 rounded-lg overflow-hidden mb-3">
                 {#if recommendedProduct.images && recommendedProduct.images.length > 0}

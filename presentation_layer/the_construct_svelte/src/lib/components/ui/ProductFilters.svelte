@@ -1,25 +1,33 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import type { SearchFilters } from '$types';
   import Button from './Button.svelte';
   import Input from './Input.svelte';
 
-  export let filters: SearchFilters = {};
-  export let categories: string[] = ['Robots', 'Components', 'Software', 'Tools'];
-  export let manufacturers: string[] = [];
-  export let visible: boolean = false;
+  let {
+    filters = {},
+    categories = ['Robots', 'Components', 'Software', 'Tools'],
+    manufacturers = [],
+    visible = false,
+    onapply,
+    onclear
+  }: {
+    filters?: SearchFilters;
+    categories?: string[];
+    manufacturers?: string[];
+    visible?: boolean;
+    onapply?: (filters: SearchFilters) => void;
+    onclear?: () => void;
+  } = $props();
 
-  const dispatch = createEventDispatcher();
-
-  let localFilters: SearchFilters = { ...filters };
+  let localFilters = $state<SearchFilters>({ ...filters });
 
   function applyFilters() {
-    dispatch('apply', localFilters);
+    if (onapply) onapply(localFilters);
   }
 
   function clearFilters() {
     localFilters = {};
-    dispatch('clear');
+    if (onclear) onclear();
   }
 
   function handleCategoryChange(event: Event) {
@@ -39,16 +47,18 @@
     localFilters.sort_order = sortOrder as 'asc' | 'desc';
   }
 
-  $: if (visible) {
-    localFilters = { ...filters };
-  }
+  $effect(() => {
+    if (visible) {
+      localFilters = { ...filters };
+    }
+  });
 </script>
 
 {#if visible}
   <div class="product-filters bg-base-100 border border-base-300 rounded-lg p-4 mb-6">
     <div class="flex justify-between items-center mb-4">
       <h3 class="text-lg font-semibold">Filters</h3>
-      <Button variant="ghost" size="sm" on:click={clearFilters}>
+      <Button variant="ghost" size="sm" onclick={clearFilters}>
         Clear All
       </Button>
     </div>
@@ -56,17 +66,19 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <!-- Price Range -->
       <div class="form-control">
-        <label class="label">
+        <label class="label" for="min-price">
           <span class="label-text">Price Range</span>
         </label>
         <div class="flex gap-2">
           <Input
+            id="min-price"
             type="number"
             placeholder="Min"
             size="sm"
             bind:value={localFilters.min_price}
           />
           <Input
+            id="max-price"
             type="number"
             placeholder="Max"
             size="sm"
@@ -77,12 +89,13 @@
 
       <!-- Category -->
       <div class="form-control">
-        <label class="label">
+        <label class="label" for="category-select">
           <span class="label-text">Category</span>
         </label>
         <select
+          id="category-select"
           class="select select-bordered select-sm"
-          on:change={handleCategoryChange}
+          onchange={handleCategoryChange}
           value={localFilters.category || ''}
         >
           <option value="">All Categories</option>
@@ -94,12 +107,13 @@
 
       <!-- Manufacturer -->
       <div class="form-control">
-        <label class="label">
+        <label class="label" for="manufacturer-select">
           <span class="label-text">Manufacturer</span>
         </label>
         <select
+          id="manufacturer-select"
           class="select select-bordered select-sm"
-          on:change={handleManufacturerChange}
+          onchange={handleManufacturerChange}
           value={localFilters.manufacturer || ''}
         >
           <option value="">All Manufacturers</option>
@@ -111,12 +125,13 @@
 
       <!-- Sort By -->
       <div class="form-control">
-        <label class="label">
+        <label class="label" for="sort-select">
           <span class="label-text">Sort By</span>
         </label>
         <select
+          id="sort-select"
           class="select select-bordered select-sm"
-          on:change={handleSortChange}
+          onchange={handleSortChange}
           value={`${localFilters.sort_by || 'name'}-${localFilters.sort_order || 'asc'}`}
         >
           <option value="name-asc">Name (A-Z)</option>
@@ -132,11 +147,12 @@
 
     <!-- Rating Filter -->
     <div class="form-control mt-4">
-      <label class="label">
+      <label class="label" for="min-rating">
         <span class="label-text">Minimum Rating</span>
       </label>
       <div class="flex gap-2 items-center">
         <input
+          id="min-rating"
           type="range"
           min="0"
           max="5"
@@ -152,7 +168,7 @@
 
     <!-- Apply Filters Button -->
     <div class="flex justify-end mt-6">
-      <Button variant="primary" on:click={applyFilters}>
+      <Button variant="primary" onclick={applyFilters}>
         Apply Filters
       </Button>
     </div>
@@ -160,6 +176,7 @@
 {/if}
 
 <style>
+  /* svelte-ignore css_unknown_at_rule */
   @reference "../../../app.css";
   .product-filters {
     animation: slideUp 0.3s ease-out;

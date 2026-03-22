@@ -18,18 +18,21 @@ The Construct is a decentralized robotics exchange (DREX) built with **SvelteKit
 ## ✨ Key Features
 
 ### Core Marketplace
+
 - **Decentralized Trading**: Hybrid XRPL/Solana blockchain integration
 - **Product Catalog**: Responsive grid of robotics components and kits
 - **Secure Escrow**: XRPL native escrow with Solana smart contract enhancements
 - **Multi-Chain Wallets**: Support for both XRPL and Solana wallet connections
 
 ### User Experience
+
 - **Modern UI**: Clean, responsive design with Tailwind CSS and DaisyUI
 - **Real-Time Updates**: Live notifications and status updates via WebSocket
 - **TypeScript**: Full type safety throughout the application
 - **Component Architecture**: Modular, reusable Svelte components
 
 ### Advanced Features
+
 - **Tokenization**: Digital tokens representing physical robotics assets
 - **Reputation System**: Community-driven ratings and reviews
 - **Governance**: Decentralized voting on platform proposals
@@ -38,7 +41,8 @@ The Construct is a decentralized robotics exchange (DREX) built with **SvelteKit
 ## 🛠 Development Setup
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - Yarn package manager
 - Git
 
@@ -106,12 +110,14 @@ src/
 ## 🔗 Blockchain Integration
 
 ### XRPL Features
+
 - **Fast Transactions**: Low-cost, rapid settlement for trading
 - **Native Escrow**: Built-in escrow functionality for secure transactions
 - **Token Issuance**: Represent physical robotics components as digital assets
 - **Wallet Integration**: Seamless connection with XRPL-compatible wallets
 
 ### Solana Features
+
 - **Smart Contracts**: Advanced business logic and conditional transactions
 - **Governance**: Decentralized voting and proposal mechanisms
 - **Complex Orders**: Multi-party agreements and sophisticated trading features
@@ -120,18 +126,21 @@ src/
 ## 🎯 Development Roadmap
 
 ### Phase 1: MVP (Current)
+
 - [x] Basic product catalog with responsive design
 - [x] XRPL/Solana wallet integration
 - [x] Core purchasing flow with escrow
 - [x] Order management system
 
 ### Phase 2: Expanded Marketplace
+
 - [ ] Seller listing tools and inventory management
 - [ ] Ratings and reviews system
 - [ ] Advanced search and filtering
 - [ ] Multi-currency support
 
 ### Phase 3: Advanced Ecosystem
+
 - [ ] Decentralized governance interface
 - [ ] Analytics dashboard with Chart.js
 - [ ] IoT device integration
@@ -155,6 +164,7 @@ yarn test:ui
 ## 🚀 Deployment
 
 ### Production Build
+
 ```bash
 yarn build
 ```
@@ -162,6 +172,7 @@ yarn build
 The built application will be in the `build/` directory, ready for deployment to any static hosting service or Node.js server.
 
 ### Environment Variables
+
 Create a `.env` file in the project root:
 
 ```env

@@ -40,7 +40,7 @@
 <div class="notification-container relative inline-block">
   <button
     class="btn btn-ghost btn-circle relative"
-    on:click={toggleDropdown}
+    onclick={toggleDropdown}
     aria-label="Notifications"
   >
     <svg
@@ -88,7 +88,7 @@
             <div transition:slide={{ duration: 200 }} class="p-3 bg-error/10 border border-error/20 rounded-lg relative group">
               <button 
                 class="absolute top-2 right-2 text-error/50 hover:text-error opacity-0 group-hover:opacity-100 transition-opacity"
-                on:click={() => handleDismissAlert(alert.alert_id || alert.id)}
+                onclick={() => handleDismissAlert(alert.alert_id || alert.id)}
                 aria-label="Dismiss alert"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -124,10 +124,10 @@
                 {/if}
               </div>
               <div class="flex-1 min-w-0">
-                <h4 class="font-semibold text-sm truncate" class:text-base-content/80={notification.is_read || notification.read}>
+                <h4 class="font-semibold text-sm truncate {notification.is_read || notification.read ? 'text-base-content/80' : ''}">
                   {notification.title || 'Notification'}
                 </h4>
-                <p class="text-xs mt-0.5 line-clamp-2" class:text-base-content/60={notification.is_read || notification.read}>
+                <p class="text-xs mt-0.5 line-clamp-2 {notification.is_read || notification.read ? 'text-base-content/60' : ''}">
                   {notification.message}
                 </p>
                 {#if notification.created_at}
@@ -139,7 +139,7 @@
               {#if !(notification.is_read || notification.read)}
                 <button 
                   class="btn btn-ghost btn-xs btn-circle text-primary" 
-                  on:click={() => handleMarkAsRead(notification.notification_id || notification.id)}
+                  onclick={() => handleMarkAsRead(notification.notification_id || notification.id)}
                   title="Mark as read"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
@@ -163,6 +163,7 @@
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

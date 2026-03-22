@@ -153,11 +153,11 @@
             </div>
           </div>
           
-          <div slot="actions">
+          {#snippet actions()}
             <Button href="/product/{product.id}" variant="primary" size="sm" fullWidth>
               View Details
             </Button>
-          </div>
+          {/snippet}
         </Card>
       {/each}
     </div>

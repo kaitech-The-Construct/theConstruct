@@ -126,7 +126,7 @@
             fullWidth 
             loading={isSubmittingRfq}
             disabled={!rfqPartName || !rfqSpecs || isSubmittingRfq}
-            on:click={handleSubmitRfq}
+            onclick={handleSubmitRfq}
           >
             Submit RFQ
           </Button>
@@ -165,7 +165,7 @@
           />
           <Button 
             variant="secondary" 
-            on:click={handleLoadOrder}
+            onclick={handleLoadOrder}
             loading={$manufacturingStore.isLoading && !payingMilestoneId && !isSubmittingRfq}
             disabled={!lookupOrderId}
           >
@@ -222,7 +222,7 @@
                           size="sm"
                           loading={payingMilestoneId === milestone.id}
                           disabled={payingMilestoneId !== null}
-                          on:click={() => handlePayMilestone(milestone.id)}
+                          onclick={() => handlePayMilestone(milestone.id)}
                         >
                           Pay Milestone On-Chain
                         </Button>
@@ -247,10 +247,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  @reference "../../app.css";
-  .textarea {
-    @apply border border-base-300 bg-base-100 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all;
-  }
-</style>

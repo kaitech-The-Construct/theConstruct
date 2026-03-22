@@ -131,7 +131,7 @@
                 class="thumbnail w-16 h-16 bg-base-200 rounded border-2 overflow-hidden flex-shrink-0"
                 class:border-primary={index === selectedImageIndex}
                 class:border-base-300={index !== selectedImageIndex}
-                on:click={() => selectImage(index)}
+                onclick={() => selectImage(index)}
               >
                 <img 
                   src={image} 
@@ -237,7 +237,7 @@
                 variant="outline"
                 size="lg"
                 fullWidth
-                on:click={handleAddToCart}
+                onclick={handleAddToCart}
               >
                 Add to Cart
               </Button>
@@ -245,7 +245,7 @@
                 variant="primary"
                 size="lg"
                 fullWidth
-                on:click={handleBuyNow}
+                onclick={handleBuyNow}
               >
                 Buy Now
               </Button>
@@ -289,14 +289,14 @@
         <button 
           class="tab"
           class:tab-active={showSpecifications}
-          on:click={toggleSpecifications}
+          onclick={toggleSpecifications}
         >
           Specifications
         </button>
         <button 
           class="tab"
           class:tab-active={showReviews}
-          on:click={toggleReviews}
+          onclick={toggleReviews}
         >
           Reviews ({product.ratings?.count || 0})
         </button>
@@ -412,13 +412,8 @@
   </div>
 {/if}
 
-<<<<<<< HEAD:presentation_layer/svelte_the_construct/src/routes/product/[id]/+page.svelte
 <style>
   @reference "../../../app.css";
-=======
-<style lang="postcss">
-  @reference "tailwindcss";
->>>>>>> f7d49693536da70b91928faf93cf1c603f102fd0:presentation_layer/the_construct_svelte/src/routes/product/[id]/+page.svelte
   .product-detail {
     animation: fadeIn 0.5s ease-in-out;
   }

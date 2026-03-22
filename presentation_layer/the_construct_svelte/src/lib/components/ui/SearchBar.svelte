@@ -1,22 +1,32 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import Button from './Button.svelte';
 
-  export let value: string = '';
-  export let placeholder: string = 'Search products...';
-  export let loading: boolean = false;
-  export let showFilters: boolean = false;
-
-  const dispatch = createEventDispatcher();
+  let {
+    value = $bindable(''),
+    placeholder = 'Search products...',
+    loading = false,
+    showFilters = $bindable(false),
+    oninput,
+    onsearch,
+    ontogglefilters
+  }: {
+    value?: string;
+    placeholder?: string;
+    loading?: boolean;
+    showFilters?: boolean;
+    oninput?: (event: { value: string }) => void;
+    onsearch?: (event: { value: string }) => void;
+    ontogglefilters?: (event: { showFilters: boolean }) => void;
+  } = $props();
 
   function handleInput(event: Event) {
     const target = event.target as HTMLInputElement;
     value = target.value;
-    dispatch('input', { value });
+    if (oninput) oninput({ value });
   }
 
   function handleSearch() {
-    dispatch('search', { value });
+    if (onsearch) onsearch({ value });
   }
 
   function handleKeydown(event: KeyboardEvent) {
@@ -27,7 +37,7 @@
 
   function toggleFilters() {
     showFilters = !showFilters;
-    dispatch('toggle-filters', { showFilters });
+    if (ontogglefilters) ontogglefilters({ showFilters });
   }
 </script>
 
@@ -35,11 +45,12 @@
   <div class="flex gap-2">
     <div class="relative flex-1">
       <input
+        aria-label="Search Input"
         type="search"
         {placeholder}
         bind:value
-        on:input={handleInput}
-        on:keydown={handleKeydown}
+        oninput={handleInput}
+        onkeydown={handleKeydown}
         class="input input-bordered w-full pl-10 pr-4"
         disabled={loading}
       />
@@ -62,7 +73,7 @@
     
     <Button
       variant="primary"
-      on:click={handleSearch}
+      onclick={handleSearch}
       {loading}
       disabled={loading}
     >
@@ -75,7 +86,7 @@
     
     <Button
       variant="outline"
-      on:click={toggleFilters}
+      onclick={toggleFilters}
       class="btn-square"
       ariaLabel="Toggle filters"
     >
@@ -97,6 +108,7 @@
 </div>
 
 <style>
+  /* svelte-ignore css_unknown_at_rule */
   @reference "../../../app.css";
   .search-bar {
     width: 100%;

@@ -34,7 +34,7 @@
 <div class="profile-page max-w-4xl mx-auto">
   <div class="flex justify-between items-center mb-8">
     <h1 class="text-4xl font-bold">My Profile</h1>
-    <Button variant="outline" on:click={() => isEditing = !isEditing}>
+    <Button variant="outline" onclick={() => isEditing = !isEditing}>
       {isEditing ? 'Cancel' : 'Edit Profile'}
     </Button>
   </div>
@@ -50,7 +50,7 @@
           <Input label="Avatar URL" bind:value={profileData.avatar} />
           <Input label="Bio" bind:value={profileData.bio} />
           <div class="flex justify-end gap-4">
-            <Button type="button" variant="ghost" on:click={() => isEditing = false}>
+            <Button type="button" variant="ghost" onclick={() => isEditing = false}>
               Cancel
             </Button>
             <Button type="submit" variant="primary">

@@ -1,135 +1,144 @@
-import { writable, derived } from 'svelte/store';
 import type { User, LoginCredentials, RegisterData } from '$types';
 import { apiClient } from '$services/api';
 
-// Auth state
-export const user = writable<User | null>(null);
-export const isAuthenticated = derived(user, ($user) => !!$user);
-export const isLoading = writable(false);
-export const authError = writable<string | null>(null);
+/**
+ * Svelte 5 AuthState class
+ * Replaces Svelte 4 stores with explicit Runes ($state, $derived).
+ */
+class AuthState {
+  user = $state<User | null>(null);
+  isLoading = $state(false);
+  authError = $state<string | null>(null);
+  
+  isAuthenticated = $derived(!!this.user);
 
-// Auth actions
-export const authStore = {
+  constructor() {
+    this.init();
+  }
+
   // Initialize auth state from localStorage
-  init: () => {
+  init() {
     if (typeof window !== 'undefined') {
       apiClient.loadToken();
       const savedUser = localStorage.getItem('user');
       if (savedUser) {
         try {
-          user.set(JSON.parse(savedUser));
+          this.user = JSON.parse(savedUser);
         } catch (e) {
           console.error('Failed to parse saved user:', e);
           localStorage.removeItem('user');
         }
       }
     }
-  },
+  }
 
   // Login user
-  login: async (credentials: LoginCredentials) => {
-    isLoading.set(true);
-    authError.set(null);
-    
+  async login(credentials: LoginCredentials) {
+    this.isLoading = true;
+    this.authError = null;
+
     try {
       const response = await apiClient.login(credentials);
       apiClient.setToken(response.access_token);
-      user.set(response.user);
-      
+      this.user = response.user;
+
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(response.user));
       }
-      
+
       return response;
     } catch (error: any) {
-      authError.set(error.message || 'Login failed');
+      this.authError = error.message || 'Login failed';
       throw error;
     } finally {
-      isLoading.set(false);
+      this.isLoading = false;
     }
-  },
+  }
 
   // Register user
-  register: async (userData: RegisterData) => {
-    isLoading.set(true);
-    authError.set(null);
-    
+  async register(userData: RegisterData) {
+    this.isLoading = true;
+    this.authError = null;
+
     try {
       const response = await apiClient.register(userData);
       apiClient.setToken(response.access_token);
-      user.set(response.user);
-      
+      this.user = response.user;
+
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(response.user));
       }
-      
+
       return response;
     } catch (error: any) {
-      authError.set(error.message || 'Registration failed');
+      this.authError = error.message || 'Registration failed';
       throw error;
     } finally {
-      isLoading.set(false);
+      this.isLoading = false;
     }
-  },
+  }
 
   // Logout user
-  logout: async () => {
-    isLoading.set(true);
-    
+  async logout() {
+    this.isLoading = true;
+
     try {
       await apiClient.logout();
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
       apiClient.clearToken();
-      user.set(null);
-      authError.set(null);
-      
+      this.user = null;
+      this.authError = null;
+
       if (typeof window !== 'undefined') {
         localStorage.removeItem('user');
       }
-      
-      isLoading.set(false);
+
+      this.isLoading = false;
     }
-  },
+  }
 
   // Update user profile
-  updateProfile: async (profileData: Partial<User>) => {
-    isLoading.set(true);
-    authError.set(null);
-    
+  async updateProfile(profileData: Partial<User>) {
+    this.isLoading = true;
+    this.authError = null;
+
     try {
       const updatedUser = await apiClient.updateProfile(profileData);
-      user.set(updatedUser);
-      
+      this.user = updatedUser;
+
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(updatedUser));
       }
-      
+
       return updatedUser;
     } catch (error: any) {
-      authError.set(error.message || 'Profile update failed');
+      this.authError = error.message || 'Profile update failed';
       throw error;
     } finally {
-      isLoading.set(false);
+      this.isLoading = false;
     }
-  },
+  }
 
   // Refresh token
-  refreshToken: async () => {
+  async refreshToken() {
     try {
       const response = await apiClient.refreshToken();
       apiClient.setToken(response.access_token);
       return response;
     } catch (error) {
       // If refresh fails, logout user
-      authStore.logout();
+      this.logout();
       throw error;
     }
-  },
+  }
 
   // Clear auth error
-  clearError: () => {
-    authError.set(null);
+  clearError() {
+    this.authError = null;
   }
-};
+}
+
+// Export a singleton instance
+export const authStore = new AuthState();

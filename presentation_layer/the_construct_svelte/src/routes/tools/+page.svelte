@@ -105,7 +105,7 @@
           />
           <Button 
             variant="primary" 
-            on:click={checkBalance} 
+            onclick={checkBalance} 
             disabled={checkingBalance || !address}
             loading={checkingBalance}
             fullWidth
@@ -131,7 +131,7 @@
           />
           <Button 
             variant="primary" 
-            on:click={checkNftStatus} 
+            onclick={checkNftStatus} 
             disabled={checkingNft || !robotId}
             loading={checkingNft}
             fullWidth
@@ -181,7 +181,7 @@
           <div class="pt-4 mt-2 border-t border-base-200">
             <Button 
               variant="secondary" 
-              on:click={payMilestone} 
+              onclick={payMilestone} 
               disabled={processingPayment || !orderId || !milestoneId || !wallet}
               loading={processingPayment}
               fullWidth

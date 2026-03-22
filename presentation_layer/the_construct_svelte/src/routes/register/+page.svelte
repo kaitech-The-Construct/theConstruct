@@ -47,6 +47,7 @@
         bind:value={email}
         error={errors.email || $authError || ''}
         required
+        maxlength={254}
       />
       <Input
         label="Username"
@@ -54,6 +55,8 @@
         bind:value={username}
         error={errors.username}
         required
+        minlength={3}
+        maxlength={30}
       />
       <Input
         label="Password"
@@ -61,6 +64,8 @@
         bind:value={password}
         error={errors.password}
         required
+        minlength={8}
+        maxlength={64}
       />
       <Input
         label="Confirm Password"
@@ -68,6 +73,8 @@
         bind:value={confirmPassword}
         error={errors.confirmPassword}
         required
+        minlength={8}
+        maxlength={64}
       />
       <Button type="submit" variant="primary" fullWidth loading={$isLoading}>
         Create Account

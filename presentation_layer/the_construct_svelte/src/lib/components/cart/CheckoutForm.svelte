@@ -90,7 +90,7 @@
 </script>
 
 <div class="checkout-form">
-  <form on:submit|preventDefault={handleSubmit}>
+  <form onsubmit={handleSubmit}>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <!-- Shipping and Payment -->
       <div>
@@ -201,7 +201,10 @@
             <div 
               class="payment-option"
               class:active={paymentMethod === 'crypto'}
-              on:click={() => paymentMethod = 'crypto'}
+              onclick={() => paymentMethod = 'crypto'}
+              onkeydown={(e) => e.key === 'Enter' && (paymentMethod = 'crypto')}
+              role="button"
+              tabindex="0"
             >
               <input type="radio" name="paymentMethod" value="crypto" bind:group={paymentMethod} class="radio radio-primary" />
               <div class="flex-1">
@@ -212,7 +215,10 @@
             <div 
               class="payment-option"
               class:active={paymentMethod === 'card'}
-              on:click={() => paymentMethod = 'card'}
+              onclick={() => paymentMethod = 'card'}
+              onkeydown={(e) => e.key === 'Enter' && (paymentMethod = 'card')}
+              role="button"
+              tabindex="0"
             >
               <input type="radio" name="paymentMethod" value="card" bind:group={paymentMethod} class="radio radio-primary" />
               <div class="flex-1">

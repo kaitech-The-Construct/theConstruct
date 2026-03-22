@@ -18,18 +18,18 @@
     await productStore.loadProducts();
   });
 
-  function handleSearch(event: CustomEvent) {
-    const { value } = event.detail;
+  function handleSearch(event: { value: string }) {
+    const { value } = event;
     searchQuery = value;
     productStore.setSearchQuery(value);
   }
 
-  function handleToggleFilters(event: CustomEvent) {
-    showFilters = event.detail.showFilters;
+  function handleToggleFilters(event: { showFilters: boolean }) {
+    showFilters = event.showFilters;
   }
 
-  function handleApplyFilters(event: CustomEvent) {
-    currentFilters = { ...event.detail, query: searchQuery };
+  function handleApplyFilters(filters: SearchFilters) {
+    currentFilters = { ...filters, query: searchQuery };
     productStore.searchProducts(currentFilters);
     showFilters = false;
   }
@@ -130,9 +130,9 @@
     <SearchBar
       bind:value={searchQuery}
       loading={$isLoading}
-      {showFilters}
-      on:search={handleSearch}
-      on:toggle-filters={handleToggleFilters}
+      bind:showFilters
+      onsearch={handleSearch}
+      ontogglefilters={handleToggleFilters}
     />
   </div>
 
@@ -191,8 +191,8 @@
     filters={currentFilters}
     {categories}
     {manufacturers}
-    on:apply={handleApplyFilters}
-    on:clear={handleClearFilters}
+    onapply={handleApplyFilters}
+    onclear={handleClearFilters}
   />
 
   <!-- Active Filters Display -->

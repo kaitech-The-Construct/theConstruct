@@ -44,8 +44,10 @@
     <!-- Backdrop -->
     <div 
       class="fixed inset-0 bg-black/50 transition-opacity"
-      on:click={handleClose}
-      on:keydown={(e) => e.key === 'Escape' && handleClose()}
+      onclick={handleClose}
+      onkeydown={(e) => e.key === 'Escape' && handleClose()}
+      role="button"
+      tabindex="0"
     ></div>
     
     <!-- Cart Panel -->
@@ -55,7 +57,7 @@
         <h2 class="text-xl font-semibold">Shopping Cart</h2>
         <button 
           class="btn btn-ghost btn-circle btn-sm"
-          on:click={handleClose}
+          onclick={handleClose}
           aria-label="Close cart"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +80,7 @@
             <p class="text-base-content/70 mb-6">
               Add some products to get started!
             </p>
-            <Button variant="primary" on:click={handleContinueShopping}>
+            <Button variant="primary" onclick={handleContinueShopping}>
               Continue Shopping
             </Button>
           </div>
@@ -117,7 +119,7 @@
                   <div class="flex items-center gap-2">
                     <button
                       class="btn btn-circle btn-xs"
-                      on:click={() => handleUpdateQuantity(item.product_id, item.quantity - 1)}
+                      onclick={() => handleUpdateQuantity(item.product_id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
                     >
                       -
@@ -127,7 +129,7 @@
                     </span>
                     <button
                       class="btn btn-circle btn-xs"
-                      on:click={() => handleUpdateQuantity(item.product_id, item.quantity + 1)}
+                      onclick={() => handleUpdateQuantity(item.product_id, item.quantity + 1)}
                     >
                       +
                     </button>
@@ -138,7 +140,7 @@
                 <div class="flex flex-col items-end justify-between">
                   <button
                     class="btn btn-ghost btn-xs text-error"
-                    on:click={() => handleRemoveItem(item.product_id)}
+                    onclick={() => handleRemoveItem(item.product_id)}
                     aria-label="Remove item"
                   >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,7 +163,7 @@
           <!-- Clear Cart Button -->
           {#if $cartItems.length > 0}
             <div class="mt-6 text-center">
-              <Button variant="ghost" size="sm" on:click={handleClearCart}>
+              <Button variant="ghost" size="sm" onclick={handleClearCart}>
                 Clear Cart
               </Button>
             </div>
@@ -186,7 +188,7 @@
               variant="primary" 
               size="lg" 
               fullWidth
-              on:click={handleCheckout}
+              onclick={handleCheckout}
             >
               Proceed to Checkout
             </Button>
@@ -194,7 +196,7 @@
               variant="outline" 
               size="md" 
               fullWidth
-              on:click={handleContinueShopping}
+              onclick={handleContinueShopping}
             >
               Continue Shopping
             </Button>

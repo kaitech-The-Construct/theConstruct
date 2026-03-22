@@ -6,6 +6,13 @@ const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
+	compilerOptions: {
+		warningFilter: (warning) => {
+			if (warning.code === 'css_unknown_at_rule' && warning.message.includes('@reference'))
+				return false;
+			return true;
+		}
+	},
 	kit: {
 		adapter: adapter(),
 		alias: {

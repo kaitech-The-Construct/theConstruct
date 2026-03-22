@@ -1,25 +1,34 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { finishEscrow, cancelEscrow } from '$lib/services/xrplClient';
   import allOrders from '$lib/data/orders.json';
   import products from '$lib/data/products.json';
 
-  let orders = [];
+  interface Order {
+    id: number | string;
+    productId: string | number;
+    status: string;
+    date: string;
+    productName?: string;
+    [key: string]: any;
+  }
+
+  let orders: Order[] = [];
 
   onMount(() => {
     // In a real app, you'd fetch orders for the logged-in user
-    orders = allOrders.map(order => {
-      const product = products.find(p => p.id === order.productId);
+    orders = allOrders.map((order: any) => {
+      const product = products.find((p: any) => String(p.id) === String(order.productId));
       return { ...order, productName: product ? product.name : 'Unknown Product' };
     });
   });
 
-  async function handleFinish(orderId) {
+  async function handleFinish(orderId: string | number) {
     await finishEscrow(orderId);
     orders = orders.map(o => o.id === orderId ? { ...o, status: 'Completed' } : o);
   }
 
-  async function handleCancel(orderId) {
+  async function handleCancel(orderId: string | number) {
     await cancelEscrow(orderId);
     orders = orders.map(o => o.id === orderId ? { ...o, status: 'Canceled' } : o);
   }

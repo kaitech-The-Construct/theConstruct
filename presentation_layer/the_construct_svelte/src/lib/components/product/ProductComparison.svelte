@@ -82,7 +82,7 @@
           Comparing {comparisonData.length} product{comparisonData.length !== 1 ? 's' : ''}
         </p>
       </div>
-      <Button variant="outline" on:click={handleClearComparison}>
+      <Button variant="outline" onclick={handleClearComparison}>
         Clear All
       </Button>
     </div>
@@ -125,7 +125,7 @@
                   <!-- Remove Button -->
                   <button
                     class="btn btn-circle btn-xs btn-error"
-                    on:click={() => handleRemoveProduct(product.id)}
+                    onclick={() => handleRemoveProduct(product.id)}
                     aria-label="Remove from comparison"
                   >
                     ×
@@ -278,7 +278,7 @@
                       variant="primary"
                       size="sm"
                       fullWidth
-                      on:click={() => handleAddToCart(product)}
+                      onclick={() => handleAddToCart(product)}
                     >
                       Add to Cart
                     </Button>
@@ -291,7 +291,7 @@
                     variant="outline"
                     size="sm"
                     fullWidth
-                    on:click={() => handleViewDetails(product)}
+                    onclick={() => handleViewDetails(product)}
                   >
                     View Details
                   </Button>

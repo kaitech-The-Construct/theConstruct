@@ -1,206 +1,206 @@
 // User Types
 export interface User {
-  id: string;
-  email: string;
-  username: string;
-  profile?: UserProfile;
-  wallets?: UserWallets;
-  kyc?: KYCStatus;
-  is_active: boolean;
-  created_at: string;
+	id: string;
+	email: string;
+	username: string;
+	profile?: UserProfile;
+	wallets?: UserWallets;
+	kyc?: KYCStatus;
+	is_active: boolean;
+	created_at: string;
 }
 
 export interface UserProfile {
-  first_name?: string;
-  last_name?: string;
-  avatar?: string;
-  bio?: string;
+	first_name?: string;
+	last_name?: string;
+	avatar?: string;
+	bio?: string;
 }
 
 export interface UserWallets {
-  xrpl?: string;
-  solana?: string;
+	xrpl?: string;
+	solana?: string;
 }
 
 export interface KYCStatus {
-  status: 'pending' | 'verified' | 'rejected';
-  documents?: string[];
-  verified_at?: string;
+	status: 'pending' | 'verified' | 'rejected';
+	documents?: string[];
+	verified_at?: string;
 }
 
 // Authentication Types
 export interface LoginCredentials {
-  username: string;
-  password: string;
+	username: string;
+	password: string;
 }
 
 export interface RegisterData {
-  email: string;
-  username: string;
-  password: string;
+	email: string;
+	username: string;
+	password: string;
 }
 
 export interface AuthResponse {
-  access_token: string;
-  token_type: string;
-  user: User;
+	access_token: string;
+	token_type: string;
+	user: User;
 }
 
 // Product Types
 export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  currency: string;
-  category: string;
-  manufacturer: string;
-  images: string[];
-  specifications: ProductSpecifications;
-  ratings: ProductRatings;
-  inventory: ProductInventory;
-  status: 'active' | 'inactive' | 'sold';
-  created_at: string;
-  product_type: 'robot' | 'software' | 'hardware';
+	id: string;
+	name: string;
+	description: string;
+	price: number;
+	currency: string;
+	category: string;
+	manufacturer: string;
+	images: string[];
+	specifications: ProductSpecifications;
+	ratings: ProductRatings;
+	inventory: ProductInventory;
+	status: 'active' | 'inactive' | 'sold';
+	created_at: string;
+	product_type: 'robot' | 'software' | 'hardware';
 }
 
 export interface ProductSpecifications {
-  technical: Record<string, string | number | boolean>;
-  compatibility: string[];
-  dimensions: Record<string, number>;
+	technical: Record<string, string | number | boolean>;
+	compatibility: string[];
+	dimensions: Record<string, number>;
 }
 
 // Robot-specific types (matching Flutter RobotDetails model)
 export interface RobotProduct extends Product {
-  product_type: 'robot';
-  manufacturer_id: string;
-  model: string;
-  model_id: string;
-  price_details: PriceDetails;
-  image_url?: string;
+	product_type: 'robot';
+	manufacturer_id: string;
+	model: string;
+	model_id: string;
+	price_details: PriceDetails;
+	image_url?: string;
 }
 
 export interface PriceDetails {
-  model: string;
-  subscription_price: number;
-  listing_price?: number;
+	model: string;
+	subscription_price: number;
+	listing_price?: number;
 }
 
 // Software-specific types (matching Flutter SoftwareDetails model)
 export interface SoftwareProduct extends Product {
-  product_type: 'software';
-  version: string;
-  author: string;
-  license: string;
-  compatibility: string[];
-  image_url?: string;
+	product_type: 'software';
+	version: string;
+	author: string;
+	license: string;
+	compatibility: string[];
+	image_url?: string;
 }
 
 // Hardware products (existing products)
 export interface HardwareProduct extends Product {
-  product_type: 'hardware';
+	product_type: 'hardware';
 }
 
 // Union type for all product types
 export type AnyProduct = RobotProduct | SoftwareProduct | HardwareProduct;
 
 export interface ProductRatings {
-  average: number;
-  count: number;
-  reviews: string[];
+	average: number;
+	count: number;
+	reviews: string[];
 }
 
 export interface ProductInventory {
-  available: number;
-  reserved: number;
-  total: number;
+	available: number;
+	reserved: number;
+	total: number;
 }
 
 // Order Types
 export interface Order {
-  id: string;
-  buyer_id: string;
-  seller_id: string;
-  items: OrderItem[];
-  total_price: number;
-  currency: string;
-  status: OrderStatus;
-  created_at: string;
+	id: string;
+	buyer_id: string;
+	seller_id: string;
+	items: OrderItem[];
+	total_price: number;
+	currency: string;
+	status: OrderStatus;
+	created_at: string;
 }
 
 export interface OrderItem {
-  product_id: string;
-  quantity: number;
-  unit_price: number;
+	product_id: string;
+	quantity: number;
+	unit_price: number;
 }
 
-export type OrderStatus = 
-  | 'created' 
-  | 'paid' 
-  | 'processing' 
-  | 'shipped' 
-  | 'delivered' 
-  | 'completed' 
-  | 'cancelled';
+export type OrderStatus =
+	| 'created'
+	| 'paid'
+	| 'processing'
+	| 'shipped'
+	| 'delivered'
+	| 'completed'
+	| 'cancelled';
 
 // Cart Types
 export interface CartItem {
-  product_id: string;
-  product: Product;
-  quantity: number;
-  price: number;
+	product_id: string;
+	product: Product;
+	quantity: number;
+	price: number;
 }
 
 // API Types
 export interface ApiError {
-  status: number;
-  message: string;
-  details?: Record<string, unknown>;
+	status: number;
+	message: string;
+	details?: Record<string, unknown>;
 }
 
 export interface ApiResponse<T> {
-  data: T;
-  message?: string;
-  success: boolean;
+	data: T;
+	message?: string;
+	success: boolean;
 }
 
 // Search and Filter Types
 export interface SearchFilters {
-  query?: string;
-  category?: string;
-  min_price?: number;
-  max_price?: number;
-  manufacturer?: string;
-  min_rating?: number;
-  sort_by?: 'price' | 'rating' | 'date' | 'name';
-  sort_order?: 'asc' | 'desc';
+	query?: string;
+	category?: string;
+	min_price?: number;
+	max_price?: number;
+	manufacturer?: string;
+	min_rating?: number;
+	sort_by?: 'price' | 'rating' | 'date' | 'name';
+	sort_order?: 'asc' | 'desc';
 }
 
 // Notification Types
 export interface Notification {
-  id: string;
-  user_id: string;
-  title: string;
-  message: string;
-  type: 'info' | 'success' | 'warning' | 'error';
-  read: boolean;
-  created_at: string;
+	id: string;
+	user_id: string;
+	title: string;
+	message: string;
+	type: 'info' | 'success' | 'warning' | 'error';
+	read: boolean;
+	created_at: string;
 }
 
 // Blockchain Types
 export interface WalletConnection {
-  type: 'xrpl' | 'solana' | 'ethereum';
-  address: string;
-  connected: boolean;
+	type: 'xrpl' | 'solana' | 'ethereum';
+	address: string;
+	connected: boolean;
 }
 
 export interface Transaction {
-  id: string;
-  hash: string;
-  from: string;
-  to: string;
-  amount: number;
-  currency: string;
-  status: 'pending' | 'confirmed' | 'failed';
-  created_at: string;
+	id: string;
+	hash: string;
+	from: string;
+	to: string;
+	amount: number;
+	currency: string;
+	status: 'pending' | 'confirmed' | 'failed';
+	created_at: string;
 }

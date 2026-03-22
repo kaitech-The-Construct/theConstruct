@@ -103,22 +103,7 @@
 </div>
 
 <style>
-<<<<<<< HEAD:presentation_layer/svelte_the_construct/src/lib/components/product/ProductGrid.svelte
   @reference "../../../app.css";
-  .product-grid {
-    @apply w-full;
-  }
-
-  .empty-state {
-    @apply max-w-md mx-auto;
-  }
-
-  .results-summary {
-    @apply border-t border-base-300 pt-4;
-  }
-
-=======
->>>>>>> f7d49693536da70b91928faf93cf1c603f102fd0:presentation_layer/the_construct_svelte/src/lib/components/product/ProductGrid.svelte
   .animate-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }

@@ -1,336 +1,364 @@
 [
-  {
-    "id": "robot-001",
-    "name": "Industrial Robotic Arm X1",
-    "description": "A high-precision 6-DOF robotic arm designed for industrial automation and manufacturing applications. Features advanced servo motors and real-time control systems.",
-    "price": 15000,
-    "currency": "USD",
-    "category": "Industrial Robots",
-    "manufacturer": "RoboTech Industries",
-    "manufacturer_id": "RTI-001",
-    "model": "X1-6DOF",
-    "model_id": "RTI-X1-6DOF-2024",
-    "product_type": "robot",
-    "price_details": {
-      "model": "subscription",
-      "subscription_price": 500,
-      "listing_price": 15000
-    },
-    "images": ["https://via.placeholder.com/400x300/00FFE1/0F0F0F?text=Robotic+Arm+X1"],
-    "image_url": "https://via.placeholder.com/400x300/00FFE1/0F0F0F?text=Robotic+Arm+X1",
-    "specifications": {
-      "technical": {
-        "degrees_of_freedom": 6,
-        "payload": "10kg",
-        "reach": "850mm",
-        "repeatability": "±0.03mm",
-        "power": "24V DC",
-        "weight": "35kg"
-      },
-      "compatibility": ["ROS", "ROS2", "Universal Robots", "ABB"],
-      "dimensions": {
-        "length": 850,
-        "width": 200,
-        "height": 200
-      }
-    },
-    "ratings": {
-      "average": 4.8,
-      "count": 15,
-      "reviews": ["Exceptional precision and reliability", "Perfect for our production line", "Outstanding build quality"]
-    },
-    "inventory": {
-      "available": 5,
-      "reserved": 2,
-      "total": 7
-    },
-    "status": "active",
-    "created_at": "2024-01-15T10:00:00Z"
-  },
-  {
-    "id": "robot-002",
-    "name": "Autonomous Mobile Robot",
-    "description": "Advanced autonomous mobile robot with LIDAR navigation, perfect for warehouse automation and logistics applications.",
-    "price": 25000,
-    "currency": "USD",
-    "category": "Mobile Robots",
-    "manufacturer": "AutoNav Systems",
-    "manufacturer_id": "ANS-002",
-    "model": "AMR-Pro",
-    "model_id": "ANS-AMR-PRO-2024",
-    "product_type": "robot",
-    "price_details": {
-      "model": "subscription",
-      "subscription_price": 800,
-      "listing_price": 25000
-    },
-    "images": ["https://via.placeholder.com/400x300/00D4FF/0F0F0F?text=Mobile+Robot"],
-    "image_url": "https://via.placeholder.com/400x300/00D4FF/0F0F0F?text=Mobile+Robot",
-    "specifications": {
-      "technical": {
-        "max_speed": "2.5m/s",
-        "payload": "500kg",
-        "battery_life": "8 hours",
-        "navigation": "LIDAR + SLAM",
-        "charging": "Auto-docking",
-        "weight": "120kg"
-      },
-      "compatibility": ["ROS", "ROS2", "Fleet Management Systems"],
-      "dimensions": {
-        "length": 1200,
-        "width": 800,
-        "height": 400
-      }
-    },
-    "ratings": {
-      "average": 4.6,
-      "count": 8,
-      "reviews": ["Excellent navigation capabilities", "Reliable for warehouse operations", "Great battery life"]
-    },
-    "inventory": {
-      "available": 3,
-      "reserved": 1,
-      "total": 4
-    },
-    "status": "active",
-    "created_at": "2024-02-01T14:30:00Z"
-  },
-  {
-    "id": "robot-003",
-    "name": "Humanoid Research Platform",
-    "description": "Advanced humanoid robot platform for research and development in bipedal locomotion, human-robot interaction, and AI applications.",
-    "price": 85000,
-    "currency": "USD",
-    "category": "Humanoid Robots",
-    "manufacturer": "Advanced Robotics Lab",
-    "manufacturer_id": "ARL-003",
-    "model": "HRP-Alpha",
-    "model_id": "ARL-HRP-ALPHA-2024",
-    "product_type": "robot",
-    "price_details": {
-      "model": "subscription",
-      "subscription_price": 2500,
-      "listing_price": 85000
-    },
-    "images": ["https://via.placeholder.com/400x300/39FF14/0F0F0F?text=Humanoid+Robot"],
-    "image_url": "https://via.placeholder.com/400x300/39FF14/0F0F0F?text=Humanoid+Robot",
-    "specifications": {
-      "technical": {
-        "degrees_of_freedom": 32,
-        "height": "175cm",
-        "weight": "75kg",
-        "walking_speed": "1.2m/s",
-        "battery_life": "2 hours",
-        "material": "Carbon Fiber + Aluminum"
-      },
-      "compatibility": ["ROS", "ROS2", "OpenRAVE", "Gazebo", "MoveIt"],
-      "dimensions": {
-        "length": 60,
-        "width": 40,
-        "height": 175
-      }
-    },
-    "ratings": {
-      "average": 4.9,
-      "count": 4,
-      "reviews": ["Cutting-edge technology", "Perfect for research applications", "Exceptional build quality"]
-    },
-    "inventory": {
-      "available": 1,
-      "reserved": 0,
-      "total": 1
-    },
-    "status": "active",
-    "created_at": "2024-03-01T16:45:00Z"
-  },
-  {
-    "id": "software-001",
-    "name": "RoboVision AI Suite",
-    "description": "Advanced computer vision and AI software suite for robotic applications. Includes object detection, tracking, and manipulation planning algorithms.",
-    "price": 2500,
-    "currency": "USD",
-    "category": "AI Software",
-    "manufacturer": "VisionTech Solutions",
-    "product_type": "software",
-    "version": "3.2.1",
-    "author": "VisionTech Development Team",
-    "license": "Commercial",
-    "images": ["https://via.placeholder.com/400x300/FFD700/0F0F0F?text=RoboVision+AI"],
-    "image_url": "https://via.placeholder.com/400x300/FFD700/0F0F0F?text=RoboVision+AI",
-    "specifications": {
-      "technical": {
-        "supported_cameras": "RGB, Depth, Stereo",
-        "ai_models": "YOLO, ResNet, MobileNet",
-        "processing_speed": "30 FPS",
-        "accuracy": "95%+",
-        "gpu_acceleration": true
-      },
-      "compatibility": ["ROS", "ROS2", "OpenCV", "TensorFlow", "PyTorch", "CUDA"],
-      "dimensions": {}
-    },
-    "ratings": {
-      "average": 4.7,
-      "count": 23,
-      "reviews": ["Excellent accuracy and performance", "Easy integration with ROS", "Great documentation and support"]
-    },
-    "inventory": {
-      "available": 100,
-      "reserved": 5,
-      "total": 105
-    },
-    "status": "active",
-    "created_at": "2024-01-20T09:15:00Z"
-  },
-  {
-    "id": "software-002",
-    "name": "Motion Planning Pro",
-    "description": "Professional motion planning and trajectory optimization software for robotic manipulators and mobile robots.",
-    "price": 1800,
-    "currency": "USD",
-    "category": "Motion Planning",
-    "manufacturer": "PathPlan Robotics",
-    "product_type": "software",
-    "version": "2.1.0",
-    "author": "PathPlan Engineering Team",
-    "license": "Commercial",
-    "images": ["https://via.placeholder.com/400x300/FF073A/FFFFFF?text=Motion+Planning"],
-    "image_url": "https://via.placeholder.com/400x300/FF073A/FFFFFF?text=Motion+Planning",
-    "specifications": {
-      "technical": {
-        "algorithms": "RRT*, PRM, OMPL",
-        "collision_detection": "FCL, Bullet",
-        "optimization": "CHOMP, STOMP",
-        "real_time": true,
-        "multi_robot": true
-      },
-      "compatibility": ["ROS", "ROS2", "MoveIt", "OMPL", "Gazebo"],
-      "dimensions": {}
-    },
-    "ratings": {
-      "average": 4.5,
-      "count": 18,
-      "reviews": ["Powerful planning algorithms", "Great for complex environments", "Excellent performance"]
-    },
-    "inventory": {
-      "available": 50,
-      "reserved": 3,
-      "total": 53
-    },
-    "status": "active",
-    "created_at": "2024-02-10T11:30:00Z"
-  },
-  {
-    "id": "software-003",
-    "name": "Fleet Management System",
-    "description": "Comprehensive fleet management software for coordinating multiple autonomous mobile robots in warehouse and industrial environments.",
-    "price": 5000,
-    "currency": "USD",
-    "category": "Fleet Management",
-    "manufacturer": "FleetBot Solutions",
-    "product_type": "software",
-    "version": "1.5.2",
-    "author": "FleetBot Development Team",
-    "license": "Enterprise",
-    "images": ["https://via.placeholder.com/400x300/00D4FF/0F0F0F?text=Fleet+Management"],
-    "image_url": "https://via.placeholder.com/400x300/00D4FF/0F0F0F?text=Fleet+Management",
-    "specifications": {
-      "technical": {
-        "max_robots": 100,
-        "task_scheduling": "Advanced",
-        "traffic_management": "Multi-layer",
-        "monitoring": "Real-time",
-        "analytics": "Built-in"
-      },
-      "compatibility": ["ROS", "ROS2", "REST API", "WebSocket", "MQTT"],
-      "dimensions": {}
-    },
-    "ratings": {
-      "average": 4.8,
-      "count": 12,
-      "reviews": ["Excellent coordination capabilities", "Intuitive dashboard", "Scales well with fleet size"]
-    },
-    "inventory": {
-      "available": 25,
-      "reserved": 2,
-      "total": 27
-    },
-    "status": "active",
-    "created_at": "2024-03-15T13:20:00Z"
-  },
-  {
-    "id": "hardware-001",
-    "name": "Precision Servo Motor Kit",
-    "description": "High-precision servo motor kit with encoders and controllers, perfect for robotic joint applications.",
-    "price": 450,
-    "currency": "USD",
-    "category": "Actuators",
-    "manufacturer": "ServoTech Components",
-    "product_type": "hardware",
-    "images": ["https://via.placeholder.com/400x300/9900CC/FFFFFF?text=Servo+Motor+Kit"],
-    "specifications": {
-      "technical": {
-        "torque": "5 Nm",
-        "speed": "3000 RPM",
-        "resolution": "4096 counts/rev",
-        "voltage": "24V DC",
-        "communication": "CAN, RS485"
-      },
-      "compatibility": ["Arduino", "Raspberry Pi", "Industrial Controllers"],
-      "dimensions": {
-        "length": 120,
-        "width": 80,
-        "height": 80
-      }
-    },
-    "ratings": {
-      "average": 4.4,
-      "count": 35,
-      "reviews": ["Great precision and reliability", "Easy to integrate", "Good value for money"]
-    },
-    "inventory": {
-      "available": 20,
-      "reserved": 3,
-      "total": 23
-    },
-    "status": "active",
-    "created_at": "2024-01-25T15:45:00Z"
-  },
-  {
-    "id": "hardware-002",
-    "name": "LIDAR Sensor Module",
-    "description": "360-degree LIDAR sensor for autonomous navigation and mapping applications. Compact design with high accuracy.",
-    "price": 1200,
-    "currency": "USD",
-    "category": "Sensors",
-    "manufacturer": "SensorPro Technologies",
-    "product_type": "hardware",
-    "images": ["https://via.placeholder.com/400x300/00FFE1/0F0F0F?text=LIDAR+Sensor"],
-    "specifications": {
-      "technical": {
-        "range": "30m",
-        "accuracy": "±3cm",
-        "scan_rate": "10Hz",
-        "angular_resolution": "0.25°",
-        "interface": "Ethernet, USB"
-      },
-      "compatibility": ["ROS", "ROS2", "PCL", "SLAM algorithms"],
-      "dimensions": {
-        "length": 100,
-        "width": 100,
-        "height": 70
-      }
-    },
-    "ratings": {
-      "average": 4.6,
-      "count": 28,
-      "reviews": ["Excellent range and accuracy", "Perfect for SLAM applications", "Reliable performance"]
-    },
-    "inventory": {
-      "available": 15,
-      "reserved": 4,
-      "total": 19
-    },
-    "status": "active",
-    "created_at": "2024-02-20T10:15:00Z"
-  }
+	{
+		"id": "robot-001",
+		"name": "Industrial Robotic Arm X1",
+		"description": "A high-precision 6-DOF robotic arm designed for industrial automation and manufacturing applications. Features advanced servo motors and real-time control systems.",
+		"price": 15000,
+		"currency": "USD",
+		"category": "Industrial Robots",
+		"manufacturer": "RoboTech Industries",
+		"manufacturer_id": "RTI-001",
+		"model": "X1-6DOF",
+		"model_id": "RTI-X1-6DOF-2024",
+		"product_type": "robot",
+		"price_details": {
+			"model": "subscription",
+			"subscription_price": 500,
+			"listing_price": 15000
+		},
+		"images": ["https://via.placeholder.com/400x300/00FFE1/0F0F0F?text=Robotic+Arm+X1"],
+		"image_url": "https://via.placeholder.com/400x300/00FFE1/0F0F0F?text=Robotic+Arm+X1",
+		"specifications": {
+			"technical": {
+				"degrees_of_freedom": 6,
+				"payload": "10kg",
+				"reach": "850mm",
+				"repeatability": "±0.03mm",
+				"power": "24V DC",
+				"weight": "35kg"
+			},
+			"compatibility": ["ROS", "ROS2", "Universal Robots", "ABB"],
+			"dimensions": {
+				"length": 850,
+				"width": 200,
+				"height": 200
+			}
+		},
+		"ratings": {
+			"average": 4.8,
+			"count": 15,
+			"reviews": [
+				"Exceptional precision and reliability",
+				"Perfect for our production line",
+				"Outstanding build quality"
+			]
+		},
+		"inventory": {
+			"available": 5,
+			"reserved": 2,
+			"total": 7
+		},
+		"status": "active",
+		"created_at": "2024-01-15T10:00:00Z"
+	},
+	{
+		"id": "robot-002",
+		"name": "Autonomous Mobile Robot",
+		"description": "Advanced autonomous mobile robot with LIDAR navigation, perfect for warehouse automation and logistics applications.",
+		"price": 25000,
+		"currency": "USD",
+		"category": "Mobile Robots",
+		"manufacturer": "AutoNav Systems",
+		"manufacturer_id": "ANS-002",
+		"model": "AMR-Pro",
+		"model_id": "ANS-AMR-PRO-2024",
+		"product_type": "robot",
+		"price_details": {
+			"model": "subscription",
+			"subscription_price": 800,
+			"listing_price": 25000
+		},
+		"images": ["https://via.placeholder.com/400x300/00D4FF/0F0F0F?text=Mobile+Robot"],
+		"image_url": "https://via.placeholder.com/400x300/00D4FF/0F0F0F?text=Mobile+Robot",
+		"specifications": {
+			"technical": {
+				"max_speed": "2.5m/s",
+				"payload": "500kg",
+				"battery_life": "8 hours",
+				"navigation": "LIDAR + SLAM",
+				"charging": "Auto-docking",
+				"weight": "120kg"
+			},
+			"compatibility": ["ROS", "ROS2", "Fleet Management Systems"],
+			"dimensions": {
+				"length": 1200,
+				"width": 800,
+				"height": 400
+			}
+		},
+		"ratings": {
+			"average": 4.6,
+			"count": 8,
+			"reviews": [
+				"Excellent navigation capabilities",
+				"Reliable for warehouse operations",
+				"Great battery life"
+			]
+		},
+		"inventory": {
+			"available": 3,
+			"reserved": 1,
+			"total": 4
+		},
+		"status": "active",
+		"created_at": "2024-02-01T14:30:00Z"
+	},
+	{
+		"id": "robot-003",
+		"name": "Humanoid Research Platform",
+		"description": "Advanced humanoid robot platform for research and development in bipedal locomotion, human-robot interaction, and AI applications.",
+		"price": 85000,
+		"currency": "USD",
+		"category": "Humanoid Robots",
+		"manufacturer": "Advanced Robotics Lab",
+		"manufacturer_id": "ARL-003",
+		"model": "HRP-Alpha",
+		"model_id": "ARL-HRP-ALPHA-2024",
+		"product_type": "robot",
+		"price_details": {
+			"model": "subscription",
+			"subscription_price": 2500,
+			"listing_price": 85000
+		},
+		"images": ["https://via.placeholder.com/400x300/39FF14/0F0F0F?text=Humanoid+Robot"],
+		"image_url": "https://via.placeholder.com/400x300/39FF14/0F0F0F?text=Humanoid+Robot",
+		"specifications": {
+			"technical": {
+				"degrees_of_freedom": 32,
+				"height": "175cm",
+				"weight": "75kg",
+				"walking_speed": "1.2m/s",
+				"battery_life": "2 hours",
+				"material": "Carbon Fiber + Aluminum"
+			},
+			"compatibility": ["ROS", "ROS2", "OpenRAVE", "Gazebo", "MoveIt"],
+			"dimensions": {
+				"length": 60,
+				"width": 40,
+				"height": 175
+			}
+		},
+		"ratings": {
+			"average": 4.9,
+			"count": 4,
+			"reviews": [
+				"Cutting-edge technology",
+				"Perfect for research applications",
+				"Exceptional build quality"
+			]
+		},
+		"inventory": {
+			"available": 1,
+			"reserved": 0,
+			"total": 1
+		},
+		"status": "active",
+		"created_at": "2024-03-01T16:45:00Z"
+	},
+	{
+		"id": "software-001",
+		"name": "RoboVision AI Suite",
+		"description": "Advanced computer vision and AI software suite for robotic applications. Includes object detection, tracking, and manipulation planning algorithms.",
+		"price": 2500,
+		"currency": "USD",
+		"category": "AI Software",
+		"manufacturer": "VisionTech Solutions",
+		"product_type": "software",
+		"version": "3.2.1",
+		"author": "VisionTech Development Team",
+		"license": "Commercial",
+		"images": ["https://via.placeholder.com/400x300/FFD700/0F0F0F?text=RoboVision+AI"],
+		"image_url": "https://via.placeholder.com/400x300/FFD700/0F0F0F?text=RoboVision+AI",
+		"specifications": {
+			"technical": {
+				"supported_cameras": "RGB, Depth, Stereo",
+				"ai_models": "YOLO, ResNet, MobileNet",
+				"processing_speed": "30 FPS",
+				"accuracy": "95%+",
+				"gpu_acceleration": true
+			},
+			"compatibility": ["ROS", "ROS2", "OpenCV", "TensorFlow", "PyTorch", "CUDA"],
+			"dimensions": {}
+		},
+		"ratings": {
+			"average": 4.7,
+			"count": 23,
+			"reviews": [
+				"Excellent accuracy and performance",
+				"Easy integration with ROS",
+				"Great documentation and support"
+			]
+		},
+		"inventory": {
+			"available": 100,
+			"reserved": 5,
+			"total": 105
+		},
+		"status": "active",
+		"created_at": "2024-01-20T09:15:00Z"
+	},
+	{
+		"id": "software-002",
+		"name": "Motion Planning Pro",
+		"description": "Professional motion planning and trajectory optimization software for robotic manipulators and mobile robots.",
+		"price": 1800,
+		"currency": "USD",
+		"category": "Motion Planning",
+		"manufacturer": "PathPlan Robotics",
+		"product_type": "software",
+		"version": "2.1.0",
+		"author": "PathPlan Engineering Team",
+		"license": "Commercial",
+		"images": ["https://via.placeholder.com/400x300/FF073A/FFFFFF?text=Motion+Planning"],
+		"image_url": "https://via.placeholder.com/400x300/FF073A/FFFFFF?text=Motion+Planning",
+		"specifications": {
+			"technical": {
+				"algorithms": "RRT*, PRM, OMPL",
+				"collision_detection": "FCL, Bullet",
+				"optimization": "CHOMP, STOMP",
+				"real_time": true,
+				"multi_robot": true
+			},
+			"compatibility": ["ROS", "ROS2", "MoveIt", "OMPL", "Gazebo"],
+			"dimensions": {}
+		},
+		"ratings": {
+			"average": 4.5,
+			"count": 18,
+			"reviews": [
+				"Powerful planning algorithms",
+				"Great for complex environments",
+				"Excellent performance"
+			]
+		},
+		"inventory": {
+			"available": 50,
+			"reserved": 3,
+			"total": 53
+		},
+		"status": "active",
+		"created_at": "2024-02-10T11:30:00Z"
+	},
+	{
+		"id": "software-003",
+		"name": "Fleet Management System",
+		"description": "Comprehensive fleet management software for coordinating multiple autonomous mobile robots in warehouse and industrial environments.",
+		"price": 5000,
+		"currency": "USD",
+		"category": "Fleet Management",
+		"manufacturer": "FleetBot Solutions",
+		"product_type": "software",
+		"version": "1.5.2",
+		"author": "FleetBot Development Team",
+		"license": "Enterprise",
+		"images": ["https://via.placeholder.com/400x300/00D4FF/0F0F0F?text=Fleet+Management"],
+		"image_url": "https://via.placeholder.com/400x300/00D4FF/0F0F0F?text=Fleet+Management",
+		"specifications": {
+			"technical": {
+				"max_robots": 100,
+				"task_scheduling": "Advanced",
+				"traffic_management": "Multi-layer",
+				"monitoring": "Real-time",
+				"analytics": "Built-in"
+			},
+			"compatibility": ["ROS", "ROS2", "REST API", "WebSocket", "MQTT"],
+			"dimensions": {}
+		},
+		"ratings": {
+			"average": 4.8,
+			"count": 12,
+			"reviews": [
+				"Excellent coordination capabilities",
+				"Intuitive dashboard",
+				"Scales well with fleet size"
+			]
+		},
+		"inventory": {
+			"available": 25,
+			"reserved": 2,
+			"total": 27
+		},
+		"status": "active",
+		"created_at": "2024-03-15T13:20:00Z"
+	},
+	{
+		"id": "hardware-001",
+		"name": "Precision Servo Motor Kit",
+		"description": "High-precision servo motor kit with encoders and controllers, perfect for robotic joint applications.",
+		"price": 450,
+		"currency": "USD",
+		"category": "Actuators",
+		"manufacturer": "ServoTech Components",
+		"product_type": "hardware",
+		"images": ["https://via.placeholder.com/400x300/9900CC/FFFFFF?text=Servo+Motor+Kit"],
+		"specifications": {
+			"technical": {
+				"torque": "5 Nm",
+				"speed": "3000 RPM",
+				"resolution": "4096 counts/rev",
+				"voltage": "24V DC",
+				"communication": "CAN, RS485"
+			},
+			"compatibility": ["Arduino", "Raspberry Pi", "Industrial Controllers"],
+			"dimensions": {
+				"length": 120,
+				"width": 80,
+				"height": 80
+			}
+		},
+		"ratings": {
+			"average": 4.4,
+			"count": 35,
+			"reviews": ["Great precision and reliability", "Easy to integrate", "Good value for money"]
+		},
+		"inventory": {
+			"available": 20,
+			"reserved": 3,
+			"total": 23
+		},
+		"status": "active",
+		"created_at": "2024-01-25T15:45:00Z"
+	},
+	{
+		"id": "hardware-002",
+		"name": "LIDAR Sensor Module",
+		"description": "360-degree LIDAR sensor for autonomous navigation and mapping applications. Compact design with high accuracy.",
+		"price": 1200,
+		"currency": "USD",
+		"category": "Sensors",
+		"manufacturer": "SensorPro Technologies",
+		"product_type": "hardware",
+		"images": ["https://via.placeholder.com/400x300/00FFE1/0F0F0F?text=LIDAR+Sensor"],
+		"specifications": {
+			"technical": {
+				"range": "30m",
+				"accuracy": "±3cm",
+				"scan_rate": "10Hz",
+				"angular_resolution": "0.25°",
+				"interface": "Ethernet, USB"
+			},
+			"compatibility": ["ROS", "ROS2", "PCL", "SLAM algorithms"],
+			"dimensions": {
+				"length": 100,
+				"width": 100,
+				"height": 70
+			}
+		},
+		"ratings": {
+			"average": 4.6,
+			"count": 28,
+			"reviews": [
+				"Excellent range and accuracy",
+				"Perfect for SLAM applications",
+				"Reliable performance"
+			]
+		},
+		"inventory": {
+			"available": 15,
+			"reserved": 4,
+			"total": 19
+		},
+		"status": "active",
+		"created_at": "2024-02-20T10:15:00Z"
+	}
 ]
