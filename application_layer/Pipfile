@@ -1,0 +1,37 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+pydantic = ">=2.0.0"
+debugpy = "*"
+google-cloud-storage = "*"
+google-cloud-secret-manager = "*"
+google-cloud-firestore = "*"
+web3 = "*"
+bleach = "*"
+jinja2 = "==3.1.2"
+python-multipart = "*"
+email-validator = "*"
+psutil = ">=5.9.0"
+uuid = "*"
+aiofiles = "*"
+python-dotenv = "*"
+httpx = "*"
+pytest = "*"
+pytest-asyncio = "*"
+mcp = "*"
+xrpl-py = "*"
+pydantic-settings = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+python-jose = {extras = ["cryptography"], version = "*"}
+passlib = {extras = ["bcrypt"], version = "*"}
+firebase-admin = "*"
+requests = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"
