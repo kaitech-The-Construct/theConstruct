@@ -2,7 +2,7 @@ import os
 
 import uvicorn
 from modules.identity import auth_router, user_router
-from modules.market import trade_router, analytics_router, supply_chain_router
+from modules.market import trade_router, analytics_router, supply_chain_router, bounty_router
 from modules.robotics import robot_router, design_router, manufacturing_router, software_router
 from modules.ledger import blockchain_router
 from modules.notifications import notifications_router
@@ -69,6 +69,7 @@ app.include_router(software_router, prefix="/software", tags=["software"])
 app.include_router(supply_chain_router, prefix="/supply-chain", tags=["supply_chain"])
 app.include_router(design_router, prefix="/design", tags=["design"])
 app.include_router(user_router, prefix="/users", tags=["users"])
+app.include_router(bounty_router, prefix="/bounties", tags=["bounties"])
 app.include_router(trade_router, prefix="/trades", tags=["trades"])
 
 
