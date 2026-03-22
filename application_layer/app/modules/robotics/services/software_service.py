@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 # core/services/software_service.py
 
 from typing import List, Optional
@@ -10,7 +11,7 @@ from ..schemas.software import SoftwareCreate, SoftwareResponse, SoftwareUpdate
 
 class SoftwareService:
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
 
     def create_software(self, software: SoftwareCreate) -> SoftwareResponse:
         """Create Software Item"""

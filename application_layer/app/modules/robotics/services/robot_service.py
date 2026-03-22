@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 from typing import List, Optional, Any
 
 from core.config.settings import settings
@@ -7,7 +8,7 @@ from ...ledger.services.blockchain_service import BlockchainService
 
 class RobotService:
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
         self.robots_collection = self.db.collection(f"{settings.ENVIR}_robots")
         self.blockchain = BlockchainService(ledger_type="xrpl")
 

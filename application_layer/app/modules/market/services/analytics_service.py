@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 # core/services/analytics_service.py
 
 from typing import List, Optional, Dict, Any
@@ -15,7 +16,7 @@ from ..schemas.analytics import (
 
 class AnalyticsService:
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
 
     def generate_marketplace_metrics(self) -> MarketplaceMetrics:
         """Generate real-time marketplace metrics"""

@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 # core/services/ai_service.py
 
 from typing import List, Optional, Dict, Any
@@ -18,7 +19,7 @@ from ..schemas.ai import (
 
 class AIService:
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
         self.prohibited_keywords = [
             "prohibited", "illegal", "banned", "restricted", "weapon", "drug",
             "explosive", "counterfeit", "stolen", "fraud", "scam"

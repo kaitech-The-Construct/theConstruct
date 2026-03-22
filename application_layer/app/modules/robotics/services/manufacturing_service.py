@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 from typing import List, Optional, Any
 import hashlib
 
@@ -7,7 +8,7 @@ from ...ledger.services.blockchain_service import BlockchainService
 
 class ManufacturingService:
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
         self.rfq_collection = self.db.collection(f"{settings.ENVIR}_rfqs")
         self.orders_collection = self.db.collection(f"{settings.ENVIR}_manufacturing_orders")
         self.qc_reports_collection = self.db.collection(f"{settings.ENVIR}_qc_reports")

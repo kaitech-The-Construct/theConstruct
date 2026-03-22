@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 # core/services/notification_service.py
 
 from typing import List, Optional, Dict, Any
@@ -16,7 +17,7 @@ from ..schemas.notifications import (
 
 class NotificationService:
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
         self.notifications_collection = self.db.collection(f"{settings.ENVIR}_notifications")
         self.preferences_collection = self.db.collection(f"{settings.ENVIR}_notification_preferences")
         self.alerts_collection = self.db.collection(f"{settings.ENVIR}_alerts")

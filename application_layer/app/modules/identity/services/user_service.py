@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 # core/services/user_service.py
 
 from typing import List, Optional
@@ -9,7 +10,7 @@ from ..schemas.user import UserCreate, UserResponse, UserUpdate
 
 class UserService:
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
         self.users_collection = self.db.collection(f"{settings.ENVIR}_users")
 
     def create_user(self, user_data: UserCreate) -> dict:

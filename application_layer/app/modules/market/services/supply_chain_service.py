@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 # core/services/supply_chain_service.py
 
 from typing import List, Optional
@@ -9,7 +10,7 @@ from google.cloud import firestore
 
 class SupplyChainService:
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
         self.shipments_collection = self.db.collection(f"{settings.ENVIR}_shipments")
         self.inventory_collection = self.db.collection(f"{settings.ENVIR}_inventory")
 

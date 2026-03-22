@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 from typing import List, Optional
 from ..schemas.designs import DesignCreate, DesignUpdate
 
@@ -9,7 +10,7 @@ from google.cloud import firestore
 class DesignService:
     """Design Service"""
     def __init__(self):
-        self.db = firestore.Client()
+        self.db = db
 
     def create_design(self, design_data: DesignCreate) -> dict:
         """Create Design Item"""

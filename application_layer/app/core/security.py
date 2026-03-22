@@ -1,29 +1,93 @@
-from datetime import datetime, timedelta
+import os
 from typing import Optional
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from firebase_admin import auth
 
-from core.config.settings import settings
-from jose import JWTError, jwt
-from passlib.context import CryptContext
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+# Ensure firebase is initialized before auth calls
+from core.config.firebase_config import initialize_firebase
 
 
-def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+
+security = HTTPBearer()
 
 
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(
-        to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM
-    )
-    return encoded_jwt
+async def get_current_user(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
+) -> dict:
+    """
+    Verify Firebase ID token and return user information.
+
+    For local testing, auth can be disabled by setting the
+    AUTH_DISABLED_FOR_TESTING environment variable to "true".
+
+    Args:
+        credentials: HTTP Bearer token from request header
+
+    Returns:
+        dict: Decoded token with user information
+
+    Raises:
+        HTTPException: If token is invalid or expired
+    """
+    # Check if auth is disabled for local testing
+    if os.getenv("AUTH_DISABLED_FOR_TESTING") == "true":
+        return {"uid": "local_test_user", "role": "admin", "email": "test@example.com"}
+
+    if credentials is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication credentials were not provided",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    token = credentials.credentials
+
+    try:
+        # Verify the ID token
+        decoded_token = auth.verify_id_token(token)
+        return decoded_token
+    except auth.InvalidIdTokenError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except auth.ExpiredIdTokenError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication token has expired",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Authentication failed: {str(e)}",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+
+def get_user_id(current_user: dict = Depends(get_current_user)) -> str:
+    """
+    Extract user ID from decoded token.
+
+    Args:
+        current_user: Decoded token from get_current_user
+
+    Returns:
+        str: User ID (uid)
+    """
+    return current_user.get("uid")
+
+
+def get_user_role(current_user: dict = Depends(get_current_user)) -> str:
+    """
+    Extract user role from decoded token custom claims.
+
+    Args:
+        current_user: Decoded token from get_current_user
+
+    Returns:
+        str: User role (e.g., 'admin', 'user', 'manufacturer')
+    """
+    return current_user.get("role", "user")  # Default to 'user' if not specified
