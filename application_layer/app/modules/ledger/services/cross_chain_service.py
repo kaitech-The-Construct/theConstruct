@@ -1,3 +1,4 @@
+from core.config.firebase_config import db
 # core/services/cross_chain_service.py
 
 from typing import List, Optional
@@ -11,7 +12,7 @@ from google.cloud import firestore
 class CrossChainService:
     def __init__(self):
         self.blockchain_service = BlockchainService()
-        self.db = firestore.Client()
+        self.db = db
         self.bridges_collection = self.db.collection(f"{settings.ENVIR}_asset_bridges")
         self.portfolios_collection = self.db.collection(f"{settings.ENVIR}_portfolios")
 
