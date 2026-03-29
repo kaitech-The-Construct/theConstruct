@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { cartItems, cartTotal, cartStore } from '$stores/cart';
-  import { isAuthenticated, user } from '$stores/auth';
+  import { authStore } from '$stores/auth.svelte';
   import CheckoutForm from '$components/cart/CheckoutForm.svelte';
   import Button from '$components/ui/Button.svelte';
 
@@ -10,7 +10,7 @@
   let orderId: string | null = null;
 
   onMount(() => {
-    if (!$isAuthenticated) {
+    if (!authStore.isAuthenticated) {
       goto('/login?redirect=/checkout');
     }
     if ($cartItems.length === 0) {

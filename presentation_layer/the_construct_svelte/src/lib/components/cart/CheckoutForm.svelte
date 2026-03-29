@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { cartItems, cartTotal } from '$stores/cart';
-  import { user } from '$stores/auth';
+  import { authStore } from '$stores/auth.svelte';
   import Button from '$components/ui/Button.svelte';
   import Input from '$components/ui/Input.svelte';
   import Card from '$components/ui/Card.svelte';
@@ -65,7 +65,7 @@
         },
         items: $cartItems,
         total: $cartTotal,
-        user: $user,
+        user: authStore.user,
       };
       
       dispatch('submit', orderData);

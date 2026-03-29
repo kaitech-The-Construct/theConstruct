@@ -4,7 +4,7 @@
   import { goto } from '$app/navigation';
   import { productStore, currentProduct, isLoading } from '$stores/products';
   import { cartStore } from '$stores/cart';
-  import { isAuthenticated } from '$stores/auth';
+  import { authStore } from '$stores/auth.svelte';
   import Button from '$components/ui/Button.svelte';
   import Card from '$components/ui/Card.svelte';
   import Input from '$components/ui/Input.svelte';
@@ -373,7 +373,7 @@
             </div>
 
             <!-- Write Review -->
-            {#if $isAuthenticated}
+            {#if authStore.isAuthenticated}
               <div class="write-review mt-6 p-4 bg-base-200 rounded-lg">
                 <h4 class="font-semibold mb-4">Write a Review</h4>
                 <Button variant="outline" size="sm">

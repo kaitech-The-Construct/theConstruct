@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-  import { user, isAuthenticated, authStore } from '$stores/auth';
+  import { authStore } from '$stores/auth.svelte';
   import Button from '$components/ui/Button.svelte';
   import Card from '$components/ui/Card.svelte';
   import Input from '$components/ui/Input.svelte';
@@ -10,10 +10,10 @@
   let profileData: any = {};
 
   onMount(() => {
-    if (!$isAuthenticated) {
+    if (!authStore.isAuthenticated) {
       goto('/login?redirect=/profile');
     } else {
-      profileData = { ...$user?.profile };
+      profileData = { ...authStore.user?.profile };
     }
   });
 
@@ -39,7 +39,7 @@
     </Button>
   </div>
 
-  {#if $user}
+  {#if authStore.user}
     <Card>
       {#if isEditing}
         <form on:submit|preventDefault={handleUpdateProfile} class="space-y-6">
@@ -63,12 +63,12 @@
           <div class="flex items-center gap-6">
             <div class="avatar">
               <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src={profileData.avatar || `https://i.pravatar.cc/150?u=${$user.id}`} alt="User avatar" />
+                <img src={profileData.avatar || `https://i.pravatar.cc/150?u=${authStore.user.id}`} alt="User avatar" />
               </div>
             </div>
             <div>
-              <h2 class="text-2xl font-bold">{$user.username}</h2>
-              <p class="text-base-content/70">{$user.email}</p>
+              <h2 class="text-2xl font-bold">{authStore.user.username}</h2>
+              <p class="text-base-content/70">{authStore.user.email}</p>
             </div>
           </div>
           <div class="divider"></div>

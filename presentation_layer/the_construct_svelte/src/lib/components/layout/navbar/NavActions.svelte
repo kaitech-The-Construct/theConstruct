@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { user, isAuthenticated, authStore } from '$stores/auth';
+  import { authStore } from '$stores/auth.svelte';
   import { cartItemCount, cartStore } from '$stores/cart';
   import Button from '$components/ui/Button.svelte';
 
@@ -50,14 +50,14 @@
   </button>
 
   <!-- User menu -->
-  {#if $isAuthenticated}
+  {#if authStore.isAuthenticated}
     <div class="dropdown dropdown-end">
       <button class="user-avatar" tabindex="0">
-        {$user?.username?.charAt(0).toUpperCase() || 'U'}
+        {authStore.user?.username?.charAt(0).toUpperCase() || 'U'}
       </button>
       <ul class="dropdown-menu menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
         <li class="menu-title">
-          <span>Hello, {$user?.username}!</span>
+          <span>Hello, {authStore.user?.username}!</span>
         </li>
         <li><a href="/profile">Profile</a></li>
         <li><a href="/orders">My Orders</a></li>

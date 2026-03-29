@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { authStore, isLoading, authError } from '$stores/auth';
+  import { authStore } from '$stores/auth.svelte';
   import Button from '$components/ui/Button.svelte';
   import Input from '$components/ui/Input.svelte';
   import Card from '$components/ui/Card.svelte';
@@ -29,7 +29,7 @@
         label="Email"
         type="email"
         bind:value={email}
-        error={$authError || ''}
+        error={authStore.authError || ''}
         required
         maxlength={254}
       />
@@ -41,7 +41,7 @@
         minlength={8}
         maxlength={64}
       />
-      <Button type="submit" variant="primary" fullWidth loading={$isLoading}>
+      <Button type="submit" variant="primary" fullWidth loading={authStore.isLoading}>
         Login
       </Button>
     </form>

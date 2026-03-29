@@ -1,5 +1,12 @@
 import type { User, LoginCredentials, RegisterData } from '$types';
 import { apiClient } from '$services/api';
+import { auth } from '$services/firebase';
+import { 
+  signInWithEmailAndPassword, 
+  signOut, 
+  onAuthStateChanged,
+  type User as FirebaseUser
+} from 'firebase/auth';
 
 /**
  * Svelte 5 AuthState class
@@ -7,7 +14,7 @@ import { apiClient } from '$services/api';
  */
 class AuthState {
   user = $state<User | null>(null);
-  isLoading = $state(false);
+  isLoading = $state(true);
   authError = $state<string | null>(null);
   
   isAuthenticated = $derived(!!this.user);
@@ -16,65 +23,93 @@ class AuthState {
     this.init();
   }
 
-  // Initialize auth state from localStorage
+  // Initialize auth state from Firebase
   init() {
     if (typeof window !== 'undefined') {
-      apiClient.loadToken();
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        try {
-          this.user = JSON.parse(savedUser);
-        } catch (e) {
-          console.error('Failed to parse saved user:', e);
+      onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
+        if (firebaseUser) {
+          try {
+            const token = await firebaseUser.getIdToken();
+            apiClient.setToken(token);
+            
+            // Try fetching the full user profile from the backend
+            try {
+              const profile = await apiClient.getCurrentUser();
+              this.user = profile;
+            } catch (err) {
+              console.error("Failed to fetch user profile from backend", err);
+              // Fallback user structure based on Firebase metadata if backend fails
+              this.user = {
+                id: firebaseUser.uid,
+                email: firebaseUser.email || '',
+                username: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || '',
+                is_active: true,
+                created_at: firebaseUser.metadata.creationTime || new Date().toISOString()
+              };
+            }
+
+            localStorage.setItem('user', JSON.stringify(this.user));
+          } catch (error) {
+            console.error('Error fetching token:', error);
+            this.user = null;
+            apiClient.clearToken();
+            localStorage.removeItem('user');
+          }
+        } else {
+          this.user = null;
+          apiClient.clearToken();
           localStorage.removeItem('user');
         }
-      }
+        
+        this.isLoading = false;
+      });
+    } else {
+      this.isLoading = false;
     }
   }
 
-  // Login user
+  // Login user using Firebase SDK
   async login(credentials: LoginCredentials) {
     this.isLoading = true;
     this.authError = null;
 
     try {
-      const response = await apiClient.login(credentials);
-      apiClient.setToken(response.access_token);
-      this.user = response.user;
-
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('user', JSON.stringify(response.user));
-      }
-
-      return response;
+      const userCredential = await signInWithEmailAndPassword(
+        auth, 
+        credentials.username, 
+        credentials.password
+      );
+      
+      // onAuthStateChanged will handle the rest (token, fetching profile)
+      return userCredential.user;
     } catch (error: any) {
       this.authError = error.message || 'Login failed';
-      throw error;
-    } finally {
       this.isLoading = false;
+      throw error;
     }
   }
 
-  // Register user
+  // Register user via Backend (to create Firestore record), then sign in via Firebase SDK
   async register(userData: RegisterData) {
     this.isLoading = true;
     this.authError = null;
 
     try {
-      const response = await apiClient.register(userData);
-      apiClient.setToken(response.access_token);
-      this.user = response.user;
-
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('user', JSON.stringify(response.user));
-      }
-
-      return response;
+      // Create user via backend to ensure proper Firestore setup
+      await apiClient.register(userData);
+      
+      // If successful, sign in directly with Firebase SDK
+      const userCredential = await signInWithEmailAndPassword(
+        auth, 
+        userData.email, 
+        userData.password
+      );
+      
+      return userCredential.user;
     } catch (error: any) {
       this.authError = error.message || 'Registration failed';
-      throw error;
-    } finally {
       this.isLoading = false;
+      throw error;
     }
   }
 
@@ -83,10 +118,10 @@ class AuthState {
     this.isLoading = true;
 
     try {
-      await apiClient.logout();
-    } catch (error) {
-      console.error('Logout error:', error);
-    } finally {
+      // Let Firebase handle the sign out process
+      await signOut(auth);
+      
+      // Clear local state
       apiClient.clearToken();
       this.user = null;
       this.authError = null;
@@ -94,7 +129,9 @@ class AuthState {
       if (typeof window !== 'undefined') {
         localStorage.removeItem('user');
       }
-
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
       this.isLoading = false;
     }
   }
@@ -124,9 +161,12 @@ class AuthState {
   // Refresh token
   async refreshToken() {
     try {
-      const response = await apiClient.refreshToken();
-      apiClient.setToken(response.access_token);
-      return response;
+      if (auth.currentUser) {
+        const token = await auth.currentUser.getIdToken(true); // true forces refresh
+        apiClient.setToken(token);
+        return { access_token: token };
+      }
+      throw new Error("No current user");
     } catch (error) {
       // If refresh fails, logout user
       this.logout();

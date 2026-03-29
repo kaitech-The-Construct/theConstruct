@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { productStore, filteredProducts, isLoading } from '$stores/products';
-  import { isAuthenticated } from '$stores/auth';
+  import { authStore } from '$stores/auth.svelte';
   import Button from '$components/ui/Button.svelte';
   import Card from '$components/ui/Card.svelte';
 
@@ -171,7 +171,7 @@
     Join thousands of robotics enthusiasts, manufacturers, and innovators building the future.
   </p>
   <div class="flex flex-col sm:flex-row gap-4 justify-center">
-    {#if $isAuthenticated}
+    {#if authStore.isAuthenticated}
       <Button href="/marketplace" variant="outline" size="lg" class="text-white border-white hover:bg-white hover:text-primary">
         Start Shopping
       </Button>

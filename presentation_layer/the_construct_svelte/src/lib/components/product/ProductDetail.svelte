@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import type { Product } from '$types';
   import { cartStore } from '$stores/cart';
-  import { isAuthenticated, user } from '$stores/auth';
+  import { authStore } from '$stores/auth.svelte';
   import Button from '$components/ui/Button.svelte';
   import Card from '$components/ui/Card.svelte';
   import Input from '$components/ui/Input.svelte';
@@ -71,7 +71,7 @@
   }
 
   function handleSubmitReview() {
-    if (!$isAuthenticated) {
+    if (!authStore.isAuthenticated) {
       dispatch('login-required');
       return;
     }
@@ -79,7 +79,7 @@
     const reviewData = {
       ...newReview,
       product_id: product.id,
-      user_id: $user?.id
+      user_id: authStore.user?.id
     };
 
     dispatch('submit-review', reviewData);
@@ -444,7 +444,7 @@
           </div>
 
           <!-- Write Review Section -->
-          {#if $isAuthenticated}
+          {#if authStore.isAuthenticated}
             <div class="write-review mb-6">
               {#if !showWriteReview}
                 <Button variant="outline" onclick={() => showWriteReview = true}>

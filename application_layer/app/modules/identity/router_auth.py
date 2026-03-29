@@ -106,17 +106,9 @@ async def logout(current_user: dict = Depends(get_current_active_user)):
 @router.get("/profile", response_model=UserResponse)
 async def get_profile(current_user: dict = Depends(get_current_active_user)):
     """
-    Get current user profile from Firestore based on the Firebase token.
+    Get current user profile from Firestore.
     """
-    email = current_user.get("email")
-    if not email:
-        raise HTTPException(status_code=404, detail="Email not found in token")
-        
-    user = user_service.get_user_by_email(email)
-    if not user:
-        raise HTTPException(status_code=404, detail="User profile not found")
-        
-    return user
+    return current_user
 
 
 @router.put("/profile", response_model=UserResponse)
@@ -127,11 +119,5 @@ async def update_profile(
     """
     Update current user profile.
     """
-    email = current_user.get("email")
-    user = user_service.get_user_by_email(email)
-    
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-        
-    updated_user = user_service.update_user(user["id"], profile_data)
+    updated_user = user_service.update_user(current_user["id"], profile_data)
     return updated_user
