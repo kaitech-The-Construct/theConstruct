@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { notificationStore } from '$stores/notifications';
+  import { notificationStore } from '$stores/notifications.svelte';
   import { fade, slide } from 'svelte/transition';
 
   let isOpen = false;
@@ -57,9 +57,9 @@
         d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
       />
     </svg>
-    {#if $notificationStore.unreadCount > 0}
+    {#if notificationStore.unreadCount > 0}
       <span class="badge badge-sm badge-secondary absolute top-0 right-0">
-        {$notificationStore.unreadCount}
+        {notificationStore.unreadCount}
       </span>
     {/if}
   </button>
@@ -71,20 +71,20 @@
     >
       <div class="p-4 border-b border-base-200 bg-base-200/50 flex justify-between items-center">
         <h3 class="font-bold text-lg">Notifications</h3>
-        {#if $notificationStore.unreadCount > 0}
+        {#if notificationStore.unreadCount > 0}
           <span class="text-xs text-base-content/60">
-            {$notificationStore.unreadCount} unread
+            {notificationStore.unreadCount} unread
           </span>
         {/if}
       </div>
 
       <div class="overflow-y-auto flex-1 p-2 space-y-2">
         <!-- Active Alerts Section -->
-        {#if $notificationStore.activeAlerts.length > 0}
+        {#if notificationStore.activeAlerts.length > 0}
           <div class="px-2 pt-2 pb-1 text-xs font-semibold text-base-content/50 uppercase tracking-wider">
             System Alerts
           </div>
-          {#each $notificationStore.activeAlerts as alert (alert.alert_id || alert.id)}
+          {#each notificationStore.activeAlerts as alert (alert.alert_id || alert.id)}
             <div transition:slide={{ duration: 200 }} class="p-3 bg-error/10 border border-error/20 rounded-lg relative group">
               <button 
                 class="absolute top-2 right-2 text-error/50 hover:text-error opacity-0 group-hover:opacity-100 transition-opacity"
@@ -104,17 +104,17 @@
         {/if}
 
         <!-- General Notifications Section -->
-        {#if $notificationStore.isLoading}
+        {#if notificationStore.isLoading}
           <div class="p-4 text-center">
             <span class="loading loading-spinner loading-md text-primary"></span>
           </div>
-        {:else if $notificationStore.notifications.length === 0}
+        {:else if notificationStore.notifications.length === 0}
           <div class="p-6 text-center text-base-content/50">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-2 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" /></svg>
             <p>No notifications yet</p>
           </div>
         {:else}
-          {#each $notificationStore.notifications as notification (notification.notification_id || notification.id)}
+          {#each notificationStore.notifications as notification (notification.notification_id || notification.id)}
             <div 
               class="p-3 rounded-lg flex gap-3 transition-colors {!(notification.is_read || notification.read) ? 'bg-primary/5 hover:bg-primary/10' : 'hover:bg-base-200'}"
             >
@@ -150,7 +150,7 @@
         {/if}
       </div>
       
-      {#if $notificationStore.notifications.length > 0}
+      {#if notificationStore.notifications.length > 0}
         <div class="p-2 border-t border-base-200 text-center bg-base-200/30">
           <button class="text-xs text-primary hover:underline font-medium">View all notifications</button>
         </div>
