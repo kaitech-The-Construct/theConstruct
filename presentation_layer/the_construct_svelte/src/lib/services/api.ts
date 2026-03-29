@@ -1,7 +1,6 @@
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import type {
 	ApiError,
-	ApiResponse,
 	AuthResponse,
 	LoginCredentials,
 	RegisterData,
@@ -189,7 +188,7 @@ class ApiClient {
 	}
 
 	// Payment endpoints
-	async processPayment(orderId: string, paymentData: any): Promise<any> {
+	async processPayment(orderId: string, paymentData: unknown): Promise<any> {
 		return this.request<any>('POST', `/trades/${orderId}/payment`, paymentData);
 	}
 
