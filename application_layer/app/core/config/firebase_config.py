@@ -11,7 +11,9 @@ def initialize_firebase() -> Client:
     """Initialize Firebase Admin SDK"""
     if not firebase_admin._apps:
         # Check for service account credentials
-        service_account_path = os.getenv("CREDENTIALS_PATH")
+        service_account_path = "/service_account.json"
+        # os.getenv("CREDENTIALS_PATH")
+        print(f"Service account path: {service_account_path}")
 
         if service_account_path and os.path.exists(service_account_path):
             cred = credentials.Certificate(service_account_path)
