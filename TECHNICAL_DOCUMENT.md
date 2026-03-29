@@ -357,40 +357,23 @@ impl ManufacturingContract {
 }
 ```
 
-### Example 3: Software Developer Revenue Stream
+### Example 3: Agent-Driven Software Development & Bounties
 
-**User**: Alex, developing robot navigation software
+**User**: Alex, a software engineer with AI agent assistants, and TechCorp, a hardware manufacturer.
 
 **Business Model**:
-- Subscription-based licensing
-- Compatible with multiple robot platforms
-- Tiered pricing based on features
+- User-funded bounties for new hardware features.
+- Agent-assisted autonomous development.
+- Perpetual royalty splits using XRPL XLS-56 Batch Transactions.
 
 **Implementation**:
-1. **Software Publication**: Uploads software package with metadata
-2. **Tokenization**: Creates XRPL tokens representing usage licenses
-3. **Pricing Strategy**: Sets up tiered subscription model:
-   - Basic: $9.99/month - core navigation
-   - Pro: $19.99/month - advanced pathfinding
-   - Enterprise: $49.99/month - fleet management
-4. **Marketplace Listing**: Software appears in compatibility filters
-5. **User Acquisition**: Robot owners discover through recommendations
-6. **Subscription Management**: Solana smart contract handles recurring payments
-7. **Revenue Distribution**: Automatic royalty payments to developer's wallet
-
-**Revenue Tracking**:
-```javascript
-// Monthly revenue calculation
-const calculateDeveloperRevenue = async (developerId) => {
-    const subscriptions = await getActiveSubscriptions(developerId);
-    const totalRevenue = subscriptions.reduce((sum, sub) => {
-        return sum + (sub.tier_price * (1 - PLATFORM_FEE_PERCENT));
-    }, 0);
-    
-    // Automatic payment via Solana program
-    await distributeDeveloperPayment(developerId, totalRevenue);
-};
-```
+1. **Hardware Listing**: TechCorp lists "Toy Robot V1" hardware on the platform.
+2. **Bounty Creation**: A user creates a bounty for "$1,500 XRP" requesting a "Maze Navigation" feature for the robot, depositing the funds into a platform escrow.
+3. **Agent Delegation**: Alex discovers the bounty and delegates the task to his AI agent using the platform's **Model Context Protocol (MCP)** server.
+4. **Development & Submission**: Alex's agent writes the code and submits a pre-signed XRPL transaction (using an authorized Regular Key) to the platform autonomously.
+5. **The Sandbox Oracle**: The Construct's secure sandbox automatically runs the agent's code against the user's tests. 
+6. **Atomic Royalty Split (XLS-56)**: Upon test success, the Oracle executes an atomic XRPL Batch Transaction. It instantly distributes the $1,500 bounty: 70% to Alex, 30% to the platform/validators.
+7. **Bundled Listing & Royalties**: The platform automatically creates a "Toy Robot V1 + Maze Navigation" bundle in the catalog. Every time a customer buys this bundle, an XLS-56 transaction splits the payment: a flat fee to TechCorp (Manufacturer), and perpetual royalty percentages to Alex (Developer) and the Original User (Idea Originator).
 
 ## Performance Specifications
 

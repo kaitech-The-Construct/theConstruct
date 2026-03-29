@@ -32,11 +32,6 @@ The heart of the platform, built with **Python & FastAPI**.
 - **`svelte_the_construct/`**: Modern SvelteKit web application.
 - **`the_construct/`**: Flutter-based mobile application.
 
-### `archive/` (Legacy & Scaling)
-Contains the original microservices and multi-chain (Solana) logic, preserved for future scaling and reference.
-- `blockchain_layer/`: Original TS/Node.js blockchain services.
-- `services/`: Standalone microservices (API Gateway, Notifications, etc.).
-
 ---
 
 ## 🤖 AI Agent Integration (MCP)
